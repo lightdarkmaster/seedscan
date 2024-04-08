@@ -37,11 +37,19 @@ dependencies:
   cupertino_icons: ^1.0.2
   curved_navigation_bar: ^1.0.3
   image_picker: ^1.0.7
+  tflite: ^1.1.2
+  tflite_flutter: ^0.10.4
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.13.1"
 
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo1.png"
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -54,6 +62,36 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+   - assets/labels.txt
+   - assets/model.tflite
+   - assets/images/pic1.png
+   - assets/images/pic2.jpg
+   - assets/images/pic3.jpg
+   - assets/images/ai.jpg
+   - assets/images/broken.jpg
+   - assets/images/pure.jpg
+   - assets/images/pic4.jpeg
+   - assets/images/maisbook.jpeg
+   - assets/images/pic5.jpeg
+   - assets/images/pic6.png
+   - assets/images/corn.png
+   - assets/images/discolored.png
+   - assets/images/silkcut.png
+   - assets/images/loading.gif
+   - assets/onboarding/
+
+
+
+
+
+
+
+
+
+
+
+
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:tflite/tflite.dart';
+import 'dart:async';
 import 'dart:io';
 
 class CameraWidget extends StatefulWidget {
   const CameraWidget({Key? key}) : super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _CameraWidgetState createState() => _CameraWidgetState();
 }
 
 class _CameraWidgetState extends State<CameraWidget> {
   late ImagePicker _imagePicker;
   XFile? _pickedImage;
+  List<dynamic>? _recognitions;
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
     _imagePicker = ImagePicker();
+    _initializeTflite();
+  }
+
+  Future<void> _initializeTflite() async {
+    // Load the model and labels
+    await Tflite.loadModel(
+      model: "assets/model.tflite",
+      labels: "assets/labels.txt",
+    );
   }
 
   Future<void> _pickImageFromGallery() async {
@@ -27,7 +39,10 @@ class _CameraWidgetState extends State<CameraWidget> {
     if (pickedFile != null) {
       setState(() {
         _pickedImage = pickedFile;
+        _recognitions = null; // Clear previous recognitions
+        _isLoading = true;
       });
+      await _processImage();
     }
   }
 
@@ -38,96 +53,150 @@ class _CameraWidgetState extends State<CameraWidget> {
     if (pickedFile != null) {
       setState(() {
         _pickedImage = pickedFile;
+        _recognitions = null; // Clear previous recognitions
+        _isLoading = true;
+      });
+      await _processImage();
+    }
+  }
+
+  Future<void> _processImage() async {
+    if (_pickedImage != null) {
+      final List<dynamic>? recognitions = await Tflite.runModelOnImage(
+        path: _pickedImage!.path,
+        numResults: 5,
+        threshold: 0.5,
+      );
+
+      // Update the recognitions
+      setState(() {
+        _recognitions = recognitions;
+        _isLoading = false;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: const Color.fromARGB(127, 245, 193, 255),
-      child: Center(
-        child: Card(
-          elevation: 8,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  "Scan Seeds Here",
-                  style: TextStyle(fontSize: 20),
-                ),
-                const SizedBox(height: 20),
-                _buildCameraPreview(),
-                const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: _pickImageFromGallery,
-                  icon: const Icon(Icons.photo),
-                  label: const Text(
-                    "Select from Gallery",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton.icon(
-                  onPressed: _captureImage,
-                  icon: const Icon(Icons.camera_alt),
-                  label: const Text(
-                    "Take Photo",
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    ),
-                  ),
-                ),
-              ],
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              "Scan/Upload Seeds Here",
+              style: TextStyle(fontSize: 20),
             ),
-          ),
+            const SizedBox(height: 20),
+            if (!_isLoading && _pickedImage != null)
+              Container(
+                width: 300,
+                height: 300,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black),
+                ),
+                child: Image.file(
+                  File(_pickedImage!.path),
+                  fit: BoxFit.cover,
+                ),
+              )
+            else if (_isLoading)
+              Center(
+                child: CircularProgressIndicator(),
+              )
+            else
+              Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black),
+                ),
+              ),
+            const SizedBox(height: 20),
+            ElevatedButton.icon(
+              onPressed: _pickImageFromGallery,
+              icon: const Icon(Icons.photo),
+              label: const Text(
+                "Select from Gallery",
+                style: TextStyle(color: Colors.black),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+                padding: MaterialStateProperty.all(
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(
+              onPressed: _captureImage,
+              icon: const Icon(Icons.camera_alt),
+              label: const Text(
+                "Take Photo",
+                style: TextStyle(color: Colors.black),
+              ),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+                padding: MaterialStateProperty.all(
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            // Display recognitions if available
+            if (_recognitions != null)
+              Card(
+                child: Column(
+                  children: _recognitions!
+                      .map(
+                        (recognition) => ListTile(
+                          title: const Text(
+                            "Results:",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.red,
+                            ),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Corn Seed Label: ${recognition['label']}"),
+                              Text(
+                                "Confidence Level: ${(recognition['confidence'] * 100).toStringAsFixed(2)}%",
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              )
+            else
+              Container(),
+          ],
         ),
       ),
     );
   }
 
-  Widget _buildCameraPreview() {
-    // You can include the camera preview code here if needed
-    return _pickedImage != null
-        ? Container(
-            width: 300,
-            height: 300,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-            ),
-            child: Image.file(
-              File(_pickedImage!.path),
-              fit: BoxFit.cover,
-            ),
-          )
-        : Container(
-            width: 200,
-            height: 200,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.black),
-            ),
-          );
+  @override
+  void dispose() {
+    // Dispose TFLite resources
+    Tflite.close();
+    super.dispose();
   }
 
   @override
-  void dispose() {
-    // Dispose resources if needed
-    super.dispose();
+  void init() {
+    _initializeTflite();
   }
+}
+
+void main() {
+  runApp(const MaterialApp(
+    home: CameraWidget(),
+  ));
 }

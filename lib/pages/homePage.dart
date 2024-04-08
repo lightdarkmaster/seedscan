@@ -1,9 +1,9 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:seedscan2/pages/homescreen.dart';
+import '../pages/homescreen.dart';
 import '../pages/analyticspage.dart';
-import '../pages/chatbot.dart';
+import '../pages/diseasetypes.dart';
 import '../pages/capturepage.dart';
 import '../pages/diagnosepage.dart';
 
@@ -24,7 +24,7 @@ class _BottomNavBarState extends State<Homepage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize:
-            const Size.fromHeight(75.0), // Set your desired height here
+            const Size.fromHeight(65.0), // Set your desired height here
         child: AppBar(
           title: const Text(
             "Seed Scan",
@@ -33,7 +33,7 @@ class _BottomNavBarState extends State<Homepage> {
               color: Colors.black,
             ),
           ),
-          backgroundColor: const Color.fromARGB(255, 255, 251, 24),
+          backgroundColor: const Color.fromARGB(255, 191, 255, 139),
         ),
       ),
       bottomNavigationBar: CurvedNavigationBar(
@@ -47,7 +47,7 @@ class _BottomNavBarState extends State<Homepage> {
             color: Colors.black,
           ),
           Icon(
-            Icons.health_and_safety,
+            Icons.app_registration_sharp,
             size: 30,
             color: Colors.black,
           ),
@@ -57,19 +57,19 @@ class _BottomNavBarState extends State<Homepage> {
             color: Colors.black,
           ),
           Icon(
-            Icons.analytics,
+            Icons.flutter_dash,
             size: 30,
             color: Colors.black,
           ),
           Icon(
-            Icons.chat_rounded,
+            Icons.format_list_bulleted_rounded,
             size: 30,
             color: Colors.black,
           ),
         ],
-        color: const Color.fromARGB(255, 255, 251, 24),
-        buttonBackgroundColor: const Color.fromARGB(255, 255, 251, 24),
-        backgroundColor: const Color.fromARGB(127, 245, 193, 255),
+        color: const Color.fromARGB(255, 191, 255, 139),
+        buttonBackgroundColor: const Color.fromARGB(255, 191, 255, 139),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         animationCurve: Curves.easeInOut,
         animationDuration: const Duration(milliseconds: 600),
         onTap: (index) {
@@ -94,7 +94,7 @@ class _BottomNavBarState extends State<Homepage> {
       case 3:
         return const AnalyticsWidget();
       case 4:
-        return const ChatWidget();
+        return const DiseaseTypes();
       default:
         return Container(); // Default page, you can replace it with another widget.
     }
