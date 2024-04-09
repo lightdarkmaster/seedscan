@@ -1,9 +1,11 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:seedscan2/pages/login.dart';
+//import 'package:seedscan2/pages/login.dart';
 import '../pages/homescreen.dart';
 import '../pages/analyticspage.dart';
-import '../pages/diseasetypes.dart';
+import '../pages/profile.dart';
 import '../pages/capturepage.dart';
 import '../pages/diagnosepage.dart';
 
@@ -62,7 +64,14 @@ class _BottomNavBarState extends State<Homepage> {
             color: Colors.black,
           ),
           Icon(
-            Icons.format_list_bulleted_rounded,
+            Icons.person_2,
+            size: 30,
+            color: Colors.black,
+          ),
+
+          //try if login is working fine
+          Icon(
+            Icons.login_outlined,
             size: 30,
             color: Colors.black,
           ),
@@ -94,7 +103,9 @@ class _BottomNavBarState extends State<Homepage> {
       case 3:
         return const AnalyticsWidget();
       case 4:
-        return const DiseaseTypes();
+        return const ProfilePage();
+      case 5:
+        return LoginRegisterApp();
       default:
         return Container(); // Default page, you can replace it with another widget.
     }

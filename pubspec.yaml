@@ -40,6 +40,7 @@ dependencies:
   tflite: ^1.1.2
   tflite_flutter: ^0.10.4
   flutter_launcher_icons: ^0.13.1
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -79,7 +80,10 @@ flutter:
    - assets/images/discolored.png
    - assets/images/silkcut.png
    - assets/images/loading.gif
-   - assets/onboarding/
+   - assets/images/fundo.png
+   - assets/images/detalhe1.png
+   - assets/images/detalhe2.png
+
 
 
 
