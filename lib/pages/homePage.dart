@@ -68,13 +68,6 @@ class _BottomNavBarState extends State<Homepage> {
             size: 30,
             color: Colors.black,
           ),
-
-          //try if login is working fine
-          Icon(
-            Icons.login_outlined,
-            size: 30,
-            color: Colors.black,
-          ),
         ],
         color: const Color.fromARGB(255, 191, 255, 139),
         buttonBackgroundColor: const Color.fromARGB(255, 191, 255, 139),
@@ -104,8 +97,6 @@ class _BottomNavBarState extends State<Homepage> {
         return const AnalyticsWidget();
       case 4:
         return const ProfilePage();
-      case 5:
-        return LoginRegisterApp();
       default:
         return Container(); // Default page, you can replace it with another widget.
     }

@@ -83,6 +83,8 @@ flutter:
    - assets/images/fundo.png
    - assets/images/detalhe1.png
    - assets/images/detalhe2.png
+   - assets/vectors/facebook.svg
+   - assets/vectors/google.svg
 
 
 

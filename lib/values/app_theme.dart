@@ -86,7 +86,7 @@ class AppTheme {
   );
 
   static const TextStyle bodySmall = TextStyle(
-    color: Color.fromARGB(255, 152, 147, 147),
+    color: Color.fromARGB(255, 68, 66, 66),
     letterSpacing: 0.5,
   );
 }

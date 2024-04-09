@@ -77,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                 AppStrings.signInToYourNAccount,
                 style: AppTheme.titleLarge,
               ),
-              SizedBox(height: 6),
+              SizedBox(height: 1),
               Text(AppStrings.signInToYourAccount, style: AppTheme.bodySmall),
             ],
           ),
@@ -192,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                       Expanded(
                         child: OutlinedButton.icon(
                           onPressed: () {},
-                          icon: SvgPicture.asset(Vectors.facebook, width: 14),
+                          icon: SvgPicture.asset(Vectors.facebook, width: 19),//change this from 14 to 19
                           label: const Text(
                             AppStrings.facebook,
                             style: TextStyle(color: Colors.black),
