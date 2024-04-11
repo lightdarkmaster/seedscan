@@ -41,6 +41,10 @@ dependencies:
   tflite_flutter: ^0.10.4
   flutter_launcher_icons: ^0.13.1
   flutter_svg: ^2.0.10+1
+  cr_calendar: ^1.2.1
+  flutter_date_range_picker: ^0.0.14
+  intl: ^0.18.0
+
 
 dev_dependencies:
   flutter_test:

@@ -1,10 +1,24 @@
 import 'package:flutter/material.dart';
 
-class AnalyticsWidget extends StatelessWidget {
-  const AnalyticsWidget({Key? key});
+class AboutUs extends StatelessWidget {
+  const AboutUs({Key? key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+           appBar: PreferredSize(
+        preferredSize:
+            const Size.fromHeight(65.0), // Set your desired height here
+        child: AppBar(
+          title: const Text(
+            "Seed Scan",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: const Color.fromARGB(255, 191, 255, 139),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Container(
           color: const Color.fromARGB(255, 255, 255, 255),

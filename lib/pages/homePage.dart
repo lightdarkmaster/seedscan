@@ -4,7 +4,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:seedscan2/pages/login.dart';
 //import 'package:seedscan2/pages/login.dart';
 import '../pages/homescreen.dart';
-import '../pages/analyticspage.dart';
+import 'aboutus.dart';
 import '../pages/profile.dart';
 import '../pages/capturepage.dart';
 import '../pages/diagnosepage.dart';
@@ -59,7 +59,7 @@ class _BottomNavBarState extends State<Homepage> {
             color: Colors.black,
           ),
           Icon(
-            Icons.flutter_dash,
+            Icons.calendar_month,
             size: 30,
             color: Colors.black,
           ),
@@ -94,7 +94,7 @@ class _BottomNavBarState extends State<Homepage> {
       case 2:
         return const CameraWidget();
       case 3:
-        return const AnalyticsWidget();
+        return const AboutUs();
       case 4:
         return const ProfilePage();
       default:

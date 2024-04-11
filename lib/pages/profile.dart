@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seedscan2/login_register_app.dart';
+import 'package:seedscan2/pages/aboutus.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -161,7 +162,15 @@ class _SettingsPage2State extends State<ProfilePage> {
                         title: "Help & Feedback",
                         icon: Icons.help_outline_rounded),
                     _CustomListTile(
-                        title: "About", icon: Icons.info_outline_rounded),
+                        title: "About", 
+                        icon: Icons.info_outline_rounded,
+                         onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AboutUs()),
+                          );
+                        }
+                        ),
                     _CustomListTile(
                         title: "Login/Register",
                         icon: Icons.exit_to_app_rounded,
