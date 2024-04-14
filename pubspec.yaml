@@ -43,7 +43,9 @@ dependencies:
   flutter_svg: ^2.0.10+1
   cr_calendar: ^1.2.1
   flutter_date_range_picker: ^0.0.14
+  #flutter_date_range_picker: ^1.0.7
   intl: ^0.18.0
+  table_calendar: ^3.0.9
 
 
 dev_dependencies:

@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-extension ContextExtension on BuildContext {
-  double heightFraction({double sizeFraction = 1}) =>
-      MediaQuery.sizeOf(this).height * sizeFraction;
-
-  double widthFraction({double sizeFraction = 1}) =>
-      MediaQuery.sizeOf(this).width * sizeFraction;
+extension DateTimeExt on DateTime {
+  String format(String formatPattern) => DateFormat(formatPattern).format(this);
 }
