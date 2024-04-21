@@ -46,6 +46,8 @@ dependencies:
   #flutter_date_range_picker: ^1.0.7
   intl: ^0.18.0
   table_calendar: ^3.0.9
+  flutter_secure_storage: ^5.0.2
+  local_auth: ^2.2.0
 
 
 dev_dependencies:
@@ -89,6 +91,8 @@ flutter:
    - assets/images/fundo.png
    - assets/images/detalhe1.png
    - assets/images/detalhe2.png
+   - assets/images/FingerPrint.gif
+   - assets/images/fingerPrintPerson.gif
    - assets/vectors/facebook.svg
    - assets/vectors/google.svg
 

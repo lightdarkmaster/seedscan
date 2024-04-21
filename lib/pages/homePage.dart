@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:seedscan2/pages/calendar_page.dart';
 //import 'package:seedscan2/pages/login.dart';
 import '../pages/homescreen.dart';
@@ -18,6 +19,8 @@ class Homepage extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<Homepage> {
+
+
   int _page = 0;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
@@ -49,7 +52,7 @@ class _BottomNavBarState extends State<Homepage> {
             color: Colors.black,
           ),
           Icon(
-            Icons.app_registration_sharp,
+            Icons.yard_outlined,
             size: 30,
             color: Colors.black,
           ),
