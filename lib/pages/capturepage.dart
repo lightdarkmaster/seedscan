@@ -79,6 +79,7 @@ class _CameraWidgetState extends State<CameraWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
         color: Colors.white,
         padding: const EdgeInsets.all(16.0),

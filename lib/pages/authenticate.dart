@@ -64,6 +64,9 @@ class _AuthenticateBiometricState extends State<AuthenticateBiometric> {
            SizedBox(height: 50),
           ElevatedButton(
             onPressed: _authenticate,
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green, // Change button color here
+              ),
             child: Text('Authenticate'),
           )
         ]
