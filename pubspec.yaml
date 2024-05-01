@@ -48,6 +48,10 @@ dependencies:
   table_calendar: ^3.0.9
   flutter_secure_storage: ^5.0.2
   local_auth: ^2.2.0
+  provider: ^6.1.2
+  shared_preferences: ^2.2.3
+  pie_chart: ^5.1.0
+  fl_chart: ^0.67.0
 
 
 dev_dependencies:
@@ -73,7 +77,9 @@ flutter_launcher_icons:
 flutter:
   assets:
    - assets/labels.txt
+   - assets/viability_labels.txt
    - assets/model.tflite
+   - assets/corn_viability.tflite
    - assets/images/pic1.png
    - assets/images/pic2.jpg
    - assets/images/pic3.jpg
@@ -91,6 +97,12 @@ flutter:
    - assets/images/fundo.png
    - assets/images/detalhe1.png
    - assets/images/detalhe2.png
+   - assets/images/farmerPic1.jpeg
+   - assets/images/instruction1.jpeg
+   - assets/images/instruction2.jpeg
+   - assets/images/instruction3.jpeg
+   - assets/images/instruction4.jpeg
+   - assets/images/instruction5.jpeg
    - assets/images/FingerPrint.gif
    - assets/images/fingerPrintPerson.gif
    - assets/vectors/facebook.svg
