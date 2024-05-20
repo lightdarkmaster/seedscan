@@ -31,12 +31,6 @@ class _CameraWidgetState extends State<CameraWidget> {
       model: "assets/model.tflite",
       labels: "assets/labels.txt",
     );
-    //load the  second model
-    await Tflite.loadModel(
-      model: "assets/corn_viability.tflite",
-      labels: "assets/viability_labels.txt",
-    );
-  }
 
   Future<void> _pickImageFromGallery() async {
     final XFile? pickedFile =

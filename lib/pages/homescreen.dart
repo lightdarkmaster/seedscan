@@ -106,3 +106,5 @@ class HomeWidget extends StatelessWidget {
     );
   }
 }
+
+//need to optimize this app..
