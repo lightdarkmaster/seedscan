@@ -46,7 +46,7 @@ class _HelpFeedbackState extends State<HelpFeedback> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'SeedScan',
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.headlineSmall,
                         textAlign: TextAlign.justify,
                       ),
                     ),
@@ -70,7 +70,7 @@ class _HelpFeedbackState extends State<HelpFeedback> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'How to use this App.',
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.headlineSmall,
                         textAlign: TextAlign.justify,
                       ),
                     ),

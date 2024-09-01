@@ -40,7 +40,7 @@ class AboutUs extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'About MaisBook',
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.headlineSmall,
                         textAlign: TextAlign.justify,
                       ),
                     ),
