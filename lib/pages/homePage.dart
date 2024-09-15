@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:seedscan2/pages/calendar_page.dart';
+import 'package:seedscan2/pages/calculatorPage.dart';
 import 'package:seedscan2/pages/cornSeedLabel.dart';
 //import 'package:seedscan2/pages/login.dart';
 import '../pages/homescreen.dart';
@@ -64,7 +64,7 @@ class _BottomNavBarState extends State<Homepage> {
             color: Colors.black,
           ),
           Icon(
-            Icons.calendar_month,
+            Icons.calculate_sharp,
             size: 30,
             color: Colors.black,
           ),
@@ -99,7 +99,7 @@ class _BottomNavBarState extends State<Homepage> {
       case 2:
         return const CameraWidget();
       case 3:
-        return CalendarPage();
+        return CalculatorPage();
       case 4:
         return const ProfilePage();
       default:

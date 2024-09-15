@@ -38,20 +38,20 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   image_picker: ^1.0.7
   tflite: ^1.1.2
-  tflite_flutter: ^0.10.4
+  tflite_flutter: ^0.11.0
   flutter_launcher_icons: ^0.13.1
   flutter_svg: ^2.0.10+1
   cr_calendar: ^1.2.1
-  flutter_date_range_picker: ^0.0.14
+  flutter_date_range_picker: ^0.1.1
   #flutter_date_range_picker: ^1.0.7
   intl: ^0.18.0
   table_calendar: ^3.0.9
-  flutter_secure_storage: ^5.0.2
+  flutter_secure_storage: ^9.2.2
   local_auth: ^2.2.0
   provider: ^6.1.2
   shared_preferences: ^2.2.3
   pie_chart: ^5.1.0
-  fl_chart: ^0.67.0
+  fl_chart: ^0.69.0
 
 
 dev_dependencies:
@@ -107,6 +107,7 @@ flutter:
    - assets/images/fingerPrintPerson.gif
    - assets/vectors/facebook.svg
    - assets/vectors/google.svg
+   - assets/images/calculator.gif
 
 
 

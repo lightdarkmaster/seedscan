@@ -131,8 +131,8 @@ class _CameraWidgetState extends State<CameraWidget> {
                 style: TextStyle(color: Colors.black),
               ),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                padding: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.white),
+                padding: WidgetStateProperty.all(
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 ),
               ),
@@ -146,8 +146,8 @@ class _CameraWidgetState extends State<CameraWidget> {
                 style: TextStyle(color: Colors.black),
               ),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                padding: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.white),
+                padding: WidgetStateProperty.all(
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 ),
               ),
