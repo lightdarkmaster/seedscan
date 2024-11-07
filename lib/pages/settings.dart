@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:seedscan2/login_register_app.dart';
 import 'package:seedscan2/pages/Instructions.dart';
 import 'package:seedscan2/pages/aboutApp.dart';
 import 'package:seedscan2/pages/aboutus.dart';
@@ -250,27 +249,7 @@ class _SingleSection extends StatelessWidget {
               style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
-        Column(
-          children: children.map((widget) {
-            if (widget is _CustomListTile) {
-              return _CustomListTile(
-                title: widget.title,
-                icon: widget.icon,
-                trailing: widget.trailing,
-                onTap: widget.title == "Login/Register"
-                    ? () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginRegisterApp()),
-                        );
-                      }
-                    : widget.onTap,
-              );
-            }
-            return widget;
-          }).toList(),
-        ),
+
       ],
     );
   }
