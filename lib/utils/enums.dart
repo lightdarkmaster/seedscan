@@ -1,1 +1,0 @@
-enum Layout { DEFAULT, BEAUTY }
