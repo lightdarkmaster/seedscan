@@ -4,6 +4,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:seedscan2/pages/calculatorPage.dart';
 import 'package:seedscan2/pages/cornSeedLabel.dart';
+import 'package:seedscan2/pages/homeDetection.dart';
 //import 'package:seedscan2/pages/login.dart';
 import '../pages/homescreen.dart';
 import 'aboutus.dart';
@@ -97,7 +98,7 @@ class _BottomNavBarState extends State<Homepage> {
       case 1:
         return const CornLabel();
       case 2:
-        return const CameraWidget();
+        return const HomeDetection();
       case 3:
         return CalculatorPage();
       case 4:

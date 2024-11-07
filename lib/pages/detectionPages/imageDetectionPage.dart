@@ -4,14 +4,14 @@ import 'package:tflite/tflite.dart';
 import 'dart:async';
 import 'dart:io';
 
-class CameraWidget extends StatefulWidget {
-  const CameraWidget({Key? key}) : super(key: key);
+class ImageDetectionPage extends StatefulWidget {
+  const ImageDetectionPage({Key? key}) : super(key: key);
 
   @override
   _CameraWidgetState createState() => _CameraWidgetState();
 }
 
-class _CameraWidgetState extends State<CameraWidget> {
+class _CameraWidgetState extends State<ImageDetectionPage> {
   late ImagePicker _imagePicker;
   XFile? _pickedImage;
   List<dynamic>? _recognitions1;
@@ -89,8 +89,19 @@ class _CameraWidgetState extends State<CameraWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Scan/Upload Seeds Here"),
+           appBar: PreferredSize(
+        preferredSize:
+            const Size.fromHeight(65.0), // Set your desired height here
+        child: AppBar(
+          title: const Text(
+            "Seed Scan",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          backgroundColor: const Color.fromARGB(255, 191, 255, 139),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -252,6 +263,6 @@ class _CameraWidgetState extends State<CameraWidget> {
 
 void main() {
   runApp(const MaterialApp(
-    home: CameraWidget(),
+    home: ImageDetectionPage(),
   ));
 }
