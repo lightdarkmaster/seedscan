@@ -10,124 +10,144 @@ class HomeDetection extends StatefulWidget {
 }
 
 class HomeDetectionState extends State<HomeDetection> {
+  void _showInfoDialog(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView( // Allows scrolling if content overflows
+      body: SingleChildScrollView(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 40), // Gap space between cards
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9, // 90% of the screen width
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.blue, // Border color
-                      width: 1,          // Border thickness
-                    ),
-                    borderRadius: BorderRadius.circular(8), // Optional rounded corners
-                  ),
-                  child: Card(
-                    elevation: 3,
-                    margin: const EdgeInsets.all(0), // Remove margin to align with border
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Live Detection',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            height: 150, // Adjust height based on card size
-                            child: Image.asset(
-                              'assets/gifs/liveRecorder.gif', // Replace with your GIF path
-                              fit: BoxFit.contain, // Ensures the GIF fits within available space
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const YoloVideo()),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(255, 191, 255, 139), // Button background color
-                              foregroundColor: Colors.black, // Button text color
-                              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                              textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                              side: const BorderSide(
-                                color: Colors.blue, // Border color
-                                width: 1,          // Border width
-                              ),
-                            ),
-                            child: const Text('Detect Live'),
-                          ),
-                        ],
+              const SizedBox(height: 40),
+              _buildCard(
+                context,
+                title: 'Live Detection',
+                imagePath: 'assets/gifs/liveRecorder.gif',
+                buttonLabel: 'Detect Live',
+                buttonColor: Colors.blue,
+                borderColor: Colors.blue,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const YoloVideo()),
+                  );
+                },
+                infoTitle: 'Live Detection Info',
+                infoMessage: 'Live detection allows real-time corn seeds viability detection using the device camera.',
+              ),
+              const SizedBox(height: 40),
+              _buildCard(
+                context,
+                title: 'Image Detection',
+                imagePath: 'assets/gifs/camera.gif',
+                buttonLabel: 'Detect Image',
+                buttonColor: Colors.red,
+                borderColor: Colors.red,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ImageDetectionPage()),
+                  );
+                },
+                infoTitle: 'Image Detection Info',
+                infoMessage: 'Image detection allows analyzing static image  for corn seeds viability detection.',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCard(
+    BuildContext context, {
+    required String title,
+    required String imagePath,
+    required String buttonLabel,
+    required Color buttonColor,
+    required Color borderColor,
+    required VoidCallback onPressed,
+    required String infoTitle,
+    required String infoMessage,
+  }) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.9,
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: borderColor, width: 1),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Card(
+          color: const Color.fromARGB(209, 255, 255, 255),
+          elevation: 5,
+          margin: const EdgeInsets.all(0),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min, // Adjusts column height to its children
+                  crossAxisAlignment: CrossAxisAlignment.center, // Centers content horizontally
+                  children: [
+                    Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: borderColor,
                       ),
                     ),
-                  ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: SizedBox(
+                        height: 150,
+                        child: Image.asset(
+                          imagePath,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: onPressed,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(255, 191, 255, 139),
+                          foregroundColor: borderColor,
+                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                          textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          side: BorderSide(color: borderColor, width: 1),
+                        ),
+                        child: Text(buttonLabel),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 40), // Gap space between cards
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9, // 90% of the screen width
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.red, // Border color
-                      width: 1,           // Border thickness
-                    ),
-                    borderRadius: BorderRadius.circular(8), // Optional rounded corners
-                  ),
-                  child: Card(
-                    elevation: 3,
-                    margin: const EdgeInsets.all(0), // Remove margin to align with border
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Column(
-                        children: [
-                          const Text(
-                            'Image Detection',
-                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 10),
-                          SizedBox(
-                            height: 150, // Adjust height based on card size
-                            child: Image.asset(
-                              'assets/gifs/camera.gif',
-                              fit: BoxFit.contain, // Ensures the GIF fits within available space
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const ImageDetectionPage()),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color.fromARGB(255, 191, 255, 139), // Button background color
-                              foregroundColor: Colors.black, // Button text color
-                              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                              textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                              side: const BorderSide(
-                                color: Colors.red, // Border color
-                                width: 1,          // Border width
-                              ),
-                            ),
-                            child: const Text('Detect Image'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+              Positioned(
+                top: 5,
+                right: 5,
+                child: IconButton(
+                  icon: const Icon(Icons.info, color: Colors.black),
+                  onPressed: () => _showInfoDialog(context, infoTitle, infoMessage),
+                  tooltip: 'More Info',
                 ),
               ),
             ],
