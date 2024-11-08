@@ -1,13 +1,20 @@
 import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_vision/flutter_vision.dart';
+import 'package:flutter/material.dart';
 
-class LiveDetectionPage extends StatelessWidget {
-  const LiveDetectionPage({super.key});
+class CameraPage extends StatefulWidget {
+  const CameraPage({super.key});
+
+  @override
+  State<CameraPage> createState() => _CameraPageState();
+}
+
+class _CameraPageState extends State<CameraPage> {
+  late List<CameraDescription> cameras;
 
   @override
   Widget build(BuildContext context) {
-    return const YoloVideo();
+    return const Placeholder();
   }
 }
 
@@ -24,10 +31,9 @@ class _YoloVideoState extends State<YoloVideo> {
   late List<Map<String, dynamic>> yoloResults;
 
   CameraImage? cameraImage;
-  List<CameraDescription> cameras = [];
   bool isLoaded = false;
   bool isDetecting = false;
-  double confidenceThreshold = 0.4;
+  double confidenceThreshold = 0.4; //.5
 
   @override
   void initState() {
@@ -35,47 +41,47 @@ class _YoloVideoState extends State<YoloVideo> {
     init();
   }
 
+  // Initialize the camera and YOLO model
   Future<void> init() async {
-    try {
-      cameras = await availableCameras();
-      vision = FlutterVision();
-      controller = CameraController(cameras[0], ResolutionPreset.high);
+    List<CameraDescription> cameras = await availableCameras();
+    vision = FlutterVision();
+    controller = CameraController(cameras[0], ResolutionPreset.high); // high
+    await controller.initialize();
 
-      await controller.initialize();
-      await loadYoloModel();
+    await loadYoloModel();
 
-      setState(() {
-        isLoaded = true;
-        yoloResults = [];
-      });
-    } catch (e) {
-      debugPrint("Initialization error: $e");
-    }
+    setState(() {
+      isLoaded = true;
+      isDetecting = false;
+      yoloResults = [];
+    });
   }
 
   Future<void> loadYoloModel() async {
     await vision.loadYoloModel(
-      labels: 'assets/labels.txt',
-      modelPath: 'assets/myModel.tflite',
+      labels: 'assets/models/labels.txt',
+      modelPath: 'assets/models/Corn_types_float16.tflite',
       modelVersion: "yolov8",
       numThreads: 1,
-      useGpu: true,
+      useGpu: false,//true
     );
   }
 
+  // Start detection stream
   Future<void> startDetection() async {
-    if (isDetecting) return;
+    if (isDetecting) return; // Prevent multiple streams
     setState(() {
       isDetecting = true;
     });
 
-    controller.startImageStream((image) async {
-      if (!isDetecting) return;
+    await controller.startImageStream((image) async {
+      if (!isDetecting) return; // Check if we should keep detecting
       cameraImage = image;
       await yoloOnFrame(image);
     });
   }
 
+  // Stop detection stream
   Future<void> stopDetection() async {
     setState(() {
       isDetecting = false;
@@ -84,22 +90,24 @@ class _YoloVideoState extends State<YoloVideo> {
     await controller.stopImageStream();
   }
 
-  Future<void> yoloOnFrame(CameraImage image) async {
-    if (isDetecting) {
-      final result = await vision.yoloOnFrame(
-        bytesList: image.planes.map((plane) => plane.bytes).toList(),
-        imageHeight: image.height,
-        imageWidth: image.width,
-        iouThreshold: 0.4,
-        confThreshold: confidenceThreshold,
-        classThreshold: confidenceThreshold,
-      );
+  // Process frame with YOLO model
+  Future<void> yoloOnFrame(CameraImage cameraImage) async {
+    final result = await vision.yoloOnFrame(
+      bytesList: cameraImage.planes.map((plane) => plane.bytes).toList(),
+      imageHeight: cameraImage.height,
+      imageWidth: cameraImage.width,
+      iouThreshold: 0.4,
+      confThreshold: 0.5,
+      classThreshold: 0.5,
+    );
+    if (result.isNotEmpty) {
       setState(() {
         yoloResults = result;
       });
     }
   }
 
+  // Display detected objects
   List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
     if (yoloResults.isEmpty || cameraImage == null) return [];
 
@@ -107,35 +115,39 @@ class _YoloVideoState extends State<YoloVideo> {
     double factorY = screen.height / cameraImage!.width;
 
     return yoloResults.map((result) {
-      double x = result["box"][0] * factorX;
-      double y = result["box"][1] * factorY;
-      double width = (result["box"][2] - result["box"][0]) * factorX;
-      double height = (result["box"][3] - result["box"][1]) * factorY;
+      double objectX = result["box"][0] * factorX;
+      double objectY = result["box"][1] * factorY;
+      double objectWidth = (result["box"][2] - result["box"][0]) * factorX;
+      double objectHeight = (result["box"][3] - result["box"][1]) * factorY;
 
       return Stack(
         children: [
+          // Position the label above the bounding box
           Positioned(
-            left: x,
-            top: y - 20,
+            left: objectX,
+            top: objectY - 20, // Adjust the label's position above the bounding box
             child: Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-              color: Colors.red.withOpacity(0.7),
+              padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+              color: const Color.fromARGB(255, 244, 97, 97).withOpacity(0.7),
               child: Text(
                 "${result['tag']} ${(result['box'][4] * 100).toStringAsFixed(1)}%",
-                style: const TextStyle(color: Colors.white, fontSize: 10.0),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10.0,
+                ),
               ),
             ),
           ),
+          // The bounding box
           Positioned(
-            left: x,
-            top: y,
-            width: width,
-            height: height,
+            left: objectX,
+            top: objectY,
+            width: objectWidth,
+            height: objectHeight,
             child: Container(
               decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(2.0)),
                 border: Border.all(color: Colors.pink, width: 1.0),
-                borderRadius: BorderRadius.circular(2.0),
               ),
             ),
           ),
@@ -144,20 +156,24 @@ class _YoloVideoState extends State<YoloVideo> {
     }).toList();
   }
 
+  // Function to count labels and occurrences
   Map<String, int> getLabelCounts() {
     Map<String, int> labelCounts = {};
+
     for (var result in yoloResults) {
       String label = result['tag'];
-      labelCounts[label] = (labelCounts[label] ?? 0) + 1;
+      if (labelCounts.containsKey(label)) {
+        labelCounts[label] = labelCounts[label]! + 1;
+      } else {
+        labelCounts[label] = 1;
+      }
     }
+
     return labelCounts;
   }
 
   @override
   void dispose() {
-    if (controller.value.isStreamingImages) {
-      controller.stopImageStream();
-    }
     controller.dispose();
     vision.closeYoloModel();
     super.dispose();
@@ -170,12 +186,12 @@ class _YoloVideoState extends State<YoloVideo> {
     if (!isLoaded) {
       return const Scaffold(
         body: Center(
-          child: CircularProgressIndicator(),
+          child: Text("Model not loaded, waiting for it..."),
         ),
       );
     }
 
-    Map<String, int> labelCounts = getLabelCounts();
+    Map<String, int> labelCounts = getLabelCounts(); // Get label counts
 
     return Scaffold(
       body: Stack(
@@ -195,7 +211,11 @@ class _YoloVideoState extends State<YoloVideo> {
                 width: 60,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(width: 2, color: Colors.white),
+                  border: Border.all(
+                    width: 2,
+                    color: Colors.white,
+                    style: BorderStyle.solid,
+                  ),
                 ),
                 child: IconButton(
                   onPressed: () async {
@@ -207,10 +227,12 @@ class _YoloVideoState extends State<YoloVideo> {
                   },
                   icon: Icon(isDetecting ? Icons.stop : Icons.play_arrow),
                   color: isDetecting ? Colors.red : Colors.white,
+                  iconSize: 20,
                 ),
               ),
             ),
           ),
+          // Card displaying labels and number of detections
           Positioned(
             top: 50,
             left: 10,
@@ -236,9 +258,10 @@ class _YoloVideoState extends State<YoloVideo> {
   }
 }
 
-void main() async {
+main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MaterialApp(
-    home: LiveDetectionPage(),
+    home: YoloVideo(),
   ));
 }
