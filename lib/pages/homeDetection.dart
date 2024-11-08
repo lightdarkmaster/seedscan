@@ -145,7 +145,7 @@ class HomeDetectionState extends State<HomeDetection> {
                 top: 5,
                 right: 5,
                 child: IconButton(
-                  icon: const Icon(Icons.info, color: Colors.black),
+                  icon: const Icon(Icons.info, color: Colors.grey),
                   onPressed: () => _showInfoDialog(context, infoTitle, infoMessage),
                   tooltip: 'More Info',
                 ),
