@@ -29,7 +29,7 @@ class _BottomNavBarState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: PreferredSize(
         preferredSize:
             const Size.fromHeight(65.0), // Set your desired height here
