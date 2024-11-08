@@ -44,7 +44,7 @@ class HomeDetectionState extends State<HomeDetection> {
                           SizedBox(
                             height: 150, // Adjust height based on card size
                             child: Image.asset(
-                              'assets/gifs/LiveDemo.gif', // Replace with your GIF path
+                              'assets/gifs/liveRecorder.gif', // Replace with your GIF path
                               fit: BoxFit.contain, // Ensures the GIF fits within available space
                             ),
                           ),
@@ -100,7 +100,7 @@ class HomeDetectionState extends State<HomeDetection> {
                           SizedBox(
                             height: 150, // Adjust height based on card size
                             child: Image.asset(
-                              'assets/images/imgSample.png',
+                              'assets/gifs/camera.gif',
                               fit: BoxFit.contain, // Ensures the GIF fits within available space
                             ),
                           ),

@@ -85,6 +85,8 @@ flutter:
    - assets/corn_viability.tflite
    - assets/images/pic1.png
    - assets/gifs/LiveDemo.gif
+   - assets/gifs/camera.gif
+   - assets/gifs/liveRecorder.gif
    - assets/images/imgSample.png
    - assets/images/pic2.jpg
    - assets/images/pic3.jpg

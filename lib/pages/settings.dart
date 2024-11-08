@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:seedscan2/pages/Instructions.dart';
 import 'package:seedscan2/pages/aboutApp.dart';
-import 'package:seedscan2/pages/aboutus.dart';
 
 class LoginPage extends StatefulWidget {
   @override

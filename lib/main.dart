@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:seedscan2/pages/authenticate.dart';
 //import 'package:seedscan2/pages/homePage.dart';
-import 'package:seedscan2/theme/theme.dart';
 import 'package:seedscan2/theme/theme_provider.dart';
 
 void main() {

@@ -79,7 +79,7 @@ class _CornLabeltState extends State<CornLabel> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Container(
         color: Colors.white,
         padding: const EdgeInsets.all(16.0),
@@ -124,8 +124,8 @@ class _CornLabeltState extends State<CornLabel> {
                 style: TextStyle(color: Colors.black),
               ),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                padding: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.white),
+                padding: WidgetStateProperty.all(
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 ),
               ),
@@ -139,8 +139,8 @@ class _CornLabeltState extends State<CornLabel> {
                 style: TextStyle(color: Colors.black),
               ),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                padding: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(Colors.white),
+                padding: WidgetStateProperty.all(
                   const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 ),
               ),
