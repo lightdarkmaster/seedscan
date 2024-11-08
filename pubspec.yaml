@@ -83,6 +83,8 @@ flutter:
    - assets/viability_labels.txt
    - assets/model.tflite
    - assets/corn_viability.tflite
+   - assets/models/Corn_types_float16.tflite
+   - assets/models/labels.txt
    - assets/images/pic1.png
    - assets/gifs/LiveDemo.gif
    - assets/gifs/camera.gif

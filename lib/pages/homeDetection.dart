@@ -48,7 +48,7 @@ class HomeDetectionState extends State<HomeDetection> {
                     MaterialPageRoute(builder: (context) => const YoloVideo()),
                   );
                 },
-                infoTitle: 'Live Detection Info',
+                infoTitle: 'Live Detection',
                 infoMessage: 'Live detection allows real-time corn seeds viability detection using the device camera.',
               ),
               const SizedBox(height: 40),
@@ -65,7 +65,7 @@ class HomeDetectionState extends State<HomeDetection> {
                     MaterialPageRoute(builder: (context) => const ImageDetectionPage()),
                   );
                 },
-                infoTitle: 'Image Detection Info',
+                infoTitle: 'Image Detection',
                 infoMessage: 'Image detection allows analyzing static image  for corn seeds viability detection.',
               ),
             ],
