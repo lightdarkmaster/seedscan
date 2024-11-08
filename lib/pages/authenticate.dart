@@ -25,66 +25,72 @@ class _AuthenticateBiometricState extends State<AuthenticateBiometric> {
         );
   }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            'SeedScan',
-            style: TextStyle(
-              fontSize: 40, // Adjust the font size as needed
-              fontWeight: FontWeight.bold, // Adjust the font weight as needed
-              fontStyle: FontStyle.italic, // Adjust the font style as needed
-              fontFamily:
-                  'YourFontFamily', // Replace 'YourFontFamily' with your desired font family
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(bottom: 20),
-            child: Image.asset(
-              'assets/images/fingerPrintPerson.gif',
-              width: 300,
-              height: 300,
-            ),
-          ),
-          if (_supportState)
-            Card(
-              elevation: 5, // Adds shadow to the card
-              color: Colors.grey[200], // Light grey background color
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0), // Adds padding inside the card
-                child: const Text(
-                  "This App is Protected with Biometric Authentication",
-                  style: TextStyle(
-                    fontSize: 16, // Adjust text size
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black, // Sets text color
-                  ),
-                  textAlign: TextAlign.center, // Center-align the text
-                ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'SeedScan',
+              style: TextStyle(
+                fontSize: 40, // Adjust the font size as needed
+                fontWeight: FontWeight.bold, // Adjust the font weight as needed
+                fontStyle: FontStyle.italic, // Adjust the font style as needed
+                fontFamily:
+                    'YourFontFamily', // Replace 'YourFontFamily' with your desired font family
               ),
-            )
-          else
-            const Text('Device is not Supported'),
-          SizedBox(height: 50),
-          ElevatedButton(
-            onPressed: _authenticate,
-            style: ElevatedButton.styleFrom(
-              backgroundColor:
-                  Color.fromARGB(255, 99, 201, 102), // Change button color here
             ),
-            child: Text('Authenticate'),
-          ),
-        ],
+            Container(
+              margin: EdgeInsets.only(bottom: 20),
+              child: Image.asset(
+                'assets/images/fingerPrintPerson.gif',
+                width: 300,
+                height: 300,
+              ),
+            ),
+            if (_supportState)
+              Card(
+                elevation: 5, // Adds shadow to the card
+                color: Colors.grey[200], // Light grey background color
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                child: Padding(
+                  padding: const EdgeInsets.all(
+                      16.0), // Adds padding inside the card
+                  child: const Text(
+                    "This App is Protected with Biometric Authentication",
+                    style: TextStyle(
+                      fontSize: 16, // Adjust text size
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black, // Sets text color
+                    ),
+                    textAlign: TextAlign.center, // Center-align the text
+                  ),
+                ),
+              )
+            else
+              const Text('Device is not Supported'),
+            SizedBox(height: 50),
+            ElevatedButton(
+              onPressed: _authenticate,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color.fromARGB(
+                    255, 99, 201, 102), // Change button color here
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 35),
+              ),
+              child: const Text(
+                'Authenticate',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 
   Future<void> _authenticate() async {
     try {
