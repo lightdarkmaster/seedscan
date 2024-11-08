@@ -33,6 +33,46 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  camera:
+    dependency: "direct main"
+    description:
+      name: camera
+      sha256: "26ff41045772153f222ffffecba711a206f670f5834d40ebf5eed3811692f167"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.11.0+2"
+  camera_android_camerax:
+    dependency: transitive
+    description:
+      name: camera_android_camerax
+      sha256: "011be2ab0e5b3e3aa8094413fa890f8c5c5afd7cfdaef353a992047d4dab5780"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.6.8+2"
+  camera_avfoundation:
+    dependency: transitive
+    description:
+      name: camera_avfoundation
+      sha256: "2e4c568f70e406ccb87376bc06b53d2f5bebaab71e2fbcc1a950e31449381bcf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.17+5"
+  camera_platform_interface:
+    dependency: transitive
+    description:
+      name: camera_platform_interface
+      sha256: b3ede1f171532e0d83111fe0980b46d17f1aa9788a07a2fbed07366bbdbb9061
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.8.0"
+  camera_web:
+    dependency: transitive
+    description:
+      name: camera_web
+      sha256: "595f28c89d1fb62d77c73c633193755b781c6d2e0ebcd8dc25b763b514e6ba8f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.5"
   characters:
     dependency: transitive
     description:
@@ -275,6 +315,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_vision:
+    dependency: "direct main"
+    description:
+      name: flutter_vision
+      sha256: ef1765d992ce39998c25a9d4e2eae7c8e5c4d3fc1f31742a829476fd6758ba6f
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.4"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -717,6 +765,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  stream_transform:
+    dependency: transitive
+    description:
+      name: stream_transform
+      sha256: "14a00e794c7c11aa145a170587321aedce29769c08d7f58b1d141da75e3b1c6f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.0"
   string_scanner:
     dependency: transitive
     description:
