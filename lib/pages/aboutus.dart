@@ -5,7 +5,7 @@ class AboutUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-           appBar: PreferredSize(
+      appBar: PreferredSize(
         preferredSize:
             const Size.fromHeight(65.0), // Set your desired height here
         child: AppBar(
@@ -55,7 +55,7 @@ class AboutUs extends StatelessWidget {
                   ],
                 ),
               ),
-                Card(
+              Card(
                 elevation: 4,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -8,10 +8,11 @@ class ImageDetectionPage extends StatefulWidget {
   const ImageDetectionPage({Key? key}) : super(key: key);
 
   @override
-  _CameraWidgetState createState() => _CameraWidgetState();
+  _ImageDetectionPageWidgetState createState() =>
+      _ImageDetectionPageWidgetState();
 }
 
-class _CameraWidgetState extends State<ImageDetectionPage> {
+class _ImageDetectionPageWidgetState extends State<ImageDetectionPage> {
   late ImagePicker _imagePicker;
   XFile? _pickedImage;
   List<dynamic>? _recognitions1;
@@ -89,7 +90,7 @@ class _CameraWidgetState extends State<ImageDetectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-           appBar: PreferredSize(
+      appBar: PreferredSize(
         preferredSize:
             const Size.fromHeight(65.0), // Set your desired height here
         child: AppBar(

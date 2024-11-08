@@ -25,14 +25,13 @@ class _AuthenticateBiometricState extends State<AuthenticateBiometric> {
         );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        //backgroundColor: const Color.fromARGB(255, 191, 255, 139), // Change background color here
-        body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
           Text(
             'SeedScan',
             style: TextStyle(
@@ -52,14 +51,25 @@ class _AuthenticateBiometricState extends State<AuthenticateBiometric> {
             ),
           ),
           if (_supportState)
-            const Text("This App is Protected with Biometric Authentication")
+            Card(
+              elevation: 5, // Adds shadow to the card
+              color: Colors.grey[200], // Light grey background color
+              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0), // Adds padding inside the card
+                child: const Text(
+                  "This App is Protected with Biometric Authentication",
+                  style: TextStyle(
+                    fontSize: 16, // Adjust text size
+                    fontWeight: FontWeight.w300,
+                    color: Colors.black, // Sets text color
+                  ),
+                  textAlign: TextAlign.center, // Center-align the text
+                ),
+              ),
+            )
           else
             const Text('Device is not Supported'),
-
-          //ElevatedButton(
-          //onPressed: _getAvailableBiometrics,
-          //child: const Text('Get Available Biometrics'),
-          //),
           SizedBox(height: 50),
           ElevatedButton(
             onPressed: _authenticate,
@@ -68,9 +78,13 @@ class _AuthenticateBiometricState extends State<AuthenticateBiometric> {
                   Color.fromARGB(255, 99, 201, 102), // Change button color here
             ),
             child: Text('Authenticate'),
-          )
-        ])));
-  }
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 
   Future<void> _authenticate() async {
     try {

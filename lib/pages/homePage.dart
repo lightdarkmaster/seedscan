@@ -9,7 +9,7 @@ import 'package:seedscan2/pages/homeDetection.dart';
 import '../pages/homescreen.dart';
 import 'aboutus.dart';
 import 'settings.dart';
-import '../pages/capturepage.dart';
+import 'detectionPages/imageDetectionPage.dart';
 import 'aboutApp.dart';
 
 class Homepage extends StatefulWidget {
