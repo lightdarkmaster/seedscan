@@ -11,20 +11,6 @@ class _HelpFeedbackState extends State<HelpFeedback> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize:
-            const Size.fromHeight(65.0), // Set your desired height here
-        child: AppBar(
-          title: const Text(
-            "Help And Feedbacks",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          backgroundColor: const Color.fromARGB(255, 191, 255, 139),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Container(
           color: const Color.fromARGB(255, 255, 255, 255),
@@ -124,7 +110,7 @@ class _HelpFeedbackState extends State<HelpFeedback> {
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        '3. Take a photo of a Single Corn Seed.',
+                        '3. Take a photo or scan realtime corn seeds.',
                         style: TextStyle(fontSize: 16),
                         textAlign: TextAlign.justify,
                       ),
