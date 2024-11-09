@@ -86,13 +86,19 @@ flutter:
    - assets/models/Corn_types_float16.tflite
    - assets/models/labels.txt
    - assets/images/pic1.png
+   - assets/images/handCorn.png
+   - assets/images/cornSeedsDamo.png
+   - assets/icons/camera.png
+   - assets/icons/home.png
+   - assets/icons/settings.png
+   - assets/icons/calculator.png
+   - assets/icons/usermanual.png
    - assets/gifs/LiveDemo.gif
    - assets/gifs/camera.gif
    - assets/gifs/CornType.gif
    - assets/gifs/liveRecorder.gif
    - assets/images/imgSample.png
    - assets/images/pic2.jpg
-   - assets/images/pic3.jpg
    - assets/images/ai.jpg
    - assets/images/broken.jpg
    - assets/images/pure.jpg
