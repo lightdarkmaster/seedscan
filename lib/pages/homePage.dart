@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:seedscan2/pages/Instructions.dart';
 import 'package:seedscan2/pages/calculatorPage.dart';
 import 'package:seedscan2/pages/cornSeedLabel.dart';
 import 'package:seedscan2/pages/homeDetection.dart';
@@ -88,7 +89,7 @@ class _BottomNavBarState extends State<Homepage> {
       case 0:
         return const HomeWidget();
       case 1:
-        return const CornLabel();
+        return const HelpFeedback();
       case 2:
         return const HomeDetection();
       case 3:
