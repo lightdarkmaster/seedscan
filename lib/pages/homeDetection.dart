@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seedscan2/pages/detectionPages/liveDetectionPage.dart';
 import 'package:seedscan2/pages/detectionPages/imageDetectionPage.dart';
+import 'package:seedscan2/pages/detectionPages/liveStreamOptions.dart';
 
 class HomeDetection extends StatefulWidget {
   const HomeDetection({super.key});
@@ -45,7 +46,7 @@ class HomeDetectionState extends State<HomeDetection> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const YoloVideo()),
+                    MaterialPageRoute(builder: (context) => const LiveStreamOptions()),
                   );
                 },
                 infoTitle: 'Live Detection',
