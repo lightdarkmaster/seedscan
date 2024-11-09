@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seedscan2/pages/detectionPages/liveDetectionPage.dart';
-import 'package:seedscan2/pages/detectionPages/imageDetectionPage.dart';
+import 'package:seedscan2/pages/detectionPages/imageOptions.dart';
 import 'package:seedscan2/pages/detectionPages/liveStreamOptions.dart';
 
 class HomeDetection extends StatefulWidget {
@@ -63,7 +62,7 @@ class HomeDetectionState extends State<HomeDetection> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ImageDetectionPage()),
+                    MaterialPageRoute(builder: (context) => const ImageOptions()),
                   );
                 },
                 infoTitle: 'Image Detection',

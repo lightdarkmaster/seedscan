@@ -1,11 +1,9 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:seedscan2/pages/calculatorPage.dart';
 import 'package:seedscan2/pages/cornSeedLabel.dart';
 import 'package:seedscan2/pages/homeDetection.dart';
-//import 'package:seedscan2/pages/login.dart';
 import '../pages/homescreen.dart';
 import 'settings.dart';
 
@@ -18,8 +16,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<Homepage> {
-
-
   int _page = 0;
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
 
@@ -28,8 +24,7 @@ class _BottomNavBarState extends State<Homepage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: PreferredSize(
-        preferredSize:
-            const Size.fromHeight(65.0), // Set your desired height here
+        preferredSize: const Size.fromHeight(65.0), // Set your desired height here
         child: AppBar(
           title: const Text(
             "Seed Scan",
@@ -45,31 +40,31 @@ class _BottomNavBarState extends State<Homepage> {
         key: _bottomNavigationKey,
         index: 0,
         height: 60.0,
-        items: const <Widget>[
-          Icon(
-            Icons.home,
-            size: 30,
-            color: Colors.black,
+        items: <Widget>[
+          Image.asset(
+            'assets/icons/home.png', // Path to your downloaded image
+            width: 35,
+            height: 35,
           ),
-          Icon(
-            Icons.yard_outlined,
-            size: 30,
-            color: Colors.black,
+          Image.asset(
+            'assets/icons/usermanual.png', // Path to your downloaded image
+            width: 35,
+            height: 35,
           ),
-          Icon(
-            Icons.photo_camera,
-            size: 30,
-            color: Colors.black,
+          Image.asset(
+            'assets/icons/camera.png', // Path to your downloaded image
+            width: 35,
+            height: 35,
           ),
-          Icon(
-            Icons.calculate_sharp,
-            size: 30,
-            color: Colors.black,
+          Image.asset(
+            'assets/icons/calculator.png', // Path to your downloaded image
+            width: 35,
+            height: 35,
           ),
-          Icon(
-            Icons.settings,
-            size: 30,
-            color: Colors.black,
+          Image.asset(
+            'assets/icons/settings.png', // Path to your downloaded image
+            width: 35,
+            height: 35,
           ),
         ],
         color: const Color.fromARGB(255, 191, 255, 139),
@@ -105,4 +100,3 @@ class _BottomNavBarState extends State<Homepage> {
     }
   }
 }
-//
