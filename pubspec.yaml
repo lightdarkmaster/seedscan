@@ -89,6 +89,8 @@ flutter:
    - assets/images/handCorn.png
    - assets/images/cornSeedsDamo.png
    - assets/icons/camera.png
+   - assets/icons/instructions.png
+   - assets/icons/corn3d.png
    - assets/icons/home.png
    - assets/icons/settings.png
    - assets/icons/calculator.png
