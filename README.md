@@ -1,6 +1,6 @@
 # Seedscan 
 
-    A Flutter application designed to provide a user-friendly interface for selecting and performing tasks like "Corn Viability Detection" and "Corn Type Detection." The app features an intuitive UI with interactive cards and information pop-ups for each task.
+A Flutter application designed to provide a user-friendly interface for selecting and performing tasks like "Corn Viability Detection" and "Corn Type Detection." The app features an intuitive UI with interactive cards and information pop-ups for each task.
 
 ---
 
@@ -19,13 +19,24 @@
 
 ## Screenshots
 
-![Authentication Page](screenshots/ss1.png)
-![Codebase](screenshots/ss2.png)
-![Home Screen](screenshots/ss3.jpg)
-![Detection Screen](screenshots/ss4.jpg)
-![Live Detection Screen](screenshots/ss5.jpg)
-![Image Detection Screen](screenshots/ss6.jpg)
-
+<p align="center">
+  <img src="screenshots/ss1.png" alt="Authentication Page" width="500px">
+</p>
+<p align="center">
+  <img src="screenshots/ss2.png" alt="Codebase" width="500px">
+</p>
+<p align="center">
+  <img src="screenshots/ss3.jpg" alt="Home Screen" width="500px">
+</p>
+<p align="center">
+  <img src="screenshots/ss4.jpg" alt="Detection Screen" width="500px">
+</p>
+<p align="center">
+  <img src="screenshots/ss5.jpg" alt="Live Detection Screen" width="500px">
+</p>
+<p align="center">
+  <img src="screenshots/ss6.jpg" alt="Image Detection Screen" width="500px">
+</p>
 
 ---
 
@@ -48,34 +59,3 @@
    Run the following command in your terminal to ensure Flutter is correctly installed:
    ```bash
    flutter doctor
-
-### Starting the Project
-
-1. Go to your project directory
-   ```bash
-   cd seedscan
-2. Install all dependencies and packages.
-   ```bash
-   flutter pub get
-3. run the project.
-   ```bash
-   flutter run
-
-
-# seedscan2
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
