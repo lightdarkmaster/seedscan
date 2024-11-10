@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:seedscan2/pages/detectionPages/liveCornTypeDetection.dart';
+import 'package:seedscan2/pages/detectionPages/liveViabilityDetectionPage.dart';
 
 class LiveStreamOptions extends StatefulWidget {
   const LiveStreamOptions({super.key});
@@ -37,7 +39,12 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
                 imagePath: 'assets/gifs/CornType.gif',
                 buttonLabel: 'Start Stream',
                 onPressed: () {
-                  print('Corn Type Detection button pressed');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const YoloVideo(),
+                    ),
+                  );
                 },
                 borderColor: Colors.green,
                 buttonBorderColor: Colors.black,
@@ -53,7 +60,12 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
                 imagePath: 'assets/gifs/LiveDemo.gif',
                 buttonLabel: 'Start Stream',
                 onPressed: () {
-                  print('Viability Detection button pressed');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const YoloVideo2(),
+                    ),
+                  );
                 },
                 borderColor: Colors.blue,
                 buttonBorderColor: Colors.black,
