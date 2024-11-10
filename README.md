@@ -20,22 +20,22 @@ A Flutter application designed to provide a user-friendly interface for selectin
 ## Screenshots
 
 <p align="center">
-  <img src="screenshots/ss1.png" alt="Authentication Page" width="500px">
+  <img src="screenshots/ss1.png" alt="Authentication Page" width="200px">
 </p>
 <p align="center">
-  <img src="screenshots/ss2.png" alt="Codebase" width="500px">
+  <img src="screenshots/ss2.png" alt="Codebase" width="900px">
 </p>
 <p align="center">
   <img src="screenshots/ss3.jpg" alt="Home Screen" width="500px">
 </p>
 <p align="center">
-  <img src="screenshots/ss4.jpg" alt="Detection Screen" width="500px">
+  <img src="screenshots/ss4.jpg" alt="Detection Screen" width="200px">
 </p>
 <p align="center">
-  <img src="screenshots/ss5.jpg" alt="Live Detection Screen" width="500px">
+  <img src="screenshots/ss5.jpg" alt="Live Detection Screen" width="200px">
 </p>
 <p align="center">
-  <img src="screenshots/ss6.jpg" alt="Image Detection Screen" width="500px">
+  <img src="screenshots/ss6.jpg" alt="Image Detection Screen" width="200px">
 </p>
 
 ---
