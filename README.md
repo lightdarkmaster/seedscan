@@ -43,6 +43,18 @@ _Add screenshots of your app here (if available)._
    ```bash
    flutter doctor
 
+### Starting the Project
+
+1. Go to your project directory
+   ```bash
+   cd seedscan
+2. Install all dependencies and packages.
+   ```bash
+   flutter pub get
+3. run the project.
+   ```bash
+   flutter run
+
 
 # seedscan2
 
