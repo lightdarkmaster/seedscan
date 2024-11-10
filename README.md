@@ -1,3 +1,49 @@
+# Image Options App
+
+A Flutter application designed to provide a user-friendly interface for selecting and performing tasks like "Corn Viability Detection" and "Corn Type Detection." The app features an intuitive UI with interactive cards and information pop-ups for each task.
+
+---
+
+## Features
+
+- **Corn Viability Detection**  
+  Users can start the viability detection process for corn.
+
+- **Corn Type Detection**  
+  Allows users to determine the type of corn with ease.
+
+- **Information Pop-Ups**  
+  Each detection option includes an info icon that provides additional details about the task.
+
+---
+
+## Screenshots
+
+_Add screenshots of your app here (if available)._
+
+---
+
+## Requirements
+
+- **Flutter SDK**: Version 3.0.0 or later
+- **Dart**: Version 2.17.0 or later
+- Supported Platforms: Android, iOS
+
+---
+
+## Installation Instructions
+
+### Step 1: Install Flutter
+
+1. **Download Flutter SDK**  
+   Visit the [Flutter website](https://flutter.dev/docs/get-started/install) and follow the installation instructions for your operating system.
+
+2. **Verify Installation**  
+   Run the following command in your terminal to ensure Flutter is correctly installed:
+   ```bash
+   flutter doctor
+
+
 # seedscan2
 
 A new Flutter project.
@@ -15,5 +61,3 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-# seedscan
-Capstone Project1
