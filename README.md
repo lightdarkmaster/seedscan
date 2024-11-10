@@ -41,7 +41,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 ---
 
-## Installation Instructions
+
 
 ### Step 1: Install Flutter
 
@@ -52,3 +52,15 @@ A Flutter application designed to provide a user-friendly interface for selectin
    Run the following command in your terminal to ensure Flutter is correctly installed:
    ```bash
    flutter doctor
+
+## Installation of the Project Instructions
+
+1. Go to Project Directory
+   ```bash
+   cd seedscan
+2. Install packages and dependencies
+   ```bash
+   flutter pub get
+3. Run the project
+   ```bash
+   flutter run
