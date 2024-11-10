@@ -21,10 +21,10 @@
 
 ![Authentication Page](screenshots/ss1.png)
 ![Codebase](screenshots/ss2.png)
-![Home Screen](screenshots/ss3.png)
-![Detection Screen](screenshots/ss4.png)
-![Live Detection Screen](screenshots/ss5.png)
-![Image Detection Screen](screenshots/ss6.png)
+![Home Screen](screenshots/ss3.jpg)
+![Detection Screen](screenshots/ss4.jpg)
+![Live Detection Screen](screenshots/ss5.jpg)
+![Image Detection Screen](screenshots/ss6.jpg)
 
 
 ---
