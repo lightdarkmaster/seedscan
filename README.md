@@ -12,6 +12,12 @@ A Flutter application designed to provide a user-friendly interface for selectin
 - **Corn Type Detection**  
   Allows users to determine the type of corn with ease.
 
+  - **Harvest Estimation Features**  
+  Allows users to determine the probable number of harvest base on the viability results.
+
+  - **User Friendly**  
+  Allows users to use the app with ease.
+
 - **Information Pop-Ups**  
   Each detection option includes an info icon that provides additional details about the task.
 
