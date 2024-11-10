@@ -48,7 +48,7 @@ class _BottomNavBarState extends State<Homepage> {
             height: 35,
           ),
           Image.asset(
-            'assets/icons/usermanual.png', // Path to your downloaded image
+            'assets/icons/instructions.png', // Path to your downloaded image
             width: 35,
             height: 35,
           ),
@@ -58,7 +58,7 @@ class _BottomNavBarState extends State<Homepage> {
             height: 35,
           ),
           Image.asset(
-            'assets/icons/calculator.png', // Path to your downloaded image
+            'assets/icons/corn3d.png', // Path to your downloaded image
             width: 35,
             height: 35,
           ),
