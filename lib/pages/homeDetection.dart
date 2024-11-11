@@ -102,8 +102,8 @@ class HomeDetectionState extends State<HomeDetection> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min, // Adjusts column height to its children
-                  crossAxisAlignment: CrossAxisAlignment.center, // Centers content horizontally
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center, 
                   children: [
                     Text(
                       title,
