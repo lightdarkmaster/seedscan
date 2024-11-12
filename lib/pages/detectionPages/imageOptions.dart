@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:seedscan2/pages/detectionPages/imageCornType.dart';
+import 'package:seedscan2/pages/detectionPages/imageCornViability.dart';
 
 class ImageOptions extends StatefulWidget {
   const ImageOptions({super.key});
@@ -36,7 +38,12 @@ class _ImageOptionsState extends State<ImageOptions> {
                 imagePath: 'assets/images/handCorn.png',
                 buttonLabel: 'Start Detection',
                 onPressed: () {
-                  print('Option 1 button pressed');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ImageCornViability(),
+                    ),
+                  );
                 },
                 borderColor: Colors.green,
                 buttonBorderColor: Colors.black,
@@ -54,7 +61,12 @@ class _ImageOptionsState extends State<ImageOptions> {
                 imagePath: 'assets/images/cornSeedsDamo.png',
                 buttonLabel: 'Start Detection',
                 onPressed: () {
-                  print('Option 2 button pressed');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ImageCornType(),
+                    ),
+                  );
                 },
                 borderColor: Colors.blue,
                 buttonBorderColor: Colors.black,
