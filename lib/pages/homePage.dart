@@ -93,7 +93,7 @@ class _BottomNavBarState extends State<Homepage> {
       case 3:
         return CalculatorPage();
       case 4:
-        return const LoginPage();//ProfilePage();
+        return const ProfilePage();//ProfilePage();
       default:
         return Container(); // Default page, you can replace it with another widget.
     }
