@@ -22,10 +22,10 @@ class YoloVideo2 extends StatefulWidget {
   const YoloVideo2({super.key});
 
   @override
-  State<YoloVideo2> createState() => _YoloVideoState();
+  State<YoloVideo2> createState() => _YoloVideo2State();
 }
 
-class _YoloVideoState extends State<YoloVideo2> {
+class _YoloVideo2State extends State<YoloVideo2> {
   late CameraController controller;
   late FlutterVision vision;
   late List<Map<String, dynamic>> yoloResults;
@@ -60,8 +60,8 @@ class _YoloVideoState extends State<YoloVideo2> {
   Future<void> loadYoloModel() async {
     await vision.loadYoloModel(
       labels: 'assets/models/labels.txt',
-      modelPath: 'assets/models/Corn_types_float16.tflite',
-      modelVersion: "yolov8",
+      modelPath: 'assets/models/Corn_types_float32.tflite',
+      modelVersion: "yolov5",//8
       numThreads: 1,
       useGpu: false,//true
     );

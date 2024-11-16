@@ -85,6 +85,8 @@ flutter:
    - assets/models/labels.txt
    - assets/models/viabilityLabel.txt
    - assets/models/cornViability.tflite
+   - assets/models/cornViabilityV2_float32.tflite
+   - assets/models/Corn_types_float32.tflite
    - assets/images/pic1.png
    - assets/images/handCorn.png
    - assets/images/cornSeedsDamo.png
