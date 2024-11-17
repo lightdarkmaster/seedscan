@@ -33,7 +33,7 @@ class _YoloVideo2State extends State<YoloVideo2> {
   CameraImage? cameraImage;
   bool isLoaded = false;
   bool isDetecting = false;
-  double confidenceThreshold = 0.4; //.5
+  double confidenceThreshold = 0.5;
 
   @override
   void initState() {
@@ -41,18 +41,16 @@ class _YoloVideo2State extends State<YoloVideo2> {
     init();
   }
 
-  // Initialize the camera and YOLO model
   Future<void> init() async {
     List<CameraDescription> cameras = await availableCameras();
     vision = FlutterVision();
-    controller = CameraController(cameras[0], ResolutionPreset.high); // high
+    controller = CameraController(cameras[0], ResolutionPreset.high);
     await controller.initialize();
 
     await loadYoloModel();
 
     setState(() {
       isLoaded = true;
-      isDetecting = false;
       yoloResults = [];
     });
   }
@@ -60,37 +58,39 @@ class _YoloVideo2State extends State<YoloVideo2> {
   Future<void> loadYoloModel() async {
     await vision.loadYoloModel(
       labels: 'assets/models/labels.txt',
-      modelPath: 'assets/models/Corn_types_float32.tflite',
-      modelVersion: "yolov5",//8
+      modelPath: 'assets/models/cornTypeModelF32.tflite',
+      modelVersion: "yolov5",
       numThreads: 1,
-      useGpu: false,//true
+      useGpu: false,
     );
   }
 
-  // Start detection stream
   Future<void> startDetection() async {
-    if (isDetecting) return; // Prevent multiple streams
+    if (isDetecting) return;
+
     setState(() {
       isDetecting = true;
     });
 
     await controller.startImageStream((image) async {
-      if (!isDetecting) return; // Check if we should keep detecting
+      if (!isDetecting) return;
       cameraImage = image;
       await yoloOnFrame(image);
     });
   }
 
-  // Stop detection stream
   Future<void> stopDetection() async {
-    setState(() {
-      isDetecting = false;
-      yoloResults.clear();
-    });
-    await controller.stopImageStream();
+    if (isDetecting) {
+      setState(() {
+        isDetecting = false;
+        yoloResults.clear();
+      });
+
+      // Stop the camera image stream
+      await controller.stopImageStream();
+    }
   }
 
-  // Process frame with YOLO model
   Future<void> yoloOnFrame(CameraImage cameraImage) async {
     final result = await vision.yoloOnFrame(
       bytesList: cameraImage.planes.map((plane) => plane.bytes).toList(),
@@ -100,6 +100,7 @@ class _YoloVideo2State extends State<YoloVideo2> {
       confThreshold: 0.5,
       classThreshold: 0.5,
     );
+
     if (result.isNotEmpty) {
       setState(() {
         yoloResults = result;
@@ -107,7 +108,6 @@ class _YoloVideo2State extends State<YoloVideo2> {
     }
   }
 
-  // Display detected objects
   List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
     if (yoloResults.isEmpty || cameraImage == null) return [];
 
@@ -122,10 +122,9 @@ class _YoloVideo2State extends State<YoloVideo2> {
 
       return Stack(
         children: [
-          // Position the label above the bounding box
           Positioned(
             left: objectX,
-            top: objectY - 20, // Adjust the label's position above the bounding box
+            top: objectY - 20,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
               color: const Color.fromARGB(255, 244, 97, 97).withOpacity(0.7),
@@ -138,7 +137,6 @@ class _YoloVideo2State extends State<YoloVideo2> {
               ),
             ),
           ),
-          // The bounding box
           Positioned(
             left: objectX,
             top: objectY,
@@ -156,28 +154,27 @@ class _YoloVideo2State extends State<YoloVideo2> {
     }).toList();
   }
 
-  // Function to count labels and occurrences
   Map<String, int> getLabelCounts() {
     Map<String, int> labelCounts = {};
 
     for (var result in yoloResults) {
       String label = result['tag'];
-      if (labelCounts.containsKey(label)) {
-        labelCounts[label] = labelCounts[label]! + 1;
-      } else {
-        labelCounts[label] = 1;
-      }
+      labelCounts[label] = (labelCounts[label] ?? 0) + 1;
     }
 
     return labelCounts;
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    vision.closeYoloModel();
-    super.dispose();
+@override
+void dispose() async {
+  if (isDetecting) {
+    await stopDetection();
   }
+  await controller.dispose();
+  await vision.closeYoloModel();
+  super.dispose();
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +188,7 @@ class _YoloVideo2State extends State<YoloVideo2> {
       );
     }
 
-    Map<String, int> labelCounts = getLabelCounts(); // Get label counts
+    Map<String, int> labelCounts = getLabelCounts();
 
     return Scaffold(
       body: Stack(
@@ -232,7 +229,6 @@ class _YoloVideo2State extends State<YoloVideo2> {
               ),
             ),
           ),
-          // Card displaying labels and number of detections
           Positioned(
             top: 50,
             left: 10,
