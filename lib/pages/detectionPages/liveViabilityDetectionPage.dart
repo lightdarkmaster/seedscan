@@ -172,12 +172,15 @@ class _YoloVideoState extends State<YoloVideo> {
     return labelCounts;
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    vision.closeYoloModel();
-    super.dispose();
+@override
+void dispose() async {
+  if (isDetecting) {
+    await stopDetection();
   }
+  await controller.dispose();
+  await vision.closeYoloModel();
+  super.dispose();
+}
 
   @override
   Widget build(BuildContext context) {
