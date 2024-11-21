@@ -59,8 +59,8 @@ class _YoloVideoState extends State<YoloVideo> {
 
   Future<void> loadYoloModel() async {
     await vision.loadYoloModel(
-      labels: 'assets/models/viabilityLabel.txt',
-      modelPath: 'assets/models/cornViability.tflite',
+      labels: 'assets/models/vLabels.txt',
+      modelPath: 'assets/models/V-Final103M.tflite',
       modelVersion: "yolov8",
       numThreads: 1,
       useGpu: false,//true
@@ -156,21 +156,36 @@ class _YoloVideoState extends State<YoloVideo> {
     }).toList();
   }
 
-  // Function to count labels and occurrences
-  Map<String, int> getLabelCounts() {
-    Map<String, int> labelCounts = {};
+// Function to count labels and occurrences and calculate estimated harvest
+Map<String, dynamic> getLabelCountsAndHarvest() {
+  Map<String, int> labelCounts = {};
+  int viableSeedsCount = 0;
 
-    for (var result in yoloResults) {
-      String label = result['tag'];
-      if (labelCounts.containsKey(label)) {
-        labelCounts[label] = labelCounts[label]! + 1;
-      } else {
-        labelCounts[label] = 1;
-      }
+  for (var result in yoloResults) {
+    String label = result['tag'];
+
+    // Count all detected labels
+    if (labelCounts.containsKey(label)) {
+      labelCounts[label] = labelCounts[label]! + 1;
+    } else {
+      labelCounts[label] = 1;
     }
 
-    return labelCounts;
+    // Count the number of "viable seed" detections
+    if (label.toLowerCase() == 'Viable') {
+      viableSeedsCount++;
+    }
   }
+
+  // Calculate the estimated harvest as viableSeedsCount * 4
+  int estimatedHarvest = viableSeedsCount * 4;
+
+  return {
+    "labelCounts": labelCounts,
+    "estimatedHarvest": estimatedHarvest,
+  };
+}
+
 
 @override
 void dispose() async {
@@ -194,7 +209,10 @@ void dispose() async {
       );
     }
 
-    Map<String, int> labelCounts = getLabelCounts(); // Get label counts
+    Map<String, dynamic> labelData = getLabelCountsAndHarvest();
+    Map<String, int> labelCounts = labelData["labelCounts"];
+    int estimatedHarvest = labelData["estimatedHarvest"];
+ // Get label counts
 
     return Scaffold(
       body: Stack(
@@ -236,25 +254,32 @@ void dispose() async {
             ),
           ),
           // Card displaying labels and number of detections
-          Positioned(
-            top: 50,
-            left: 10,
-            child: Card(
-              color: Colors.black.withOpacity(0.7),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: labelCounts.entries.map((entry) {
-                    return Text(
-                      '${entry.key}: ${entry.value}',
-                      style: const TextStyle(color: Colors.white, fontSize: 14),
-                    );
-                  }).toList(),
-                ),
-              ),
-            ),
+Positioned(
+  top: 50,
+  left: 10,
+  child: Card(
+    color: Colors.black.withOpacity(0.7),
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ...labelCounts.entries.map((entry) {
+            return Text(
+              '${entry.key}: ${entry.value}',
+              style: const TextStyle(color: Colors.white, fontSize: 14),
+            );
+          }),
+          Text(
+            'Estimated Harvest: $estimatedHarvest',
+            style: const TextStyle(color: Colors.green, fontSize: 14),
           ),
+        ],
+      ),
+    ),
+  ),
+),
+
         ],
       ),
     );
