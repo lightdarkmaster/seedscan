@@ -114,11 +114,20 @@ class _YoloVideoState extends State<YoloVideo> {
     double factorX = screen.width / cameraImage!.height;
     double factorY = screen.height / cameraImage!.width;
 
+    Map<String, Color> labelColors = {
+      'viable': Colors.green,
+      'less-viable': Colors.blue,
+      'non-viable': Colors.red,
+    };
+
     return yoloResults.map((result) {
       double objectX = result["box"][0] * factorX;
       double objectY = result["box"][1] * factorY;
       double objectWidth = (result["box"][2] - result["box"][0]) * factorX;
       double objectHeight = (result["box"][3] - result["box"][1]) * factorY;
+
+      String label = result['tag'];
+      Color boxColor = labelColors[label.toLowerCase()] ?? Colors.grey;
 
       return Stack(
         children: [
@@ -128,7 +137,7 @@ class _YoloVideoState extends State<YoloVideo> {
             top: objectY - 20, // Adjust the label's position above the bounding box
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-              color: const Color.fromARGB(255, 244, 97, 97).withOpacity(0.7),
+              color: boxColor.withOpacity(0.7),
               child: Text(
                 "${result['tag']} ${(result['box'][4] * 100).toStringAsFixed(1)}%",
                 style: const TextStyle(
