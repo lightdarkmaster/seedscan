@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter_vision/flutter_vision.dart';
 import 'package:flutter/material.dart';
+import 'package:seedscan2/pages/detectionPages/historyPage.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -33,7 +34,9 @@ class _YoloVideoState extends State<YoloVideo> {
   CameraImage? cameraImage;
   bool isLoaded = false;
   bool isDetecting = false;
-  double confidenceThreshold = 0.4; //.5
+  double confidenceThreshold = 0.4;
+
+  List<ModelReading> history = [];
 
   @override
   void initState() {
@@ -41,11 +44,10 @@ class _YoloVideoState extends State<YoloVideo> {
     init();
   }
 
-  // Initialize the camera and YOLO model
   Future<void> init() async {
     List<CameraDescription> cameras = await availableCameras();
     vision = FlutterVision();
-    controller = CameraController(cameras[0], ResolutionPreset.high); // high
+    controller = CameraController(cameras[0], ResolutionPreset.high);
     await controller.initialize();
 
     await loadYoloModel();
@@ -63,25 +65,23 @@ class _YoloVideoState extends State<YoloVideo> {
       modelPath: 'assets/models/V-Final103M.tflite',
       modelVersion: "yolov8",
       numThreads: 1,
-      useGpu: false,//true
+      useGpu: false,
     );
   }
 
-  // Start detection stream
   Future<void> startDetection() async {
-    if (isDetecting) return; // Prevent multiple streams
+    if (isDetecting) return;
     setState(() {
       isDetecting = true;
     });
 
     await controller.startImageStream((image) async {
-      if (!isDetecting) return; // Check if we should keep detecting
+      if (!isDetecting) return;
       cameraImage = image;
       await yoloOnFrame(image);
     });
   }
 
-  // Stop detection stream
   Future<void> stopDetection() async {
     setState(() {
       isDetecting = false;
@@ -90,7 +90,6 @@ class _YoloVideoState extends State<YoloVideo> {
     await controller.stopImageStream();
   }
 
-  // Process frame with YOLO model
   Future<void> yoloOnFrame(CameraImage cameraImage) async {
     final result = await vision.yoloOnFrame(
       bytesList: cameraImage.planes.map((plane) => plane.bytes).toList(),
@@ -107,7 +106,158 @@ class _YoloVideoState extends State<YoloVideo> {
     }
   }
 
-  // Display detected objects
+void saveDetectionResults() {
+  Map<String, int> labelCounts = {};
+
+  for (var result in yoloResults) {
+    String label = result['tag'];
+    labelCounts[label] = (labelCounts[label] ?? 0) + 1; // Count occurrences
+  }
+
+  history.add(ModelReading(
+    labelCounts: labelCounts,
+    timestamp: DateTime.now(),
+  ));
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text('Results saved to history!')),
+  );
+}
+
+
+  Map<String, int> getLabelCounts() {
+    Map<String, int> labelCounts = {};
+    for (var result in yoloResults) {
+      String label = result['tag'];
+      labelCounts[label] = (labelCounts[label] ?? 0) + 1;
+    }
+    return labelCounts;
+  }
+
+  int getEstimatedHarvest() {
+    return yoloResults.length; // Example: each detected object counts as 1
+  }
+
+  @override
+  void dispose() async {
+    if (isDetecting) {
+      await stopDetection();
+    }
+    await controller.dispose();
+    await vision.closeYoloModel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
+    if (!isLoaded) {
+      return const Scaffold(
+        body: Center(child: Text("Model not loaded, waiting for it...")),
+      );
+    }
+
+    Map<String, int> labelCounts = getLabelCounts();
+    int estimatedHarvest = getEstimatedHarvest();
+
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          AspectRatio(
+            aspectRatio: controller.value.aspectRatio,
+            child: CameraPreview(controller),
+          ),
+          // Display detected objects
+          ...displayBoxesAroundRecognizedObjects(screenSize),
+          // Top Buttons: Save to History & View History
+          Positioned(
+            top: 40,
+            left: 20,
+            right: 20,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton.icon(
+                      onPressed: saveDetectionResults,
+                      icon: const Icon(Icons.save),
+                      label: const Text("Save History"),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                HistoryPage(readings: history),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.history),
+                      label: const Text("View History"),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Labels Detected:",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                ...labelCounts.entries.map((entry) => Text(
+                      "${entry.key}: ${entry.value}",
+                      style: const TextStyle(fontSize: 14),
+                    )),
+                const SizedBox(height: 10),
+                Text(
+                  "Estimated Harvest: $estimatedHarvest",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Bottom Detection Button
+          Positioned(
+            bottom: 40,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: Container(
+                height: 60,
+                width: 60,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2),
+                  color: isDetecting ? Colors.red : Colors.green,
+                ),
+                child: IconButton(
+                  onPressed: () async {
+                    if (isDetecting) {
+                      await stopDetection();
+                    } else {
+                      await startDetection();
+                    }
+                  },
+                  icon: Icon(isDetecting ? Icons.stop : Icons.play_arrow),
+                  color: Colors.white,
+                  iconSize: 30,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
     if (yoloResults.isEmpty || cameraImage == null) return [];
 
@@ -131,23 +281,18 @@ class _YoloVideoState extends State<YoloVideo> {
 
       return Stack(
         children: [
-          // Position the label above the bounding box
           Positioned(
             left: objectX,
-            top: objectY - 20, // Adjust the label's position above the bounding box
+            top: objectY - 20,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
               color: boxColor.withOpacity(0.7),
               child: Text(
-                "${result['tag']} ${(result['box'][4] * 100).toStringAsFixed(1)}%",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 10.0,
-                ),
+                "$label ${(result['box'][4] * 100).toStringAsFixed(1)}%",
+                style: const TextStyle(color: Colors.white, fontSize: 10.0),
               ),
             ),
           ),
-          // The bounding box
           Positioned(
             left: objectX,
             top: objectY,
@@ -156,7 +301,7 @@ class _YoloVideoState extends State<YoloVideo> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-                border: Border.all(color: Colors.pink, width: 1.0),
+                border: Border.all(color: boxColor, width: 1.0),
               ),
             ),
           ),
@@ -164,140 +309,28 @@ class _YoloVideoState extends State<YoloVideo> {
       );
     }).toList();
   }
-
-// Function to count labels and occurrences and calculate estimated harvest
-Map<String, dynamic> getLabelCountsAndHarvest() {
-  Map<String, int> labelCounts = {};
-  int viableSeedsCount = 0;
-
-  for (var result in yoloResults) {
-    String label = result['tag'];
-
-    // Count all detected labels
-    if (labelCounts.containsKey(label)) {
-      labelCounts[label] = labelCounts[label]! + 1;
-    } else {
-      labelCounts[label] = 1;
-    }
-
-    // Count the number of "viable seed" detections
-    if (label.toLowerCase() == 'Viable') {
-      viableSeedsCount++;
-    }
-  }
-
-  // Calculate the estimated harvest as viableSeedsCount * 4
-  int estimatedHarvest = viableSeedsCount * 4;
-
-  return {
-    "labelCounts": labelCounts,
-    "estimatedHarvest": estimatedHarvest,
-  };
 }
 
+// Updated History Data Model to Include Counts and Estimated Harvest
+class ModelReading {
+  final Map<String, int> labelCounts; // Key: Label, Value: Count
+  final DateTime timestamp;
 
-@override
-void dispose() async {
-  if (isDetecting) {
-    await stopDetection();
-  }
-  await controller.dispose();
-  await vision.closeYoloModel();
-  super.dispose();
-}
+  ModelReading({
+    required this.labelCounts,
+    required this.timestamp,
+  });
 
-  @override
-  Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
-
-    if (!isLoaded) {
-      return const Scaffold(
-        body: Center(
-          child: Text("Model not loaded, waiting for it..."),
-        ),
-      );
-    }
-
-    Map<String, dynamic> labelData = getLabelCountsAndHarvest();
-    Map<String, int> labelCounts = labelData["labelCounts"];
-    int estimatedHarvest = labelData["estimatedHarvest"];
- // Get label counts
-
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          AspectRatio(
-            aspectRatio: controller.value.aspectRatio,
-            child: CameraPreview(controller),
-          ),
-          ...displayBoxesAroundRecognizedObjects(screenSize),
-          Positioned(
-            bottom: 55,
-            width: screenSize.width,
-            child: Center(
-              child: Container(
-                height: 50,
-                width: 60,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    width: 2,
-                    color: Colors.white,
-                    style: BorderStyle.solid,
-                  ),
-                ),
-                child: IconButton(
-                  onPressed: () async {
-                    if (isDetecting) {
-                      await stopDetection();
-                    } else {
-                      await startDetection();
-                    }
-                  },
-                  icon: Icon(isDetecting ? Icons.stop : Icons.play_arrow),
-                  color: isDetecting ? Colors.red : Colors.white,
-                  iconSize: 20,
-                ),
-              ),
-            ),
-          ),
-          // Card displaying labels and number of detections
-Positioned(
-  top: 50,
-  left: 10,
-  child: Card(
-    color: Colors.black.withOpacity(0.7),
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ...labelCounts.entries.map((entry) {
-            return Text(
-              '${entry.key}: ${entry.value}',
-              style: const TextStyle(color: Colors.white, fontSize: 14),
-            );
-          }),
-          Text(
-            'Estimated Harvest: $estimatedHarvest',
-            style: const TextStyle(color: Colors.green, fontSize: 14),
-          ),
-        ],
-      ),
-    ),
-  ),
-),
-
-        ],
-      ),
-    );
+  int calculateEstimatedHarvest() {
+    // For example, assume 10 viable seeds yield 1 harvest unit
+    int viableCount = labelCounts['viable'] ?? 0;
+    return (viableCount / 10).round(); // Adjust the calculation logic as needed
   }
 }
 
-main() async {
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   runApp(const MaterialApp(
     home: YoloVideo(),
   ));
