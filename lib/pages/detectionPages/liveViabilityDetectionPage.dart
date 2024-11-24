@@ -166,9 +166,19 @@ void saveDetectionResults() {
     return labelCounts;
   }
 
-  int getEstimatedHarvest() {
-    return yoloResults.length; // Example: each detected object counts as 1
+int getEstimatedHarvest() {
+  int viableCount = 0;
+
+  for (var result in yoloResults) {
+    String label = result['tag'];
+    if (label == 'Viable') {
+      viableCount++;
+    }
   }
+
+  return viableCount * 4; // Each viable seed counts as 4
+}
+
 
 @override
 void dispose() async {
