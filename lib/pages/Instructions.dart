@@ -110,7 +110,7 @@ class _HelpFeedbackState extends State<HelpFeedback> {
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        '3. Take a photo or scan realtime corn seeds.',
+                        '3. Scan realtime corn seeds.',
                         style: TextStyle(fontSize: 16),
                         textAlign: TextAlign.justify,
                       ),
@@ -131,7 +131,7 @@ class _HelpFeedbackState extends State<HelpFeedback> {
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        '4. or Upload a photo of a Single Corn Seed.',
+                        '4. Check the results and details in the App.',
                         style: TextStyle(fontSize: 16),
                         textAlign: TextAlign.justify,
                       ),
@@ -152,7 +152,7 @@ class _HelpFeedbackState extends State<HelpFeedback> {
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        '5. Check the results and details in the App.',
+                        '5. All Done',
                         style: TextStyle(fontSize: 16),
                         textAlign: TextAlign.justify,
                       ),
