@@ -113,14 +113,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.18.0"
-  cr_calendar:
-    dependency: "direct main"
-    description:
-      name: cr_calendar
-      sha256: "165319b8852d7eaf40a01dc1a2fbf75c809c8877fa6a9f0ccc1fa2a7972f0b1b"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.1"
   cross_file:
     dependency: transitive
     description:
@@ -230,14 +222,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_date_range_picker:
-    dependency: "direct main"
-    description:
-      name: flutter_date_range_picker
-      sha256: a8f8f4e11721e9d1bcc42e143129676488c5724136038670211865fc28ff779f
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.1.1"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -424,14 +408,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.1"
-  jiffy:
-    dependency: transitive
-    description:
-      name: jiffy
-      sha256: cc1d4b75016a9156c29b5d61f0c9176c3e0fb0580cc5a0e0422b5d2cab3fbfff
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.2.1"
   js:
     dependency: transitive
     description:
@@ -664,14 +640,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.2"
-  scrollable_positioned_list:
-    dependency: transitive
-    description:
-      name: scrollable_positioned_list
-      sha256: "1b54d5f1329a1e263269abc9e2543d90806131aa14fe7c6062a8054d57249287"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.3.8"
   shared_preferences:
     dependency: "direct main"
     description:
