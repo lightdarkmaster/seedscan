@@ -7,6 +7,11 @@ class HistoryPage extends StatelessWidget {
 
   const HistoryPage({super.key, required this.readings});
 
+  int calculateEstimatedHarvest(Map<String, int> labelCounts) {
+    int viableCount = labelCounts['Viable'] ?? 0; // Get count for "Viable" seeds
+    return viableCount * 4; // Each viable seed contributes 4 to the harvest
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +60,9 @@ class HistoryPage extends StatelessWidget {
               itemCount: readings.length,
               itemBuilder: (context, index) {
                 final reading = readings[index];
+                final estimatedHarvest =
+                    calculateEstimatedHarvest(reading.labelCounts);
+
                 return ListTile(
                   title: Text(
                     "Date: ${reading.timestamp}",
@@ -65,6 +73,13 @@ class HistoryPage extends StatelessWidget {
                     children: [
                       ...reading.labelCounts.entries.map(
                         (entry) => Text("${entry.key}: ${entry.value}"),
+                      ),
+                      Text(
+                        "Estimated Harvest: $estimatedHarvest",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.green,
+                        ),
                       ),
                     ],
                   ),
