@@ -14,20 +14,6 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: PreferredSize(
-        preferredSize:
-            const Size.fromHeight(65.0), // Set your desired height here
-        child: AppBar(
-          title: const Text(
-            "Seed Scan",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          backgroundColor: const Color.fromARGB(255, 191, 255, 139),
-        ),
-      ),
       body: Center(
         child: SingleChildScrollView(
           child: Column(

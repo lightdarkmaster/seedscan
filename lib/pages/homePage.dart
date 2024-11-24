@@ -3,7 +3,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:seedscan2/pages/Instructions.dart';
 import 'package:seedscan2/pages/calculatorPage.dart';
 import 'package:seedscan2/pages/detectionPages/historyPage.dart';
-import 'package:seedscan2/pages/homeDetection.dart';
+import 'package:seedscan2/pages/detectionPages/liveStreamOptions.dart';
 import '../pages/homescreen.dart';
 
 class Homepage extends StatefulWidget {
@@ -61,7 +61,7 @@ class _BottomNavBarState extends State<Homepage> {
             height: 35,
           ),
           Image.asset(
-            'assets/icons/settings.png', // Path to your downloaded image
+            'assets/icons/history.png', // Path to your downloaded image
             width: 35,
             height: 35,
           ),
@@ -89,7 +89,7 @@ class _BottomNavBarState extends State<Homepage> {
       case 1:
         return const HelpFeedback();
       case 2:
-        return const HomeDetection();
+        return const LiveStreamOptions ();
       case 3:
         return CalculatorPage();
       case 4:

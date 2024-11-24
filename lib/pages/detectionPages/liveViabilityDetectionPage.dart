@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:camera/camera.dart';
 import 'package:flutter_vision/flutter_vision.dart';
 import 'package:flutter/material.dart';
+import 'package:seedscan2/pages/detectionPages/historyManager.dart';
 import 'package:seedscan2/pages/detectionPages/historyPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -26,7 +30,7 @@ class YoloVideo extends StatefulWidget {
   State<YoloVideo> createState() => _YoloVideoState();
 }
 
-class _YoloVideoState extends State<YoloVideo> {
+class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
   late CameraController controller;
   late FlutterVision vision;
   late List<Map<String, dynamic>> yoloResults;
@@ -38,26 +42,54 @@ class _YoloVideoState extends State<YoloVideo> {
 
   List<ModelReading> history = [];
 
-  @override
-  void initState() {
-    super.initState();
-    init();
-  }
 
-  Future<void> init() async {
-    List<CameraDescription> cameras = await availableCameras();
-    vision = FlutterVision();
-    controller = CameraController(cameras[0], ResolutionPreset.high);
-    await controller.initialize();
+  Future<void> saveHistoryToStorage() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<String> jsonList = history.map((entry) => jsonEncode(entry.toJson())).toList();
+  await prefs.setStringList('history', jsonList);
+}
 
-    await loadYoloModel();
+  
+@override
+void initState() {
+  super.initState();
+  WidgetsBinding.instance.addObserver(this as WidgetsBindingObserver);
+   loadHistoryFromStorage(); // Load saved history
+  init();
+}
 
+
+Future<void> loadHistoryFromStorage() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  List<String>? jsonList = prefs.getStringList('history');
+  if (jsonList != null) {
     setState(() {
-      isLoaded = true;
-      isDetecting = false;
-      yoloResults = [];
+      history = jsonList.map((entry) => ModelReading.fromJson(jsonDecode(entry))).toList();
     });
   }
+}
+
+
+
+Future<void> init() async {
+  List<CameraDescription> cameras = await availableCameras();
+  vision = FlutterVision();
+  controller = CameraController(cameras[0], ResolutionPreset.high);
+  await controller.initialize();
+
+  // Load YOLO model
+  await loadYoloModel();
+
+  // Load saved history
+  history = await HistoryManager.loadHistory();
+
+  setState(() {
+    isLoaded = true;
+    isDetecting = false;
+    yoloResults = [];
+  });
+}
+
 
   Future<void> loadYoloModel() async {
     await vision.loadYoloModel(
@@ -138,15 +170,18 @@ void saveDetectionResults() {
     return yoloResults.length; // Example: each detected object counts as 1
   }
 
-  @override
-  void dispose() async {
-    if (isDetecting) {
-      await stopDetection();
-    }
-    await controller.dispose();
-    await vision.closeYoloModel();
-    super.dispose();
+@override
+void dispose() async {
+    await saveHistoryToStorage(); // Save history before exiting
+  if (isDetecting) {
+    await stopDetection();
   }
+  WidgetsBinding.instance.removeObserver(this as WidgetsBindingObserver);
+  await controller.dispose();
+  await vision.closeYoloModel();
+  super.dispose();
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -311,9 +346,9 @@ void saveDetectionResults() {
   }
 }
 
-// Updated History Data Model to Include Counts and Estimated Harvest
+
 class ModelReading {
-  final Map<String, int> labelCounts; // Key: Label, Value: Count
+  final Map<String, int> labelCounts;
   final DateTime timestamp;
 
   ModelReading({
@@ -321,12 +356,21 @@ class ModelReading {
     required this.timestamp,
   });
 
-  int calculateEstimatedHarvest() {
-    // For example, assume 10 viable seeds yield 1 harvest unit
-    int viableCount = labelCounts['viable'] ?? 0;
-    return (viableCount / 10).round(); // Adjust the calculation logic as needed
+  Map<String, dynamic> toJson() => {
+        'labelCounts': labelCounts,
+        'timestamp': timestamp.toIso8601String(),
+      };
+
+  factory ModelReading.fromJson(Map<String, dynamic> json) {
+    return ModelReading(
+      labelCounts: Map<String, int>.from(json['labelCounts']),
+      timestamp: DateTime.parse(json['timestamp']),
+    );
   }
+
+  calculateEstimatedHarvest() {}
 }
+
 
 
 void main() async {

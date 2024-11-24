@@ -15,7 +15,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     final input = double.tryParse(_controller.text);
     if (input != null) {
       setState(() {
-        _result = input * 4.2;
+        _result = input * 4;
       });
     } else {
       setState(() {
