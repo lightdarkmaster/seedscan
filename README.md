@@ -32,7 +32,6 @@ A Flutter application designed to provide a user-friendly interface for selectin
 <div style="display: flex; justify-content: center; gap: 20px;">
    <img src="screenshots/ss1.png" alt="Authentication Page" width="200px">
    <img src="screenshots/ss3.jpg" alt="Home Screen" width="200px">
-   <img src="screenshots/ss4.jpg" alt="Detection Screen" width="200px">
    <img src="screenshots/ss5.jpg" alt="Live Detection Screen" width="200px">
    <img src="screenshots/sample1CT.jpg" alt="Corn Type Detection" width="200px">
    <img src="screenshots/sampleCV.jpg" alt="Corn Viability Detection" width="200px">
