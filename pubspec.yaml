@@ -91,6 +91,7 @@ flutter:
    - assets/images/wildVioletCorn.jpg
    - assets/images/sweetCorn.jpg
    - assets/icons/camera.png
+   - assets/icons/info.png
    - assets/icons/history.png
    - assets/icons/instructions.png
    - assets/icons/corn3d.png

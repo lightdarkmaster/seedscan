@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:seedscan2/pages/Instructions.dart';
+import 'package:seedscan2/pages/aboutApp.dart';
+import 'package:seedscan2/pages/aboutus.dart';
 import 'package:seedscan2/pages/calculatorPage.dart';
 import 'package:seedscan2/pages/detectionPages/historyPage.dart';
 import 'package:seedscan2/pages/detectionPages/liveStreamOptions.dart';
@@ -61,7 +63,7 @@ class _BottomNavBarState extends State<Homepage> {
             height: 35,
           ),
           Image.asset(
-            'assets/icons/history.png', // Path to your downloaded image
+            'assets/icons/info.png', // Path to your downloaded image
             width: 35,
             height: 35,
           ),
@@ -93,7 +95,7 @@ class _BottomNavBarState extends State<Homepage> {
       case 3:
         return CalculatorPage();
       case 4:
-        return const HistoryPage(readings: [],);//ProfilePage();
+        return const AboutApp();//ProfilePage();
       default:
         return Container(); // Default page, you can replace it with another widget.
     }
