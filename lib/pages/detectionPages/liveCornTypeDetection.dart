@@ -116,9 +116,8 @@ List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
 
   // Define a color map for specific labels
   Map<String, Color> labelColors = {
-    'white lagkitan': Colors.green,
-    'sweet corn': Colors.red,
-    'unknown': Colors.blue,
+    'white lagkitan': Colors.white,
+    'sweet corn': Colors.yellow,
   };
 
   return yoloResults.map((result) {
