@@ -56,7 +56,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
 ### Step 1: Install Flutter
 
 1. **Download Flutter SDK**  
-   Visit the [Flutter website](https://flutter.dev/docs/get-started/install) and follow the installation instructions for your operating system.
+   Visit the [Flutter Website](https://flutter.dev/docs/get-started/install) and follow the installation instructions for your operating system.
 
 2. **Verify Installation**  
    Run the following command in your terminal to ensure Flutter is correctly installed:
@@ -64,7 +64,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
    flutter doctor
 
 ### Step 2: Install Android Studio
-1. **Download [Android Studio Here](https://developer.android.com/studio) and follow the installation instructions for your operating system.
+1. Download [Android Studio Here](https://developer.android.com/studio) and follow the installation instructions for your operating system.
 
 2. **Verify Installation** 
 
@@ -85,7 +85,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 2. Download [Git Here](https://git-scm.com/downloads) and follow the installation instructions for your operating system.
 
-3. Open command prompt in your computer.
+3. Open command prompt in your computer and type this command and enter to clone my project repository.
    ```bash
    git clone 'https://github.com/lightdarkmaster/seedscan'
 
