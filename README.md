@@ -75,4 +75,18 @@ A Flutter application designed to provide a user-friendly interface for selectin
    ```bash
    flutter run
 
+## Building the app
+1. to reduce app size follow the command below.
+##Flutter Reduce Size Command:
+    ```bash
+flutter build appbundle --target-platform android-arm,android-arm64
+
+2. Or you can use this: 
+    ```bash
+flutter build appbundle --release --target-platform android-arm64
+
+3. Or maybe this command: 
+    ```bash
+flutter build apk --release --target-platform android-arm64
+
 --- end ---
