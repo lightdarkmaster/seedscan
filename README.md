@@ -75,7 +75,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 4. **Download Emulator** 
 
-5. **Integrate Emulator path to your VS code / If you don't want emulator use physical device** 
+5. **Integrate Virtual Emulator path to your VS code / If you don't want virtual emulator, use physical device** 
 
 - In your Physical Device Open Android build Version Click it 7 times.
 - You are now a Developer.
