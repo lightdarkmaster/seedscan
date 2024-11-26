@@ -77,7 +77,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 ## Building the app
 1. to reduce app size follow the command below.
-##Flutter Reduce Size Command:
+
     ```bash
     flutter build appbundle --target-platform android-arm,android-arm64
 
@@ -89,4 +89,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
     ```bash
     flutter build apk --release --target-platform android-arm64
 
+4. But if you want to build the app normally without targe platform run this command:
+    ```bash
+    flutter build apk
 --- end ---
