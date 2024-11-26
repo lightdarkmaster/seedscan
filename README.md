@@ -46,8 +46,8 @@ A Flutter application designed to provide a user-friendly interface for selectin
 ## Requirements
 
 - [Flutter SDK: Version 3.22.3 or later](https://flutter.dev/docs/get-started/install)
-- **Dart**: Version 2.17.0 or later
-- [Android Studio Here](https://developer.android.com/studio)
+- [Dart : Version 2.17.0 or later](https://dart.dev/get-dart)
+- [Android Studio](https://developer.android.com/studio)
 - [Visual Studio Code](https://code.visualstudio.com/)
 - Supported Platforms: Android, iOS, Linux, Windows, Macos and Web.
 
