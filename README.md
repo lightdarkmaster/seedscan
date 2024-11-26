@@ -64,7 +64,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
    flutter doctor
 
 ### Step 2: Install Android Studio
-1. **Download [Android Studio](https://developer.android.com/studio) and follow the installation instructions for your operating system.
+1. **Download [Android Studio Here](https://developer.android.com/studio) and follow the installation instructions for your operating system.
 
 2. **Verify Installation** 
 
@@ -74,16 +74,16 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 5. **Integrate Emulator path to your VS code / If you don't want emulator use physical device** 
 
-- **In your Physical Device Open Android build Version Click it 7 times.
-- **You are now a Developer.
-- **Navigate to Developer Options.
-- **Navigate and Allow USB Debugging.
-- **Connect your physical device to your computer using cable.
+- In your Physical Device Open Android build Version Click it 7 times.
+- You are now a Developer.
+- Navigate to Developer Options.
+- Navigate and Allow USB Debugging.
+- Connect your physical device to your computer using cable.
 
 ## Clone Repository / Project Repository
 1. Be sure you have already install git.
 
-2. **Download [Git Here](https://git-scm.com/downloads) and follow the installation instructions for your operating system.
+2. Download [Git Here](https://git-scm.com/downloads) and follow the installation instructions for your operating system.
 
 3. Open command prompt in your computer.
    ```bash
