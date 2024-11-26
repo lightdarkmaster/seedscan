@@ -88,7 +88,9 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 2. Download [Git Here](https://git-scm.com/downloads) and follow the installation instructions for your operating system.
 
-3. Open command prompt in your computer and type this command and enter to clone my project repository.
+3. Install and setup git in your computer.
+
+4. Open command prompt in your computer and type this command and press enter to clone my project repository.
    ```bash
    git clone 'https://github.com/lightdarkmaster/seedscan'
 
