@@ -89,7 +89,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
     ```bash
     flutter build apk --release --target-platform android-arm64
 
-4. But if you want to build the app normally without targe platform run this command:
+4. But if you want to build the app normally without target platform run this command:
     ```bash
     flutter build apk
 --- end ---
