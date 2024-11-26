@@ -47,11 +47,11 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 - **Flutter SDK**: Version 3.22.3 or later
 - **Dart**: Version 2.17.0 or later
-- Supported Platforms: Android, iOS
+- Supported Platforms: Android, iOS, Linux, Windows, Macos and Web.
 
 ---
 
-
+## How to Set up this Project?
 
 ### Step 1: Install Flutter
 
