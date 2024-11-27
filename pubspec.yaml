@@ -75,10 +75,9 @@ flutter_launcher_icons:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-   - assets/viability_labels.txt
-   - assets/corn_viability.tflite
    - assets/models/labels.txt
    - assets/models/V-Final103M.tflite
+   - assets/models/cornViabilityFinal32.tflite
    - assets/models/vLabels.txt
    - assets/models/cornTypeFinal104.tflite
    - assets/images/pic1.png

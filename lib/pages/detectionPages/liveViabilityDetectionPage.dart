@@ -94,7 +94,7 @@ Future<void> init() async {
   Future<void> loadYoloModel() async {
     await vision.loadYoloModel(
       labels: 'assets/models/vLabels.txt',
-      modelPath: 'assets/models/V-Final103M.tflite',
+      modelPath: 'assets/models/cornViabilityFinal32.tflite',//V-Final103M.tflite
       modelVersion: "yolov8",
       numThreads: 1,
       useGpu: false,
@@ -127,9 +127,9 @@ Future<void> init() async {
       bytesList: cameraImage.planes.map((plane) => plane.bytes).toList(),
       imageHeight: cameraImage.height,
       imageWidth: cameraImage.width,
-      iouThreshold: 0.45,
-      confThreshold: 0.51,
-      classThreshold: 0.70,
+      iouThreshold: 0.5,
+      confThreshold: 0.55,
+      classThreshold: 0.55,
     );
     if (result.isNotEmpty) {
       setState(() {

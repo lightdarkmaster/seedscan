@@ -96,8 +96,8 @@ class _YoloVideo2State extends State<YoloVideo2> {
       bytesList: cameraImage.planes.map((plane) => plane.bytes).toList(),
       imageHeight: cameraImage.height,
       imageWidth: cameraImage.width,
-      iouThreshold: 0.5,
-      confThreshold: 0.51,
+      iouThreshold: 0.6,
+      confThreshold: 0.60,
       classThreshold: 0.55,
     );
 
