@@ -49,7 +49,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
 - [Dart : Version 2.17.0 or later](https://dart.dev/get-dart)
 - [Android Studio](https://developer.android.com/studio)
 - [Visual Studio Code](https://code.visualstudio.com/)
-- Supported Platforms: Android, iOS, Linux, Windows, Macos and Web.
+- [Supported Platforms: Android, iOS, Linux, Windows, Macos and Web.](https://flutter.dev/multi-platform)
 
 
 ---
