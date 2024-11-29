@@ -131,4 +131,9 @@ A Flutter application designed to provide a user-friendly interface for selectin
 4. But if you want to build the app normally without target platform run this command:
     ```bash
     flutter build apk
+
+4. Build apk for all platform single command:
+    ```bash
+    flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
+
 --- end ---
