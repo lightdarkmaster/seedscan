@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:camera/camera.dart';
 import 'package:flutter_vision/flutter_vision.dart';
 import 'package:flutter/material.dart';
+import 'package:seedscan2/pages/detectionPages/database_helper.dart';
 import 'package:seedscan2/pages/detectionPages/historyManager.dart';
 import 'package:seedscan2/pages/detectionPages/historyPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart'; 
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -34,6 +35,8 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
   late CameraController controller;
   late FlutterVision vision;
   late List<Map<String, dynamic>> yoloResults;
+  final DatabaseHelper dbHelper = DatabaseHelper();
+
 
   CameraImage? cameraImage;
   bool isLoaded = false;
@@ -54,20 +57,26 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
 void initState() {
   super.initState();
   WidgetsBinding.instance.addObserver(this as WidgetsBindingObserver);
-   loadHistoryFromStorage(); // Load saved history
+   //loadHistoryFromStorage(); // Load saved history
+   loadHistory();
   init();
 }
 
 
 Future<void> loadHistoryFromStorage() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  List<String>? jsonList = prefs.getStringList('history');
-  if (jsonList != null) {
-    setState(() {
-      history = jsonList.map((entry) => ModelReading.fromJson(jsonDecode(entry))).toList();
-    });
-  }
+  final fetchedHistory = await dbHelper.fetchReadings();
+  setState(() {
+    history = fetchedHistory;
+  });
 }
+
+Future<void> loadHistory() async {
+  List<ModelReading> savedReadings = await DatabaseHelper().fetchReadings();
+  setState(() {
+    history = savedReadings;
+  });
+}
+
 
 
 
@@ -138,18 +147,28 @@ Future<void> init() async {
     }
   }
 
-void saveDetectionResults() {
-  Map<String, int> labelCounts = {};
+Future<void> saveDetectionResults() async {
+  Map<String, int> labelCounts = getLabelCounts();
 
-  for (var result in yoloResults) {
-    String label = result['tag'];
-    labelCounts[label] = (labelCounts[label] ?? 0) + 1; // Count occurrences
-  }
-
-  history.add(ModelReading(
+  // Create a new ModelReading object (id is not needed yet)
+  final reading = ModelReading(
+    id: 0, // Temporary id, will be updated after inserting into DB
     labelCounts: labelCounts,
     timestamp: DateTime.now(),
-  ));
+  );
+
+  // Save to history (memory)
+  setState(() {
+    history.add(reading);  // This is storing in-memory, without the id
+  });
+
+  // Save to SQLite and get the inserted id
+  final insertedId = await dbHelper.insertReading(reading);  // Assume insertReading returns the id
+
+  // Update the reading object with the assigned id
+  setState(() {
+    reading.id = insertedId;
+  });
 
   ScaffoldMessenger.of(context).showSnackBar(
     const SnackBar(content: Text('Results saved to history!')),
@@ -237,7 +256,7 @@ void dispose() async {
                           context,
                           MaterialPageRoute(
                             builder: (context) =>
-                                HistoryPage(readings: history),
+                                HistoryPage(),
                           ),
                         );
                       },
@@ -358,27 +377,63 @@ void dispose() async {
 
 
 class ModelReading {
+  late final int id; 
   final Map<String, int> labelCounts;
   final DateTime timestamp;
 
   ModelReading({
+    required this.id, 
     required this.labelCounts,
     required this.timestamp,
   });
 
-  Map<String, dynamic> toJson() => {
-        'labelCounts': labelCounts,
-        'timestamp': timestamp.toIso8601String(),
-      };
-
-  factory ModelReading.fromJson(Map<String, dynamic> json) {
-    return ModelReading(
-      labelCounts: Map<String, int>.from(json['labelCounts']),
-      timestamp: DateTime.parse(json['timestamp']),
-    );
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id, // Include id in the JSON serialization
+      'labelCounts': jsonEncode(labelCounts), // Convert map to JSON string
+      'timestamp': timestamp.toIso8601String(),
+    };
   }
 
-  calculateEstimatedHarvest() {}
+  factory ModelReading.fromJson(Map<String, dynamic> json) {
+    try {
+      final decodedLabelCounts = jsonDecode(json['labelCounts']) as Map<String, dynamic>;
+      final labelCountsMap = decodedLabelCounts.map(
+        (key, value) => MapEntry(key, int.parse(value.toString())),
+      );
+
+      return ModelReading(
+        id: json['id'], // Extract the id from the database
+        labelCounts: labelCountsMap,
+        timestamp: DateTime.parse(json['timestamp']),
+      );
+    } catch (e) {
+      print("Error decoding labelCounts: $e");
+      final fallback = <String, int>{};
+      final rawLabelCounts = json['labelCounts'] as String;
+      rawLabelCounts
+          .substring(1, rawLabelCounts.length - 1) // Remove surrounding braces
+          .split(',') // Split by commas
+          .forEach((entry) {
+        final keyValue = entry.split('=');
+        if (keyValue.length == 2) {
+          fallback[keyValue[0].trim()] = int.tryParse(keyValue[1].trim()) ?? 0;
+        }
+      });
+
+      return ModelReading(
+        id: json['id'], // Extract the id from the database
+        labelCounts: fallback,
+        timestamp: DateTime.parse(json['timestamp']),
+      );
+    }
+  }
+
+  // Safely calculate estimated harvest
+  int calculateEstimatedHarvest() {
+    final viableCount = labelCounts['Viable'] ?? 0; // Default to 0 if 'Viable' is null
+    return viableCount * 4;
+  }
 }
 
 
