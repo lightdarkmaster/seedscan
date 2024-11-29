@@ -56,7 +56,6 @@ Future<int> insertReading(ModelReading reading) async {
   return id;  // Return the id assigned by SQLite
 }
 
-
   // Fetch all readings from the database
   Future<List<ModelReading>> fetchReadings() async {
     final db = await database;

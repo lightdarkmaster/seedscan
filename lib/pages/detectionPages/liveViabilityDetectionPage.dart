@@ -4,7 +4,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter_vision/flutter_vision.dart';
 import 'package:flutter/material.dart';
 import 'package:seedscan2/pages/detectionPages/database_helper.dart';
-import 'package:seedscan2/pages/detectionPages/historyManager.dart';
 import 'package:seedscan2/pages/detectionPages/historyPage.dart';
 import 'package:shared_preferences/shared_preferences.dart'; 
 
@@ -90,7 +89,7 @@ Future<void> init() async {
   await loadYoloModel();
 
   // Load saved history
-  history = await HistoryManager.loadHistory();
+  //history = await HistoryManager.loadHistory();
 
   setState(() {
     isLoaded = true;
