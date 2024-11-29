@@ -18,16 +18,6 @@ class HomeWidget extends StatelessWidget {
                   elevation: 10,
                   child: Column(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'Introduction',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
                       Image.asset(
                         'assets/images/pic1.png', // Path to local image asset
                         height: 350,
