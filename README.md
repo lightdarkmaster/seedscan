@@ -52,7 +52,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
 - [Supported Platforms: Android, iOS, Linux, Windows, Macos and Web.](https://flutter.dev/multi-platform)
 
 ## Required Dependencies/Packages
-- [Sqflite](https://pub.dev/packages/sqflite)
+- [sqflite 2.4.1 ](https://pub.dev/packages/sqflite)
 - [flutter_launcher_icons 0.14.1 or later](https://pub.dev/packages/sqflite)
 - [curved_navigation_bar 1.0.6 ](https://pub.dev/packages/curved_navigation_bar)
 - [image_picker 1.1.2 ](https://pub.dev/packages/image_picker)
