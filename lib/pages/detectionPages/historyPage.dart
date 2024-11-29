@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:seedscan2/pages/detectionPages/database_helper.dart'; // Import the database helper
-import 'package:seedscan2/pages/detectionPages/liveViabilityDetectionPage.dart'; // Import your ModelReading
+import 'package:seedscan2/pages/detectionPages/database_helper.dart';
+import 'package:seedscan2/pages/detectionPages/graph_details.dart';
+import 'package:seedscan2/pages/detectionPages/liveViabilityDetectionPage.dart';
 
 class HistoryPage extends StatefulWidget {
   @override
@@ -13,22 +14,20 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   void initState() {
     super.initState();
-    readings = DatabaseHelper().fetchReadings(); // Load readings from SQLite
+    readings = DatabaseHelper().fetchReadings();
   }
 
-  // Function to delete a single reading and refresh the list
   Future<void> deleteReading(int id) async {
     await DatabaseHelper().deleteReading(id);
     setState(() {
-      readings = DatabaseHelper().fetchReadings(); // Refresh the list
+      readings = DatabaseHelper().fetchReadings();
     });
   }
 
-  // Function to delete all readings and refresh the list
   Future<void> deleteAllReadings() async {
     await DatabaseHelper().deleteAllReadings();
     setState(() {
-      readings = DatabaseHelper().fetchReadings(); // Refresh the list
+      readings = DatabaseHelper().fetchReadings();
     });
   }
 
@@ -41,32 +40,23 @@ class _HistoryPageState extends State<HistoryPage> {
           IconButton(
             icon: Icon(Icons.delete_sweep, color: Colors.red),
             onPressed: () async {
-              // Confirm deletion with the user
               final confirm = await showDialog<bool>(
                 context: context,
                 builder: (context) {
                   return AlertDialog(
                     title: const Text("Delete All"),
-                    content: const Text(
-                        "Are you sure you want to delete all history?"),
+                    content:
+                        const Text("Are you sure you want to delete all history?"),
                     actions: [
                       TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, false), // Cancel
-                        child: const Text(
-                          "Cancel",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
+                        onPressed: () => Navigator.pop(context, false),
+                        child: const Text("Cancel",
+                            style: TextStyle(color: Colors.black)),
                       ),
                       TextButton(
-                        onPressed: () =>
-                            Navigator.pop(context, true), // Confirm
+                        onPressed: () => Navigator.pop(context, true),
                         child: const Text("Delete",
-                            style: TextStyle(
-                              color: Colors.red,
-                            )),
+                            style: TextStyle(color: Colors.red)),
                       ),
                     ],
                   );
@@ -107,6 +97,16 @@ class _HistoryPageState extends State<HistoryPage> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: ListTile(
+                    onTap: () {
+                      // Navigate to the details page
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ReadingDetailsPage(reading: reading),
+                        ),
+                      );
+                    },
                     title: Text(
                       "Timestamp: ${reading.timestamp}",
                       style: const TextStyle(fontWeight: FontWeight.bold),
@@ -129,7 +129,6 @@ class _HistoryPageState extends State<HistoryPage> {
                     trailing: IconButton(
                       icon: Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
-                        // Delete the current reading using the id
                         deleteReading(reading.id);
                       },
                     ),
