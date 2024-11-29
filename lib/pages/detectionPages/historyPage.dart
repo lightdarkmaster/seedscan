@@ -1,15 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:seedscan2/pages/detectionPages/historyManager.dart';
-import 'package:seedscan2/pages/detectionPages/liveViabilityDetectionPage.dart';
+import 'package:seedscan2/pages/detectionPages/database_helper.dart'; // Import the database helper
+import 'package:seedscan2/pages/detectionPages/liveViabilityDetectionPage.dart'; // Import your ModelReading
 
-class HistoryPage extends StatelessWidget {
-  final List<ModelReading> readings;
+class HistoryPage extends StatefulWidget {
+  @override
+  _HistoryPageState createState() => _HistoryPageState();
+}
 
-  const HistoryPage({super.key, required this.readings});
+class _HistoryPageState extends State<HistoryPage> {
+  late Future<List<ModelReading>> readings;
 
-  int calculateEstimatedHarvest(Map<String, int> labelCounts) {
-    int viableCount = labelCounts['Viable'] ?? 0; // Get count for "Viable" seeds
-    return viableCount * 4; // Each viable seed contributes 4 to the harvest
+  @override
+  void initState() {
+    super.initState();
+    readings = DatabaseHelper().fetchReadings(); // Load readings from SQLite
+  }
+
+  // Function to delete reading and refresh the list
+  Future<void> deleteReading(int id) async {
+    await DatabaseHelper().deleteReading(id);
+    setState(() {
+      readings = DatabaseHelper().fetchReadings(); // Refresh the list
+    });
   }
 
   @override
@@ -17,55 +29,26 @@ class HistoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detection History"),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () async {
-              // Confirm clear history
-              final confirm = await showDialog<bool>(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text("Clear History"),
-                  content: const Text(
-                      "Are you sure you want to delete all detection history?"),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, false),
-                      child: const Text("Cancel"),
-                    ),
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, true),
-                      child: const Text("Clear"),
-                    ),
-                  ],
-                ),
-              );
-
-              if (confirm == true) {
-                await HistoryManager.clearHistory();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("History cleared!")),
-                );
-
-                // Close history page after clearing
-                Navigator.pop(context);
-              }
-            },
-          ),
-        ],
       ),
-      body: readings.isEmpty
-          ? const Center(child: Text("No history available."))
-          : ListView.builder(
-              itemCount: readings.length,
+      body: FutureBuilder<List<ModelReading>>(
+        future: readings,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Error: ${snapshot.error}"));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return const Center(child: Text("No history available."));
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                final reading = readings[index];
-                final estimatedHarvest =
-                    calculateEstimatedHarvest(reading.labelCounts);
+                final reading = snapshot.data![index];
+                final estimatedHarvest = reading.calculateEstimatedHarvest();
 
                 return ListTile(
                   title: Text(
-                    "Date: ${reading.timestamp}",
+                    "Timestamp: ${reading.timestamp}",
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   subtitle: Column(
@@ -83,9 +66,19 @@ class HistoryPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete, color: Colors.red),
+                    onPressed: () {
+                      // Delete the current reading using the id
+                      deleteReading(reading.id);
+                    },
+                  ),
                 );
               },
-            ),
+            );
+          }
+        },
+      ),
     );
   }
 }
