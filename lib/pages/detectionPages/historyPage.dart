@@ -16,9 +16,17 @@ class _HistoryPageState extends State<HistoryPage> {
     readings = DatabaseHelper().fetchReadings(); // Load readings from SQLite
   }
 
-  // Function to delete reading and refresh the list
+  // Function to delete a single reading and refresh the list
   Future<void> deleteReading(int id) async {
     await DatabaseHelper().deleteReading(id);
+    setState(() {
+      readings = DatabaseHelper().fetchReadings(); // Refresh the list
+    });
+  }
+
+  // Function to delete all readings and refresh the list
+  Future<void> deleteAllReadings() async {
+    await DatabaseHelper().deleteAllReadings();
     setState(() {
       readings = DatabaseHelper().fetchReadings(); // Refresh the list
     });
@@ -29,6 +37,51 @@ class _HistoryPageState extends State<HistoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Detection History"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.delete_sweep, color: Colors.red),
+            onPressed: () async {
+              // Confirm deletion with the user
+              final confirm = await showDialog<bool>(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text("Delete All"),
+                    content: const Text(
+                        "Are you sure you want to delete all history?"),
+                    actions: [
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(context, false), // Cancel
+                        child: const Text(
+                          "Cancel",
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pop(context, true), // Confirm
+                        child: const Text("Delete",
+                            style: TextStyle(
+                              color: Colors.red,
+                            )),
+                      ),
+                    ],
+                  );
+                },
+              );
+
+              if (confirm == true) {
+                await deleteAllReadings();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("All history deleted!")),
+                );
+              }
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<ModelReading>>(
         future: readings,
@@ -46,32 +99,40 @@ class _HistoryPageState extends State<HistoryPage> {
                 final reading = snapshot.data![index];
                 final estimatedHarvest = reading.calculateEstimatedHarvest();
 
-                return ListTile(
-                  title: Text(
-                    "Timestamp: ${reading.timestamp}",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                return Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey, width: 1),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  subtitle: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ...reading.labelCounts.entries.map(
-                        (entry) => Text("${entry.key}: ${entry.value}"),
-                      ),
-                      Text(
-                        "Estimated Harvest: $estimatedHarvest",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.green,
+                  child: ListTile(
+                    title: Text(
+                      "Timestamp: ${reading.timestamp}",
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ...reading.labelCounts.entries.map(
+                          (entry) => Text("${entry.key}: ${entry.value}"),
                         ),
-                      ),
-                    ],
-                  ),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {
-                      // Delete the current reading using the id
-                      deleteReading(reading.id);
-                    },
+                        Text(
+                          "Estimated Harvest: $estimatedHarvest",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        // Delete the current reading using the id
+                        deleteReading(reading.id);
+                      },
+                    ),
                   ),
                 );
               },
