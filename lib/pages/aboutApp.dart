@@ -134,6 +134,47 @@ class AboutApp extends StatelessWidget {
                   ),
                 ),
               ),
+
+            const SizedBox(height: 25),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Core Packages Used: ',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+              // Horizontally scrollable cards
+              SizedBox(
+                height: 300, // Increase the height for better space management
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      _buildHorizontalCard(
+                        'assets/images/tfliteFlutter.jpg',
+                        'tflite_flutter',
+                        'TensorFlow Lite Flutter plugin provides a flexible and fast solution for accessing TensorFlow Lite interpreter and performing inference.',
+                      ),
+                     _buildHorizontalCard(
+                        'assets/images/flutter_vision.png',
+                        'flutter_vision',
+                        'Flutter Vision is an innovative Flutter library designed for implementing machine learning and computer vision tasks in Flutter applications.',
+                      ),
+                      _buildHorizontalCard(
+                        'assets/images/fingerprint.png',
+                        'local_auth',
+                        'a flutter packaged that supports local authentication using biometric fingerprint recognitions',
+                      ),
+                      _buildHorizontalCard(
+                        'assets/images/sqlite.png',
+                        'sqflite',
+                        'SQLite in Flutter is a lightweight, relational database integrated into mobile apps for local storage of structured data.',
+                      ),
+                    ],
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 45,
               ),

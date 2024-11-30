@@ -135,6 +135,10 @@ flutter:
    - assets/images/tflite.png
    - assets/images/python.png
    - assets/images/dart.png
+   - assets/images/sqlite.png
+   - assets/images/flutter_vision.png
+   - assets/images/fingerprint.png
+   - assets/images/tfliteFlutter.jpg
    - assets/vectors/facebook.svg
    - assets/vectors/google.svg
    - assets/images/calculator.gif
