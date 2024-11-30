@@ -96,6 +96,7 @@ flutter:
    - assets/images/DA2.jpg
    - assets/images/DA3.jpg
    - assets/images/DA.jpg
+   - assets/images/manual.png
    - assets/icons/camera.png
    - assets/icons/info.png
    - assets/icons/history.png
@@ -115,27 +116,29 @@ flutter:
    - assets/images/imgSample.png
    - assets/images/pic2.jpg
    - assets/images/ai.jpg
-   - assets/images/broken.jpg
-   - assets/images/pure.jpg
    - assets/images/pic4.jpeg
    - assets/images/maisbook.jpeg
    - assets/images/pic5.jpeg
    - assets/images/pic6.png
    - assets/images/corn.png
-   - assets/images/discolored.png
    - assets/images/silkcut.png
-   - assets/images/loading.gif
-   - assets/images/fundo.png
-   - assets/images/detalhe1.png
-   - assets/images/detalhe2.png
    - assets/images/farmerPic1.jpeg
    - assets/images/instruction1.jpeg
    - assets/images/instruction2.jpeg
    - assets/images/instruction3.jpeg
    - assets/images/instruction4.jpeg
    - assets/images/instruction5.jpeg
-   - assets/images/FingerPrint.gif
    - assets/images/fingerPrintPerson.gif
+   - assets/images/logo1.png
+   - assets/images/flutter.png
+   - assets/images/yolo.png
+   - assets/images/tflite.png
+   - assets/images/python.png
+   - assets/images/dart.png
+   - assets/images/sqlite.png
+   - assets/images/flutter_vision.png
+   - assets/images/fingerprint.png
+   - assets/images/tfliteFlutter.jpg
    - assets/vectors/facebook.svg
    - assets/vectors/google.svg
    - assets/images/calculator.gif
