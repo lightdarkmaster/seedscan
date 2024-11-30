@@ -21,9 +21,9 @@ class _AboutDevPageState extends State<AboutDevPage> {
           itemCount: 4, // Total number of cards
           itemBuilder: (context, index) {
             return _buildCard(
-              'assets/images/card${index + 1}.jpg', // Replace with your image paths
-              'Card Title $index',
-              _getCardContent(index), // Different content for each card
+              'assets/images/4pics2.jpg', // Replace with actual image paths
+              _getCardTitle(index), // Title for each card
+              _getCardContent(index), // Content for each card
             );
           },
         ),
@@ -40,10 +40,11 @@ class _AboutDevPageState extends State<AboutDevPage> {
       ),
       margin: const EdgeInsets.symmetric(vertical: 8.0), // Space between cards
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Image inside the card
           ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(10.0)),
             child: Image.asset(
               imagePath,
               width: double.infinity, // Make the image stretch across the width
@@ -55,7 +56,7 @@ class _AboutDevPageState extends State<AboutDevPage> {
 
           // Title of the card
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               title,
               style: const TextStyle(
@@ -83,19 +84,35 @@ class _AboutDevPageState extends State<AboutDevPage> {
     );
   }
 
+  // Function to return title for each card dynamically
+  String _getCardTitle(int index) {
+    switch (index) {
+      case 0:
+        return 'Introduction';
+      case 1:
+        return 'Skills & Expertise';
+      case 2:
+        return 'Achievements';
+      case 3:
+        return 'Future Goals';
+      default:
+        return 'Unknown';
+    }
+  }
+
   // Function to return content for each card dynamically
   String _getCardContent(int index) {
     switch (index) {
       case 0:
-        return 'This is the first card description. It explains the basics of the developer.';
+        return 'Learn about the developer\'s background and journey in software development.';
       case 1:
-        return 'This is the second card. Here you can read about the skills and experience.';
+        return 'Discover the various skills, programming languages, and tools mastered by the developer.';
       case 2:
-        return 'This is the third card. It highlights the developer\'s achievements and contributions.';
+        return 'Read about the developer\'s notable achievements and completed projects.';
       case 3:
-        return 'The fourth card provides additional information on future projects and goals.';
+        return 'Explore future projects, ambitions, and goals envisioned by the developer.';
       default:
-        return 'Card content not available.';
+        return 'Content not available.';
     }
   }
 }
