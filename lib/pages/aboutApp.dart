@@ -6,6 +6,10 @@ class AboutApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+            appBar: AppBar(
+        title: Text('About App'),
+        backgroundColor: const Color.fromARGB(255, 191, 255, 139),
+      ),
       body: SingleChildScrollView(
         child: Container(
           color: const Color.fromARGB(255, 255, 255, 255),

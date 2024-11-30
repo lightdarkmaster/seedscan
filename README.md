@@ -39,7 +39,6 @@ A Flutter application designed to provide a user-friendly interface for selectin
    <img src="screenshots/ss_graph.jpg" alt="History" width="200px">
    <img src="screenshots/ss_history.jpg" alt="History" width="200px">
 
-
 </div>
 
 ---

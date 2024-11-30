@@ -11,6 +11,10 @@ class _HelpFeedbackState extends State<HelpFeedback> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('User Manual'),
+        backgroundColor: const Color.fromARGB(255, 191, 255, 139),
+      ),
       body: SingleChildScrollView(
         child: Container(
           color: const Color.fromARGB(255, 255, 255, 255),
