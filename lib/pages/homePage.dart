@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:seedscan2/pages/Instructions.dart';
+import 'package:seedscan2/pages/app_descriptions.dart';
 import 'package:seedscan2/pages/calculatorPage.dart';
 import 'package:seedscan2/pages/detectionPages/historyPage.dart';
 import 'package:seedscan2/pages/detectionPages/liveStreamOptions.dart';
@@ -21,19 +22,21 @@ class _BottomNavBarState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(65.0), // Set your desired height here
-        child: AppBar(
-          title: Text(
-            _getAppBarTitle(_page), // Set the title dynamically based on the selected page
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          backgroundColor: const Color.fromARGB(255, 191, 255, 139),
-        ),
-      ),
+      appBar: (_page != 1) // Hide AppBar when on the HistoryPage (index 1)
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(65.0), // Set your desired height here
+              child: AppBar(
+                title: Text(
+                  _getAppBarTitle(_page), // Set the title dynamically based on the selected page
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                backgroundColor: const Color.fromARGB(255, 191, 255, 139),
+              ),
+            )
+          : null, // No AppBar for the HistoryPage
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
         index: 0,
@@ -45,7 +48,7 @@ class _BottomNavBarState extends State<Homepage> {
             height: 35,
           ),
           Image.asset(
-            'assets/icons/instructions.png',
+            'assets/icons/history.png',
             width: 35,
             height: 35,
           ),
@@ -60,7 +63,7 @@ class _BottomNavBarState extends State<Homepage> {
             height: 35,
           ),
           Image.asset(
-            'assets/icons/history.png',
+            'assets/icons/settings.png',
             width: 35,
             height: 35,
           ),
@@ -87,13 +90,13 @@ class _BottomNavBarState extends State<Homepage> {
       case 0:
         return const HomeWidget();
       case 1:
-        return const HelpFeedback();
+        return  HistoryPage();//const HelpFeedback();
       case 2:
         return const LiveStreamOptions();
       case 3:
         return CalculatorPage();
       case 4:
-        return HistoryPage();
+        return const AppDescriptions();//return HistoryPage();
       default:
         return Container(); // Default page, you can replace it with another widget.
     }
@@ -111,7 +114,7 @@ class _BottomNavBarState extends State<Homepage> {
       case 3:
         return 'Harvest Calculator'; // Title for the Calculator page
       case 4:
-        return 'History'; // Title for the History page
+        return 'Settings'; // Title for the History page
       default:
         return 'Seed Scan'; // Default title
     }

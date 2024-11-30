@@ -5,7 +5,7 @@ import 'package:flutter_vision/flutter_vision.dart';
 import 'package:flutter/material.dart';
 import 'package:seedscan2/pages/detectionPages/database_helper.dart';
 import 'package:seedscan2/pages/detectionPages/historyPage.dart';
-import 'package:shared_preferences/shared_preferences.dart'; 
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -36,7 +36,6 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
   late List<Map<String, dynamic>> yoloResults;
   final DatabaseHelper dbHelper = DatabaseHelper();
 
-
   CameraImage? cameraImage;
   bool isLoaded = false;
   bool isDetecting = false;
@@ -44,65 +43,60 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
 
   List<ModelReading> history = [];
 
-
   Future<void> saveHistoryToStorage() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  List<String> jsonList = history.map((entry) => jsonEncode(entry.toJson())).toList();
-  await prefs.setStringList('history', jsonList);
-}
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> jsonList =
+        history.map((entry) => jsonEncode(entry.toJson())).toList();
+    await prefs.setStringList('history', jsonList);
+  }
 
-  
-@override
-void initState() {
-  super.initState();
-  WidgetsBinding.instance.addObserver(this as WidgetsBindingObserver);
-   //loadHistoryFromStorage(); // Load saved history
-   loadHistory();
-  init();
-}
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this as WidgetsBindingObserver);
+    //loadHistoryFromStorage(); // Load saved history
+    loadHistory();
+    init();
+  }
 
+  Future<void> loadHistoryFromStorage() async {
+    final fetchedHistory = await dbHelper.fetchReadings();
+    setState(() {
+      history = fetchedHistory;
+    });
+  }
 
-Future<void> loadHistoryFromStorage() async {
-  final fetchedHistory = await dbHelper.fetchReadings();
-  setState(() {
-    history = fetchedHistory;
-  });
-}
+  Future<void> loadHistory() async {
+    List<ModelReading> savedReadings = await DatabaseHelper().fetchReadings();
+    setState(() {
+      history = savedReadings;
+    });
+  }
 
-Future<void> loadHistory() async {
-  List<ModelReading> savedReadings = await DatabaseHelper().fetchReadings();
-  setState(() {
-    history = savedReadings;
-  });
-}
+  Future<void> init() async {
+    List<CameraDescription> cameras = await availableCameras();
+    vision = FlutterVision();
+    controller = CameraController(cameras[0], ResolutionPreset.high);
+    await controller.initialize();
 
+    // Load YOLO model
+    await loadYoloModel();
 
+    // Load saved history
+    //history = await HistoryManager.loadHistory();
 
-
-Future<void> init() async {
-  List<CameraDescription> cameras = await availableCameras();
-  vision = FlutterVision();
-  controller = CameraController(cameras[0], ResolutionPreset.high);
-  await controller.initialize();
-
-  // Load YOLO model
-  await loadYoloModel();
-
-  // Load saved history
-  //history = await HistoryManager.loadHistory();
-
-  setState(() {
-    isLoaded = true;
-    isDetecting = false;
-    yoloResults = [];
-  });
-}
-
+    setState(() {
+      isLoaded = true;
+      isDetecting = false;
+      yoloResults = [];
+    });
+  }
 
   Future<void> loadYoloModel() async {
     await vision.loadYoloModel(
       labels: 'assets/models/vLabels.txt',
-      modelPath: 'assets/models/cornViabilityFinal32.tflite',//V-Final103M.tflite
+      modelPath:
+          'assets/models/cornViabilityFinal32.tflite', //V-Final103M.tflite
       modelVersion: "yolov8",
       numThreads: 1,
       useGpu: false,
@@ -146,34 +140,48 @@ Future<void> init() async {
     }
   }
 
-Future<void> saveDetectionResults() async {
-  Map<String, int> labelCounts = getLabelCounts();
+  Future<void> saveDetectionResults() async {
+    Map<String, int> labelCounts = getLabelCounts();
 
-  // Create a new ModelReading object (id is not needed yet)
-  final reading = ModelReading(
-    id: 0, // Temporary id, will be updated after inserting into DB
-    labelCounts: labelCounts,
-    timestamp: DateTime.now(),
-  );
+    // Create a new ModelReading object (id is not needed yet)
+    final reading = ModelReading(
+      id: 0, // Temporary id, will be updated after inserting into DB
+      labelCounts: labelCounts,
+      timestamp: DateTime.now(),
+    );
 
-  // Save to history (memory)
-  setState(() {
-    history.add(reading);  // This is storing in-memory, without the id
-  });
+    // Save to history (memory)
+    setState(() {
+      history.add(reading); // This is storing in-memory, without the id
+    });
 
-  // Save to SQLite and get the inserted id
-  final insertedId = await dbHelper.insertReading(reading);  // Assume insertReading returns the id
+    // Save to SQLite and get the inserted id
+    final insertedId = await dbHelper
+        .insertReading(reading); // Assume insertReading returns the id
 
-  // Update the reading object with the assigned id
-  setState(() {
-    reading.id = insertedId;
-  });
+    // Update the reading object with the assigned id
+    setState(() {
+      reading.id = insertedId;
+    });
 
-  ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text('Results saved to history!')),
-  );
-}
+ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+    content: Row(
+      children: [
+        Image.asset(
+          'assets/images/success.gif', // Replace with your GIF path
+          height: 40,                  // Adjust the size as needed
+        ),
+        const SizedBox(width: 10),
+        const Text("Detection results saved to history!"),
+      ],
+    ),
+    duration: const Duration(seconds: 3), // Adjust display duration
+    backgroundColor: Colors.green,       // Optional: change the background color
+  ),
+);
 
+  }
 
   Map<String, int> getLabelCounts() {
     Map<String, int> labelCounts = {};
@@ -184,32 +192,30 @@ Future<void> saveDetectionResults() async {
     return labelCounts;
   }
 
-int getEstimatedHarvest() {
-  int viableCount = 0;
+  int getEstimatedHarvest() {
+    int viableCount = 0;
 
-  for (var result in yoloResults) {
-    String label = result['tag'];
-    if (label == 'Viable') {
-      viableCount++;
+    for (var result in yoloResults) {
+      String label = result['tag'];
+      if (label == 'Viable') {
+        viableCount++;
+      }
     }
+
+    return viableCount * 4; // Each viable seed counts as 4
   }
 
-  return viableCount * 4; // Each viable seed counts as 4
-}
-
-
-@override
-void dispose() async {
+  @override
+  void dispose() async {
     await saveHistoryToStorage(); // Save history before exiting
-  if (isDetecting) {
-    await stopDetection();
+    if (isDetecting) {
+      await stopDetection();
+    }
+    WidgetsBinding.instance.removeObserver(this as WidgetsBindingObserver);
+    await controller.dispose();
+    await vision.closeYoloModel();
+    super.dispose();
   }
-  WidgetsBinding.instance.removeObserver(this as WidgetsBindingObserver);
-  await controller.dispose();
-  await vision.closeYoloModel();
-  super.dispose();
-}
-
 
   @override
   Widget build(BuildContext context) {
@@ -246,7 +252,11 @@ void dispose() async {
                   children: [
                     ElevatedButton.icon(
                       onPressed: saveDetectionResults,
-                      icon: const Icon(Icons.save),
+                      icon: const Icon(
+                        Icons.save,
+                        color:
+                            Colors.black, // Change this to your desired color
+                      ),
                       label: const Text("Save History"),
                     ),
                     ElevatedButton.icon(
@@ -254,12 +264,13 @@ void dispose() async {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>
-                                HistoryPage(),
+                            builder: (context) => HistoryPage(),
                           ),
                         );
                       },
-                      icon: const Icon(Icons.history),
+                      icon: const Icon(Icons.history,
+                      color: Colors.black,
+                      ),
                       label: const Text("View History"),
                     ),
                   ],
@@ -348,7 +359,8 @@ void dispose() async {
             left: objectX,
             top: objectY - 20,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
               color: boxColor.withOpacity(0.7),
               child: Text(
                 "$label ${(result['box'][4] * 100).toStringAsFixed(1)}%",
@@ -374,14 +386,13 @@ void dispose() async {
   }
 }
 
-
 class ModelReading {
-  late final int id; 
+  late final int id;
   final Map<String, int> labelCounts;
   final DateTime timestamp;
 
   ModelReading({
-    required this.id, 
+    required this.id,
     required this.labelCounts,
     required this.timestamp,
   });
@@ -396,7 +407,8 @@ class ModelReading {
 
   factory ModelReading.fromJson(Map<String, dynamic> json) {
     try {
-      final decodedLabelCounts = jsonDecode(json['labelCounts']) as Map<String, dynamic>;
+      final decodedLabelCounts =
+          jsonDecode(json['labelCounts']) as Map<String, dynamic>;
       final labelCountsMap = decodedLabelCounts.map(
         (key, value) => MapEntry(key, int.parse(value.toString())),
       );
@@ -430,12 +442,11 @@ class ModelReading {
 
   // Safely calculate estimated harvest
   int calculateEstimatedHarvest() {
-    final viableCount = labelCounts['Viable'] ?? 0; // Default to 0 if 'Viable' is null
+    final viableCount =
+        labelCounts['Viable'] ?? 0; // Default to 0 if 'Viable' is null
     return viableCount * 4;
   }
 }
-
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

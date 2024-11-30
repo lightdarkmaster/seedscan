@@ -35,7 +35,9 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Detection History"),
+        title: const Text("Detection History", style: TextStyle(fontWeight: FontWeight.bold),),
+        backgroundColor: const Color.fromARGB(255, 191, 255, 139),
+        toolbarHeight: 65,
         actions: [
           IconButton(
             icon: Icon(Icons.delete_sweep, color: Colors.red),
@@ -45,8 +47,8 @@ class _HistoryPageState extends State<HistoryPage> {
                 builder: (context) {
                   return AlertDialog(
                     title: const Text("Delete All"),
-                    content:
-                        const Text("Are you sure you want to delete all history?"),
+                    content: const Text(
+                        "Are you sure you want to delete all history?"),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, false),
@@ -66,7 +68,22 @@ class _HistoryPageState extends State<HistoryPage> {
               if (confirm == true) {
                 await deleteAllReadings();
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("All history deleted!")),
+                  SnackBar(
+                    content: Row(
+                      children: [
+                        Image.asset(
+                          'assets/images/success.gif', // Replace with your GIF path
+                          height: 40, // Adjust the size as needed
+                        ),
+                        const SizedBox(width: 10),
+                        const Text("History Deleted Successfully!"),
+                      ],
+                    ),
+                    duration:
+                        const Duration(seconds: 3), // Adjust display duration
+                    backgroundColor:
+                        Colors.green, // Optional: change the background color
+                  ),
                 );
               }
             },

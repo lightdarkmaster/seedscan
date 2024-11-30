@@ -82,6 +82,7 @@ flutter:
    - assets/models/vLabels.txt
    - assets/models/cornTypeFinal104.tflite
    - assets/images/pic1.png
+   - assets/images/success.gif
    - assets/images/handCorn.png
    - assets/images/cornSeedsDamo.png
    - assets/images/youngCorn.jpg
@@ -99,6 +100,9 @@ flutter:
    - assets/icons/settings.png
    - assets/icons/calculator.png
    - assets/icons/usermanual.png
+   - assets/icons/mobileApp.png
+   - assets/icons/dev.png
+   - assets/icons/heart.png
    - assets/gifs/LiveDemo.gif
    - assets/gifs/camera.gif
    - assets/gifs/CornType.gif
