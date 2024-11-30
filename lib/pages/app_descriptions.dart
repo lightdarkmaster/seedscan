@@ -23,7 +23,7 @@ class AppDescriptions extends StatelessWidget {
                 mainAxisSpacing: 16.0, // Spacing between cards vertically
                 children: [
                   _buildCard(context, 'assets/icons/mobileApp.png', 'About App', AboutApp()),
-                  _buildCard(context, 'assets/icons/instructions.png', 'User Manual', HelpFeedback()),
+                  _buildCard(context, 'assets/images/manual.png', 'User Manual', HelpFeedback()),
                   _buildCard(context, 'assets/icons/dev.png', 'About Dev', AboutDevPage()),
                   _buildCard(context, 'assets/icons/heart.png', 'Special Thanks', SpecialThankspage()),
                 ],
@@ -34,7 +34,6 @@ class AppDescriptions extends StatelessWidget {
               padding: const EdgeInsets.only(top: 16.0), // Space above the button
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigate to the login page when the logout button is pressed
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => AuthenticateBiometric()),
@@ -66,7 +65,7 @@ class AppDescriptions extends StatelessWidget {
         );
       },
       child: Card(
-        elevation: 4.0,
+        elevation: 10.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
