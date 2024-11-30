@@ -60,7 +60,7 @@ class _HistoryPageState extends State<HistoryPage> {
                       ),
                       TextButton(
                         onPressed: () => Navigator.pop(context, true),
-                        child: const Text("Delete",
+                        child: const Text("Delete All",
                             style: TextStyle(color: Colors.red)),
                       ),
                     ],
@@ -160,7 +160,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                 TextButton(
                                   onPressed: () =>
                                       Navigator.pop(context, false),
-                                  child: const Text("Cancel"),
+                                  child: const Text("Cancel", style: TextStyle(color: Colors.black),),
                                 ),
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, true),
@@ -176,10 +176,20 @@ class _HistoryPageState extends State<HistoryPage> {
                           deleteReading(reading.id);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content:
-                                  const Text("Entry deleted successfully!"),
-                              duration: const Duration(seconds: 2),
-                              backgroundColor: Colors.green,
+                              content: Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/success.gif', // Replace with your GIF path
+                                    height: 40, // Adjust the size as needed
+                                  ),
+                                  const SizedBox(width: 10),
+                                  const Text("Deleted Successfully!"),
+                                ],
+                              ),
+                              duration: const Duration(
+                                  seconds: 3), // Adjust display duration
+                              backgroundColor: Colors
+                                  .green, // Optional: change the background color
                             ),
                           );
                         }
