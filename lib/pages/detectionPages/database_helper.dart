@@ -40,21 +40,17 @@ class DatabaseHelper {
   }
 
   // Insert a new reading into the database
-Future<int> insertReading(ModelReading reading) async {
-  final db = await database;
-  
-  // Insert the reading and return the id of the newly inserted record
-  final id = await db.insert(
-    'history',
-    {
-      'labelCounts': jsonEncode(reading.labelCounts), // Convert map to JSON string
-      'timestamp': reading.timestamp.toIso8601String(),
-    },
-    conflictAlgorithm: ConflictAlgorithm.replace,
-  );
-  
-  return id;  // Return the id assigned by SQLite
-}
+  Future<int> insertReading(ModelReading reading) async {
+    final db = await database;
+    return await db.insert(
+      'history',
+      {
+        'labelCounts': jsonEncode(reading.labelCounts), // Convert map to JSON string
+        'timestamp': reading.timestamp.toIso8601String(),
+      },
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
 
   // Fetch all readings from the database
   Future<List<ModelReading>> fetchReadings() async {
@@ -78,5 +74,13 @@ Future<int> insertReading(ModelReading reading) async {
     await db.delete('history');
   }
 
-  deleteReading(int id) {}
+  // Delete a specific reading by id
+  Future<void> deleteReading(int id) async {
+    final db = await database; // Use your existing database getter
+    await db.delete(
+      'history', // Correct table name
+      where: 'id = ?', // SQL WHERE clause
+      whereArgs: [id], // Arguments for the WHERE clause
+    );
+  }
 }

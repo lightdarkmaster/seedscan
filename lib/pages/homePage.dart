@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:seedscan2/pages/Instructions.dart';
 import 'package:seedscan2/pages/app_descriptions.dart';
 import 'package:seedscan2/pages/calculatorPage.dart';
 import 'package:seedscan2/pages/detectionPages/historyPage.dart';
