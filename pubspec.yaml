@@ -84,7 +84,6 @@ flutter:
    - assets/images/pic1.png
    - assets/images/success.gif
    - assets/images/handCorn.png
-   - assets/images/cornSeedsDamo.png
    - assets/images/youngCorn.jpg
    - assets/images/purpleCorn.jpg
    - assets/images/visayanWhiteCorn.png
@@ -113,21 +112,12 @@ flutter:
    - assets/gifs/camera.gif
    - assets/gifs/CornType.gif
    - assets/gifs/liveRecorder.gif
-   - assets/images/imgSample.png
    - assets/images/pic2.jpg
-   - assets/images/ai.jpg
    - assets/images/pic4.jpeg
-   - assets/images/maisbook.jpeg
-   - assets/images/pic5.jpeg
    - assets/images/pic6.png
    - assets/images/corn.png
    - assets/images/silkcut.png
-   - assets/images/farmerPic1.jpeg
-   - assets/images/instruction1.jpeg
-   - assets/images/instruction2.jpeg
    - assets/images/instruction3.jpeg
-   - assets/images/instruction4.jpeg
-   - assets/images/instruction5.jpeg
    - assets/images/fingerPrintPerson.gif
    - assets/images/logo1.png
    - assets/images/flutter.png
@@ -139,19 +129,22 @@ flutter:
    - assets/images/flutter_vision.png
    - assets/images/fingerprint.png
    - assets/images/tfliteFlutter.jpg
+   - assets/images/usermanual/I1.jpg
+   - assets/images/usermanual/I2.jpg
+   - assets/images/usermanual/I3.jpg
+   - assets/images/usermanual/I4.jpg
+   - assets/images/usermanual/I5.jpg
+   - assets/images/usermanual/I6.jpg
+   - assets/images/usermanual/I7.jpg
+   - assets/images/usermanual/I8.jpg
+   - assets/images/usermanual/I9.jpg
+   - assets/images/usermanual/I10.jpg
+   - assets/images/usermanual/I11.jpg
+   - assets/images/usermanual/auth.jpg
+   - assets/images/usermanual/AppLogo.jpg
    - assets/vectors/facebook.svg
    - assets/vectors/google.svg
    - assets/images/calculator.gif
-
-
-
-
-
-
-
-
-
-
 
 
 
