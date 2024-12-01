@@ -22,6 +22,15 @@ class _HelpFeedbackState extends State<HelpFeedback> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'How to use the App',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                  textAlign: TextAlign.center,
+                  selectionColor: Colors.amber,
+                ),
+              ),
               Card(
                 elevation: 4,
                 child: Column(
@@ -35,7 +44,7 @@ class _HelpFeedbackState extends State<HelpFeedback> {
                     const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
-                        '1. First is Open the SeedScan App.',
+                        '1. First, Open the SeedScan App.',
                         style: TextStyle(fontSize: 16),
                         textAlign: TextAlign.justify,
                       ),
