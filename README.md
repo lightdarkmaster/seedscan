@@ -15,6 +15,12 @@ A Flutter application designed to provide a user-friendly interface for selectin
 - **Harvest Estimation Features**  
   Allows users to determine the probable number of harvest base on the viability results.
 
+- **Data History**  
+  Allows users to save detection reading.
+
+- **Display Graphical Representations**  
+  Can Display data visualization in each readings in a graphical representation.
+
 - **User Friendly**  
   Allows users to use the app with ease.
 
