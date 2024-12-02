@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'package:path/path.dart';
+import 'package:seedscan2/pages/detectionPages/corn_type_stream.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:seedscan2/pages/detectionPages/liveViabilityDetectionPage.dart'; // Adjust the import if needed
 
-class DatabaseHelper {
-  static final DatabaseHelper _instance = DatabaseHelper._internal();
-  factory DatabaseHelper() => _instance;
+class DatabaseHelper2 {
+  static final DatabaseHelper2 _instance = DatabaseHelper2._internal();
+  factory DatabaseHelper2() => _instance;
 
   static Database? _database;
 
-  DatabaseHelper._internal();
+  DatabaseHelper2._internal();
 
   // Singleton pattern for accessing the database
   Future<Database> get database async {
@@ -21,7 +21,7 @@ class DatabaseHelper {
   // Initialize the database
   Future<Database> _initDatabase() async {
     final dbPath = await getDatabasesPath();
-    final path = join(dbPath, 'history.db');
+    final path = join(dbPath, 'cornType_history.db');
 
     return await openDatabase(
       path,
@@ -39,43 +39,43 @@ class DatabaseHelper {
     );
   }
 
-  // Insert a new reading into the database
-  Future<int> insertReading(ModelReading reading) async {
+  // Insert a new reading2 into the database
+  Future<int> insertReading2(ModelReading2 reading2) async {
     final db = await database;
     return await db.insert(
       'history',
       {
-        'labelCounts': jsonEncode(reading.labelCounts), // Convert map to JSON string
-        'timestamp': reading.timestamp.toIso8601String(),
+        'labelCounts': jsonEncode(reading2.labelCounts), // Convert map to JSON string
+        'timestamp': reading2.timestamp.toIso8601String(),
       },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
   // Fetch all readings from the database
-  Future<List<ModelReading>> fetchReadings() async {
+  Future<List<ModelReading2>> fetchReadings2() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('history');
 
     return List.generate(maps.length, (i) {
-      return ModelReading.fromJson(maps[i]);
+      return ModelReading2.fromJson(maps[i]);
     });
   }
 
   // Delete all readings from the database
-  Future<void> deleteAllReadings() async {
+  Future<void> deleteAllReadings2() async {
     final db = await database;
     await db.delete('history');
   }
 
   // Reset the database (clear history)
-  Future<void> resetDatabase() async {
+  Future<void> resetDatabase2() async {
     final db = await database;
     await db.delete('history');
   }
 
-  // Delete a specific reading by id
-  Future<void> deleteReading(int id) async {
+  // Delete a specific reading2 by id
+  Future<void> deleteReading2(int id) async {
     final db = await database; // Use your existing database getter
     await db.delete(
       'history', // Correct table name

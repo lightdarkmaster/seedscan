@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:seedscan2/pages/app_descriptions.dart';
 import 'package:seedscan2/pages/calculatorPage.dart';
-import 'package:seedscan2/pages/detectionPages/historyPage.dart';
+import 'package:seedscan2/pages/detectionPages/history_tab.dart';
 import 'package:seedscan2/pages/detectionPages/liveStreamOptions.dart';
 import '../pages/homescreen.dart';
 
@@ -57,9 +57,9 @@ class _BottomNavBarState extends State<Homepage> {
             height: 35,
           ),
           Image.asset(
-            'assets/icons/corn3d.png',
-            width: 35,
-            height: 35,
+            'assets/icons/calculator.png',
+            width: 34,
+            height: 34,
           ),
           Image.asset(
             'assets/icons/settings.png',
@@ -89,7 +89,7 @@ class _BottomNavBarState extends State<Homepage> {
       case 0:
         return const HomeWidget();
       case 1:
-        return  HistoryPage();//const HelpFeedback();
+        return  HistoryTab();//const HelpFeedback();
       case 2:
         return const LiveStreamOptions();
       case 3:

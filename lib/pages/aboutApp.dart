@@ -52,7 +52,7 @@ class AboutApp extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Image.asset(
-                      'assets/images/pic4.jpeg',
+                      'assets/images/pic6.png',
                       height: 200,
                       fit: BoxFit.cover,
                     ),
@@ -74,9 +74,9 @@ class AboutApp extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Image.asset(
-                      'assets/images/pic6.png',
-                      height: 200,
-                      fit: BoxFit.cover,
+                      'assets/images/tip.png',
+                      height: 250,
+                      fit: BoxFit.contain,
                     ),
                     const Padding(
                       padding: EdgeInsets.all(8.0),

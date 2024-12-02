@@ -90,11 +90,6 @@ flutter:
    - assets/images/whiteLagkitan.jpg
    - assets/images/wildVioletCorn.jpg
    - assets/images/sweetCorn.jpg
-   - assets/images/4pics1.jpg
-   - assets/images/4pics2.jpg
-   - assets/images/DA2.jpg
-   - assets/images/DA3.jpg
-   - assets/images/DA.jpg
    - assets/images/manual.png
    - assets/icons/camera.png
    - assets/icons/info.png
@@ -104,10 +99,8 @@ flutter:
    - assets/icons/home.png
    - assets/icons/settings.png
    - assets/icons/calculator.png
-   - assets/icons/usermanual.png
    - assets/icons/mobileApp.png
    - assets/icons/dev.png
-   - assets/icons/heart.png
    - assets/gifs/LiveDemo.gif
    - assets/gifs/camera.gif
    - assets/gifs/CornType.gif
@@ -116,7 +109,6 @@ flutter:
    - assets/images/pic4.jpeg
    - assets/images/pic6.png
    - assets/images/corn.png
-   - assets/images/silkcut.png
    - assets/images/instruction3.jpeg
    - assets/images/fingerPrintPerson.gif
    - assets/images/logo1.png
@@ -142,9 +134,12 @@ flutter:
    - assets/images/usermanual/I11.jpg
    - assets/images/usermanual/auth.jpg
    - assets/images/usermanual/AppLogo.jpg
+   - assets/images/tip.png
+   - assets/images/tipLogo.png
+   - assets/images/tip1.jpg
+   - assets/images/tip2.jpg
+   - assets/images/tip3.jpg
    - assets/vectors/facebook.svg
-   - assets/vectors/google.svg
-   - assets/images/calculator.gif
 
 
 

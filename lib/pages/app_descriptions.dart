@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:seedscan2/pages/Instructions.dart';
 import 'package:seedscan2/pages/aboutApp.dart';
-import 'package:seedscan2/pages/about_dev.dart';
 import 'package:seedscan2/pages/authenticate.dart';
-import 'package:seedscan2/pages/special_thanksPage.dart';
+import 'package:seedscan2/pages/tips.dart';
 
 class AppDescriptions extends StatelessWidget {
   const AppDescriptions({super.key});
@@ -24,8 +23,7 @@ class AppDescriptions extends StatelessWidget {
                 children: [
                   _buildCard(context, 'assets/icons/mobileApp.png', 'About App', AboutApp()),
                   _buildCard(context, 'assets/images/manual.png', 'User Manual', HelpFeedback()),
-                  _buildCard(context, 'assets/icons/dev.png', 'About Dev', AboutDevPage()),
-                  _buildCard(context, 'assets/icons/heart.png', 'Special Thanks', SpecialThankspage()),
+                  _buildCard(context, 'assets/images/tipLogo.png', 'Tips', TipsPage()),
                 ],
               ),
             ),

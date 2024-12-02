@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:seedscan2/data/database_helper.dart';
-import 'package:seedscan2/pages/detectionPages/graph_details.dart';
-import 'package:seedscan2/pages/detectionPages/liveViabilityDetectionPage.dart';
+import 'package:seedscan2/data/corntype_database_helper.dart';
+import 'package:seedscan2/pages/detectionPages/corn_type_stream.dart';
+import 'package:seedscan2/pages/detectionPages/ct_graph_details.dart';
 
-class HistoryPage extends StatefulWidget {
+class HistoryPage2 extends StatefulWidget {
   @override
-  _HistoryPageState createState() => _HistoryPageState();
+  _HistoryPage2State createState() => _HistoryPage2State();
 }
 
-class _HistoryPageState extends State<HistoryPage> {
-  late Future<List<ModelReading>> readings;
+class _HistoryPage2State extends State<HistoryPage2> {
+  late Future<List<ModelReading2>> readings2;
 
   @override
   void initState() {
     super.initState();
-    readings = DatabaseHelper().fetchReadings();
+    readings2 = DatabaseHelper2().fetchReadings2();
   }
 
-  Future<void> deleteReading(int id) async {
-    await DatabaseHelper().deleteReading(id);
+  Future<void> deleteReading2(int id) async {
+    await DatabaseHelper2().deleteReading2(id);
     setState(() {
-      readings = DatabaseHelper().fetchReadings();
+      readings2 = DatabaseHelper2().fetchReadings2();
     });
   }
 
   Future<void> deleteAllReadings() async {
-    await DatabaseHelper().deleteAllReadings();
+    await DatabaseHelper2().deleteAllReadings2();
     setState(() {
-      readings = DatabaseHelper().fetchReadings();
+      readings2 = DatabaseHelper2().fetchReadings2();
     });
   }
 
@@ -36,14 +36,14 @@ class _HistoryPageState extends State<HistoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Corn Viability History",
+          "Corn Type History",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: const Color.fromARGB(255, 191, 255, 139),
         toolbarHeight: 50,
         actions: [
           IconButton(
-            icon: Icon(Icons.delete_sweep, color: Colors.red),
+            icon: Icon(Icons.delete_sweep, color: Colors.blue),
             onPressed: () async {
               final confirm = await showDialog<bool>(
                 context: context,
@@ -93,8 +93,8 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
         ],
       ),
-      body: FutureBuilder<List<ModelReading>>(
-        future: readings,
+      body: FutureBuilder<List<ModelReading2>>(
+        future: readings2,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -106,8 +106,7 @@ class _HistoryPageState extends State<HistoryPage> {
             return ListView.builder(
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
-                final reading = snapshot.data![index];
-                final estimatedHarvest = reading.calculateEstimatedHarvest();
+                final reading2 = snapshot.data![index];
 
                 return Container(
                   margin:
@@ -123,31 +122,24 @@ class _HistoryPageState extends State<HistoryPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              ReadingDetailsPage(reading: reading),
+                              ReadingDetailsPage2(reading2: reading2),
                         ),
                       );
                     },
                     title: Text(
-                      "Timestamp: ${reading.timestamp}",
+                      "Timestamp: ${reading2.timestamp}",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ...reading.labelCounts.entries.map(
+                        ...reading2.labelCounts.entries.map(
                           (entry) => Text("${entry.key}: ${entry.value}"),
-                        ),
-                        Text(
-                          "Estimated Harvest: $estimatedHarvest",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green,
-                          ),
                         ),
                       ],
                     ),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete, color: Colors.red),
+                      icon: Icon(Icons.delete, color: Colors.blue),
                       onPressed: () async {
                         final confirm = await showDialog<bool>(
                           context: context,
@@ -173,7 +165,7 @@ class _HistoryPageState extends State<HistoryPage> {
                         );
 
                         if (confirm == true) {
-                          deleteReading(reading.id);
+                          deleteReading2(reading2.id);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Row(
