@@ -2,18 +2,18 @@ import 'dart:convert';
 import 'package:camera/camera.dart';
 import 'package:flutter_vision/flutter_vision.dart';
 import 'package:flutter/material.dart';
-import 'package:seedscan2/data/database_helper.dart';
-import 'package:seedscan2/pages/detectionPages/historyPage.dart';
+import 'package:seedscan2/data/corntype_database_helper.dart';
+import 'package:seedscan2/pages/detectionPages/corntype_history.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CameraPage extends StatefulWidget {
-  const CameraPage({super.key});
+class CameraPage3 extends StatefulWidget {
+  const CameraPage3({super.key});
 
   @override
-  State<CameraPage> createState() => _CameraPageState();
+  State<CameraPage3> createState() => _CameraPage3State();
 }
 
-class _CameraPageState extends State<CameraPage> {
+class _CameraPage3State extends State<CameraPage3> {
   late List<CameraDescription> cameras;
 
   @override
@@ -22,25 +22,25 @@ class _CameraPageState extends State<CameraPage> {
   }
 }
 
-class YoloVideo extends StatefulWidget {
-  const YoloVideo({super.key});
+class YoloVideo3 extends StatefulWidget {
+  const YoloVideo3({super.key});
 
   @override
-  State<YoloVideo> createState() => _YoloVideoState();
+  State<YoloVideo3> createState() => _YoloVideo3State();
 }
 
-class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
+class _YoloVideo3State extends State<YoloVideo3> with WidgetsBindingObserver {
   late CameraController controller;
   late FlutterVision vision;
   late List<Map<String, dynamic>> yoloResults;
-  final DatabaseHelper dbHelper = DatabaseHelper();
+  final DatabaseHelper2 dbHelper = DatabaseHelper2();
 
   CameraImage? cameraImage;
   bool isLoaded = false;
   bool isDetecting = false;
   double confidenceThreshold = 0.4;
 
-  List<ModelReading> history = [];
+  List<ModelReading2> history = [];
 
   Future<void> saveHistoryToStorage() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -59,14 +59,14 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
   }
 
   Future<void> loadHistoryFromStorage() async {
-    final fetchedHistory = await dbHelper.fetchReadings();
+    final fetchedHistory2 = await dbHelper.fetchReadings2();
     setState(() {
-      history = fetchedHistory;
+      history = fetchedHistory2;
     });
   }
 
   Future<void> loadHistory() async {
-    List<ModelReading> savedReadings = await DatabaseHelper().fetchReadings();
+    List<ModelReading2> savedReadings = await DatabaseHelper2().fetchReadings2();
     setState(() {
       history = savedReadings;
     });
@@ -93,8 +93,8 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
 
   Future<void> loadYoloModel() async {
     await vision.loadYoloModel(
-      labels: 'assets/models/vLabels.txt',
-      modelPath:'assets/models/cornViabilityFinal32.tflite', //V-Final103M.tflite
+      labels: 'assets/models/labels.txt',
+      modelPath: 'assets/models/cornTypeFinal104.tflite',
       modelVersion: "yolov8",
       numThreads: 1,
       useGpu: false,
@@ -141,8 +141,8 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
   Future<void> saveDetectionResults() async {
     Map<String, int> labelCounts = getLabelCounts();
 
-    // Create a new ModelReading object (id is not needed yet)
-    final reading = ModelReading(
+    // Create a new ModelReading2 object (id is not needed yet)
+    final reading2 = ModelReading2(
       id: 0, // Temporary id, will be updated after inserting into DB
       labelCounts: labelCounts,
       timestamp: DateTime.now(),
@@ -150,34 +150,35 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
 
     // Save to history (memory)
     setState(() {
-      history.add(reading); // This is storing in-memory, without the id
+      history.add(reading2); // This is storing in-memory, without the id
     });
 
     // Save to SQLite and get the inserted id
     final insertedId = await dbHelper
-        .insertReading(reading); // Assume insertReading returns the id
+        .insertReading2(reading2); // Assume insertReading2 returns the id
 
-    // Update the reading object with the assigned id
+    // Update the reading2 object with the assigned id
     setState(() {
-      reading.id = insertedId;
+      reading2.id = insertedId;
     });
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Row(
-          children: [
-            Image.asset(
-              'assets/images/success.gif', // Replace with your GIF path
-              height: 40, // Adjust the size as needed
-            ),
-            const SizedBox(width: 10),
-            const Text("Detection results saved to history!"),
-          ],
+ScaffoldMessenger.of(context).showSnackBar(
+  SnackBar(
+    content: Row(
+      children: [
+        Image.asset(
+          'assets/images/success.gif', // Replace with your GIF path
+          height: 40,                  // Adjust the size as needed
         ),
-        duration: const Duration(seconds: 3), // Adjust display duration
-        backgroundColor: Colors.green, // Optional: change the background color
-      ),
-    );
+        const SizedBox(width: 10),
+        const Text("Detection results saved to history!"),
+      ],
+    ),
+    duration: const Duration(seconds: 3), // Adjust display duration
+    backgroundColor: Colors.green,       // Optional: change the background color
+  ),
+);
+
   }
 
   Map<String, int> getLabelCounts() {
@@ -189,7 +190,7 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
     return labelCounts;
   }
 
-  int getEstimatedHarvest() {
+  int getTotalDetections() {
     int viableCount = 0;
 
     for (var result in yoloResults) {
@@ -225,7 +226,7 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
     }
 
     Map<String, int> labelCounts = getLabelCounts();
-    int estimatedHarvest = getEstimatedHarvest();
+    int estimatedHarvest = getTotalDetections();
 
     return Scaffold(
       body: Stack(
@@ -261,13 +262,12 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HistoryPage(),
+                            builder: (context) => HistoryPage2(),
                           ),
                         );
                       },
-                      icon: const Icon(
-                        Icons.history,
-                        color: Colors.black,
+                      icon: const Icon(Icons.history,
+                      color: Colors.black,
                       ),
                       label: const Text("View History"),
                     ),
@@ -337,9 +337,8 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
     double factorY = screen.height / cameraImage!.width;
 
     Map<String, Color> labelColors = {
-      'viable': Colors.green,
-      'less-viable': Colors.blue,
-      'non-viable': Colors.red,
+      'white lagkitan': Colors.white,
+      'sweet corn': Colors.amber,
     };
 
     return yoloResults.map((result) {
@@ -362,7 +361,7 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
               color: boxColor.withOpacity(0.7),
               child: Text(
                 "$label ${(result['box'][4] * 100).toStringAsFixed(1)}%",
-                style: const TextStyle(color: Colors.white, fontSize: 10.0),
+                style: const TextStyle(color: Colors.black, fontSize: 10.0),
               ),
             ),
           ),
@@ -384,12 +383,12 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
   }
 }
 
-class ModelReading {
+class ModelReading2 {
   late final int id;
   final Map<String, int> labelCounts;
   final DateTime timestamp;
 
-  ModelReading({
+  ModelReading2({
     required this.id,
     required this.labelCounts,
     required this.timestamp,
@@ -403,7 +402,7 @@ class ModelReading {
     };
   }
 
-  factory ModelReading.fromJson(Map<String, dynamic> json) {
+  factory ModelReading2.fromJson(Map<String, dynamic> json) {
     try {
       final decodedLabelCounts =
           jsonDecode(json['labelCounts']) as Map<String, dynamic>;
@@ -411,7 +410,7 @@ class ModelReading {
         (key, value) => MapEntry(key, int.parse(value.toString())),
       );
 
-      return ModelReading(
+      return ModelReading2(
         id: json['id'], // Extract the id from the database
         labelCounts: labelCountsMap,
         timestamp: DateTime.parse(json['timestamp']),
@@ -430,7 +429,7 @@ class ModelReading {
         }
       });
 
-      return ModelReading(
+      return ModelReading2(
         id: json['id'], // Extract the id from the database
         labelCounts: fallback,
         timestamp: DateTime.parse(json['timestamp']),
@@ -449,6 +448,6 @@ class ModelReading {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MaterialApp(
-    home: YoloVideo(),
+    home: YoloVideo3(),
   ));
 }

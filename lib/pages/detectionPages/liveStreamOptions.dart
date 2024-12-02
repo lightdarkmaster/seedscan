@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seedscan2/pages/detectionPages/liveCornTypeDetection.dart';
+import 'package:seedscan2/pages/detectionPages/corn_type_stream.dart';
 import 'package:seedscan2/pages/detectionPages/liveViabilityDetectionPage.dart';
 
 class LiveStreamOptions extends StatefulWidget {
@@ -49,7 +49,7 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const YoloVideo2(),
+                      builder: (context) => const YoloVideo3(),//YoloVideo2
                     ),
                   );
                 },
@@ -57,7 +57,7 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
                 buttonBorderColor: Colors.black,
                 onInfoPressed: () {
                   _showInfoDialog(context, 'Corn Type Detection Information',
-                      'This feature detects different types of corn seeds.');
+                      'This feature detects types of corn seeds.');
                 },
               ),
             ],
@@ -148,7 +148,7 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Close'),
+              child: const Text('Close',style: TextStyle(color: Colors.black),),
             ),
           ],
         );
