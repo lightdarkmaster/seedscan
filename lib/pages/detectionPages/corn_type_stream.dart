@@ -226,7 +226,6 @@ ScaffoldMessenger.of(context).showSnackBar(
     }
 
     Map<String, int> labelCounts = getLabelCounts();
-    int estimatedHarvest = getTotalDetections();
 
     return Scaffold(
       body: Stack(
@@ -286,13 +285,6 @@ ScaffoldMessenger.of(context).showSnackBar(
                       style: const TextStyle(fontSize: 14),
                     )),
                 const SizedBox(height: 10),
-                Text(
-                  "Estimated Harvest: $estimatedHarvest",
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
               ],
             ),
           ),
@@ -438,11 +430,6 @@ class ModelReading2 {
   }
 
   // Safely calculate estimated harvest
-  int calculateEstimatedHarvest() {
-    final viableCount =
-        labelCounts['Viable'] ?? 0; // Default to 0 if 'Viable' is null
-    return viableCount * 4;
-  }
 }
 
 void main() async {

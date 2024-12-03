@@ -174,7 +174,7 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
             const Text("Detection results saved to history!"),
           ],
         ),
-        duration: const Duration(seconds: 3), // Adjust display duration
+        duration: const Duration(seconds: 2), // Adjust display duration
         backgroundColor: Colors.green, // Optional: change the background color
       ),
     );
@@ -287,7 +287,7 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
                     )),
                 const SizedBox(height: 10),
                 Text(
-                  "Estimated Harvest: $estimatedHarvest",
+                  "Estimated Harvest: $estimatedHarvest pieces of corn",
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
