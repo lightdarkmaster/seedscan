@@ -89,6 +89,8 @@ class ReadingDetailsPage extends StatelessWidget {
                           style: const TextStyle(fontSize: 16),
                         );
                       }),
+                    Text("Estimated Harvest: ${reading.calculateEstimatedHarvest()} piece of corns",
+                    style: TextStyle(fontSize:16, color: Colors.green),)
                     ],
                   ),
                 ),
