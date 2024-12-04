@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:camera/camera.dart';
 import 'package:flutter_vision/flutter_vision.dart';
@@ -94,7 +95,8 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
   Future<void> loadYoloModel() async {
     await vision.loadYoloModel(
       labels: 'assets/models/vLabels.txt',
-      modelPath:'assets/models/cornViabilityFinal32.tflite', //V-Final103M.tflite
+      modelPath:
+          'assets/models/cornViabilityFinal32.tflite', //V-Final103M.tflite
       modelVersion: "yolov8",
       numThreads: 1,
       useGpu: false,
@@ -106,6 +108,19 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
     setState(() {
       isDetecting = true;
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const SizedBox(width: 10),
+            const Text("Detection Starting!"),
+          ],
+        ),
+        duration: const Duration(seconds: 3), // Adjust display duration
+        backgroundColor:
+            Colors.transparent, // Optional: change the background color
+      ),
+    );
 
     await controller.startImageStream((image) async {
       if (!isDetecting) return;
@@ -119,7 +134,34 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
       isDetecting = false;
       yoloResults.clear();
     });
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const SizedBox(width: 10),
+            const Text("Detection Finished!"),
+          ],
+        ),
+        duration: const Duration(seconds: 3), // Adjust display duration
+        backgroundColor:
+            Colors.transparent, // Optional: change the background color
+      ),
+    );
     await controller.stopImageStream();
+  }
+
+  void handleButtonPress() async {
+    if (isDetecting) {
+      await stopDetection();
+    } else {
+      await startDetection();
+      // Schedule automatic stop after 5 seconds
+      Timer(const Duration(seconds: 8), () async {
+        if (isDetecting) {
+          await stopDetection();
+        }
+      });
+    }
   }
 
   Future<void> yoloOnFrame(CameraImage cameraImage) async {
@@ -311,13 +353,7 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
                   color: isDetecting ? Colors.red : Colors.green,
                 ),
                 child: IconButton(
-                  onPressed: () async {
-                    if (isDetecting) {
-                      await stopDetection();
-                    } else {
-                      await startDetection();
-                    }
-                  },
+                  onPressed: handleButtonPress,
                   icon: Icon(isDetecting ? Icons.stop : Icons.play_arrow),
                   color: Colors.white,
                   iconSize: 30,
