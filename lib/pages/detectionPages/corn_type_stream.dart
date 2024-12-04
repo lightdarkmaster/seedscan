@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:seedscan2/data/corntype_database_helper.dart';
 import 'package:seedscan2/pages/detectionPages/corntype_history.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async'; // Import the async library
 
 class CameraPage3 extends StatefulWidget {
   const CameraPage3({super.key});
@@ -66,7 +67,8 @@ class _YoloVideo3State extends State<YoloVideo3> with WidgetsBindingObserver {
   }
 
   Future<void> loadHistory() async {
-    List<ModelReading2> savedReadings = await DatabaseHelper2().fetchReadings2();
+    List<ModelReading2> savedReadings =
+        await DatabaseHelper2().fetchReadings2();
     setState(() {
       history = savedReadings;
     });
@@ -112,6 +114,19 @@ class _YoloVideo3State extends State<YoloVideo3> with WidgetsBindingObserver {
       cameraImage = image;
       await yoloOnFrame(image);
     });
+        ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const SizedBox(width: 10),
+            const Text("Detection Starting!"),
+          ],
+        ),
+        duration: const Duration(seconds: 3), // Adjust display duration
+        backgroundColor:
+            Colors.transparent, // Optional: change the background color
+      ),
+    );
   }
 
   Future<void> stopDetection() async {
@@ -119,7 +134,34 @@ class _YoloVideo3State extends State<YoloVideo3> with WidgetsBindingObserver {
       isDetecting = false;
       yoloResults.clear();
     });
+        ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const SizedBox(width: 10),
+            const Text("Detection Finished!"),
+          ],
+        ),
+        duration: const Duration(seconds: 3), // Adjust display duration
+        backgroundColor:
+            Colors.transparent, // Optional: change the background color
+      ),
+    );
     await controller.stopImageStream();
+  }
+
+  void handleButtonPress() async {
+    if (isDetecting) {
+      await stopDetection();
+    } else {
+      await startDetection();
+      // Schedule automatic stop after 5 seconds
+      Timer(const Duration(seconds: 8), () async {
+        if (isDetecting) {
+          await stopDetection();
+        }
+      });
+    }
   }
 
   Future<void> yoloOnFrame(CameraImage cameraImage) async {
@@ -162,23 +204,23 @@ class _YoloVideo3State extends State<YoloVideo3> with WidgetsBindingObserver {
       reading2.id = insertedId;
     });
 
-ScaffoldMessenger.of(context).showSnackBar(
-  SnackBar(
-    content: Row(
-      children: [
-        Image.asset(
-          'assets/images/success.gif', // Replace with your GIF path
-          height: 40,                  // Adjust the size as needed
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            Image.asset(
+              'assets/images/success.gif', // Replace with your GIF path
+              height: 40, // Adjust the size as needed
+            ),
+            const SizedBox(width: 10),
+            const Text("Detection results saved to history!"),
+          ],
         ),
-        const SizedBox(width: 10),
-        const Text("Detection results saved to history!"),
-      ],
-    ),
-    duration: const Duration(seconds: 3), // Adjust display duration
-    backgroundColor: Colors.green,       // Optional: change the background color
-  ),
-);
-
+        duration: const Duration(seconds: 3), // Adjust display durationplujjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj&*
+        backgroundColor: Colors.green, // Optional: change the background color
+      ),
+    );
   }
 
   Map<String, int> getLabelCounts() {
@@ -265,8 +307,9 @@ ScaffoldMessenger.of(context).showSnackBar(
                           ),
                         );
                       },
-                      icon: const Icon(Icons.history,
-                      color: Colors.black,
+                      icon: const Icon(
+                        Icons.history,
+                        color: Colors.black,
                       ),
                       label: const Text("View History"),
                     ),
@@ -303,13 +346,7 @@ ScaffoldMessenger.of(context).showSnackBar(
                   color: isDetecting ? Colors.red : Colors.green,
                 ),
                 child: IconButton(
-                  onPressed: () async {
-                    if (isDetecting) {
-                      await stopDetection();
-                    } else {
-                      await startDetection();
-                    }
-                  },
+                  onPressed: handleButtonPress,
                   icon: Icon(isDetecting ? Icons.stop : Icons.play_arrow),
                   color: Colors.white,
                   iconSize: 30,
