@@ -121,6 +121,9 @@ flutter:
    - assets/images/sqlite.png
    - assets/images/flutter_vision.png
    - assets/images/fingerprint.png
+   - assets/images/faq.png
+   - assets/images/types.jpg
+   - assets/images/seeds.png
    - assets/images/tfliteFlutter.jpg
    - assets/images/usermanual/I1.jpg
    - assets/images/usermanual/I2.jpg

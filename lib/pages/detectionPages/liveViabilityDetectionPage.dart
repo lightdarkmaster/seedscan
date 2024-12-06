@@ -241,7 +241,7 @@ class _YoloVideoState extends State<YoloVideo> with WidgetsBindingObserver {
       }
     }
 
-    return viableCount * 4; // Each viable seed counts as 4
+    return viableCount * 2; // Each viable seed counts as 4
   }
 
   @override
@@ -478,7 +478,7 @@ class ModelReading {
   int calculateEstimatedHarvest() {
     final viableCount =
         labelCounts['Viable'] ?? 0; // Default to 0 if 'Viable' is null
-    return viableCount * 4;
+    return viableCount * 2;
   }
 }
 

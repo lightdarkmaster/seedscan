@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:seedscan2/pages/Instructions.dart';
 import 'package:seedscan2/pages/aboutApp.dart';
 import 'package:seedscan2/pages/authenticate.dart';
+import 'package:seedscan2/pages/faq.dart';
 import 'package:seedscan2/pages/tips.dart';
 
 class AppDescriptions extends StatelessWidget {
@@ -24,6 +25,7 @@ class AppDescriptions extends StatelessWidget {
                   _buildCard(context, 'assets/icons/mobileApp.png', 'About App', AboutApp()),
                   _buildCard(context, 'assets/images/manual.png', 'User Manual', HelpFeedback()),
                   _buildCard(context, 'assets/images/tipLogo.png', 'Tips', TipsPage()),
+                  _buildCard(context, 'assets/images/faq.png', 'FAQ', FAQPage()),
                 ],
               ),
             ),
