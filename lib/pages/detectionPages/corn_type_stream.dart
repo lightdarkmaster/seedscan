@@ -217,7 +217,7 @@ class _YoloVideo3State extends State<YoloVideo3> with WidgetsBindingObserver {
             const Text("Detection results saved to history!"),
           ],
         ),
-        duration: const Duration(seconds: 3), // Adjust display durationplujjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj&*
+        duration: const Duration(seconds: 3), // Adjust display duration
         backgroundColor: Colors.green, // Optional: change the background color
       ),
     );
