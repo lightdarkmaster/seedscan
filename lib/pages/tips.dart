@@ -206,3 +206,5 @@ class _TipsPageState extends State<TipsPage> {
     );
   }
 }
+
+//need to capture the widget camera
