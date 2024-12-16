@@ -52,6 +52,9 @@ dependencies:
   flutter_vision: ^1.1.4
   camera: ^0.11.0+2
   sqflite: ^2.3.3+1
+  screenshot: ^3.0.0
+  image_gallery_saver: ^2.0.3
+  permission_handler: ^11.3.1
   
 
 
