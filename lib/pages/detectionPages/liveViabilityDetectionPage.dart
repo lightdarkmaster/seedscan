@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:seedscan2/data/database_helper.dart';
 import 'package:seedscan2/pages/detectionPages/historyPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:screenshot/screenshot.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -16,6 +17,7 @@ class CameraPage extends StatefulWidget {
 
 class _CameraPageState extends State<CameraPage> {
   late List<CameraDescription> cameras;
+  ScreenshotController screenshotController = ScreenshotController(); 
 
   @override
   Widget build(BuildContext context) {
