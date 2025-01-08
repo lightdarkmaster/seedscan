@@ -22,7 +22,7 @@ class _HelpFeedbackState extends State<HelpFeedback> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-            Padding(
+              Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   'How to use the App',

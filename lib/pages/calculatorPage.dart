@@ -36,7 +36,10 @@ class _CalculatorPageState extends State<CalculatorPage> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text("OK",style: TextStyle(color: Colors.blue),),
+            child: const Text(
+              "OK",
+              style: TextStyle(color: Colors.blue),
+            ),
           ),
         ],
       ),
@@ -82,8 +85,10 @@ class _CalculatorPageState extends State<CalculatorPage> {
                         ElevatedButton(
                           onPressed: _calculate,
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.black, // Set text color to black
-                            backgroundColor: const Color.fromARGB(255, 191, 255, 139), // Background color
+                            foregroundColor:
+                                Colors.black, // Set text color to black
+                            backgroundColor: const Color.fromARGB(
+                                255, 191, 255, 139), // Background color
                           ),
                           child: const Text("Calculate Harvest"),
                         ),
@@ -93,7 +98,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                             "Expected Harvest: ${_result!.toStringAsFixed(2)} corns",
                             style: const TextStyle(
                               fontSize: 17,
-                              color: Colors.blue, // Set the result color to blue
+                              color:
+                                  Colors.blue, // Set the result color to blue
                             ),
                           ),
                         if (_result == null && _controller.text.isNotEmpty)

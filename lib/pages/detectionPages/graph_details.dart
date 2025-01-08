@@ -18,7 +18,8 @@ class ReadingDetailsPage extends StatelessWidget {
 
     // Fallback for labels without specific colors
     Color getColorForLabel(String label) {
-      return labelColors[label] ?? Colors.grey; // Default color for unknown labels
+      return labelColors[label] ??
+          Colors.grey; // Default color for unknown labels
     }
 
     // Create bar chart data
@@ -41,7 +42,8 @@ class ReadingDetailsPage extends StatelessWidget {
 
     // Create pie chart data
     List<PieChartSectionData> createPieData() {
-      final total = reading.labelCounts.values.fold<int>(0, (sum, count) => sum + count);
+      final total =
+          reading.labelCounts.values.fold<int>(0, (sum, count) => sum + count);
       return reading.labelCounts.entries.map((entry) {
         final percentage = (entry.value / total) * 100;
         return PieChartSectionData(
@@ -49,7 +51,8 @@ class ReadingDetailsPage extends StatelessWidget {
           value: percentage,
           title: '${percentage.toStringAsFixed(1)}%',
           radius: 60,
-          titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+          titleStyle: const TextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
         );
       }).toList();
     }
@@ -69,7 +72,8 @@ class ReadingDetailsPage extends StatelessWidget {
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(color: Colors.lightGreen, width: 1), // Add border
+                  side: BorderSide(
+                      color: Colors.lightGreen, width: 1), // Add border
                 ),
                 elevation: 4,
                 margin: const EdgeInsets.only(bottom: 16),
@@ -80,7 +84,10 @@ class ReadingDetailsPage extends StatelessWidget {
                     children: [
                       const Text(
                         "Detection Results",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
                       ),
                       const SizedBox(height: 10),
                       ...reading.labelCounts.entries.map((entry) {
@@ -89,8 +96,10 @@ class ReadingDetailsPage extends StatelessWidget {
                           style: const TextStyle(fontSize: 16),
                         );
                       }),
-                    Text("Estimated Harvest: ${reading.calculateEstimatedHarvest()} piece of corns",
-                    style: TextStyle(fontSize:16, color: Colors.green),)
+                      Text(
+                        "Estimated Harvest: ${reading.calculateEstimatedHarvest()} piece of corns",
+                        style: TextStyle(fontSize: 16, color: Colors.green),
+                      )
                     ],
                   ),
                 ),
@@ -99,7 +108,8 @@ class ReadingDetailsPage extends StatelessWidget {
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(color: Colors.lightGreen, width: 1), // Add border
+                  side: BorderSide(
+                      color: Colors.lightGreen, width: 1), // Add border
                 ),
                 elevation: 4,
                 margin: const EdgeInsets.only(bottom: 16),
@@ -110,7 +120,10 @@ class ReadingDetailsPage extends StatelessWidget {
                     children: [
                       const Text(
                         "Results Graph",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
@@ -127,7 +140,9 @@ class ReadingDetailsPage extends StatelessWidget {
                                   reservedSize: 40,
                                   getTitlesWidget: (value, meta) {
                                     return Text(
-                                      value.toInt().toString(), // Display the value as an integer
+                                      value
+                                          .toInt()
+                                          .toString(), // Display the value as an integer
                                       style: const TextStyle(fontSize: 12),
                                     );
                                   },
@@ -137,13 +152,15 @@ class ReadingDetailsPage extends StatelessWidget {
                                 sideTitles: SideTitles(
                                   showTitles: true,
                                   getTitlesWidget: (value, meta) {
-                                    final label = reading.labelCounts.keys.firstWhere(
+                                    final label =
+                                        reading.labelCounts.keys.firstWhere(
                                       (key) => key.hashCode == value.toInt(),
                                       orElse: () => '',
                                     );
                                     return Padding(
                                       padding: const EdgeInsets.only(top: 8.0),
-                                      child: Text(label, style: const TextStyle(fontSize: 12)),
+                                      child: Text(label,
+                                          style: const TextStyle(fontSize: 12)),
                                     );
                                   },
                                 ),
@@ -160,7 +177,8 @@ class ReadingDetailsPage extends StatelessWidget {
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(color: Colors.lightGreen, width: 1), // Add border
+                  side: BorderSide(
+                      color: Colors.lightGreen, width: 1), // Add border
                 ),
                 elevation: 4,
                 margin: const EdgeInsets.only(bottom: 16),
@@ -171,7 +189,10 @@ class ReadingDetailsPage extends StatelessWidget {
                     children: [
                       const Text(
                         "Results Distribution",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
@@ -196,7 +217,8 @@ class ReadingDetailsPage extends StatelessWidget {
                     Navigator.pop(context); // Go back to the previous screen
                   },
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 12),
                     backgroundColor: Colors.lightGreenAccent,
                   ),
                   child: const Text(

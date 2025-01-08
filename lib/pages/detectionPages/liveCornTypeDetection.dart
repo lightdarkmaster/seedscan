@@ -108,62 +108,62 @@ class _YoloVideo2State extends State<YoloVideo2> {
     }
   }
 
-List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
-  if (yoloResults.isEmpty || cameraImage == null) return [];
+  List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
+    if (yoloResults.isEmpty || cameraImage == null) return [];
 
-  double factorX = screen.width / cameraImage!.height;
-  double factorY = screen.height / cameraImage!.width;
+    double factorX = screen.width / cameraImage!.height;
+    double factorY = screen.height / cameraImage!.width;
 
-  // Define a color map for specific labels
-  Map<String, Color> labelColors = {
-    'white lagkitan': Colors.white,
-    'sweet corn': Colors.yellow,
-  };
+    // Define a color map for specific labels
+    Map<String, Color> labelColors = {
+      'white lagkitan': Colors.white,
+      'sweet corn': Colors.yellow,
+    };
 
-  return yoloResults.map((result) {
-    double objectX = result["box"][0] * factorX;
-    double objectY = result["box"][1] * factorY;
-    double objectWidth = (result["box"][2] - result["box"][0]) * factorX;
-    double objectHeight = (result["box"][3] - result["box"][1]) * factorY;
+    return yoloResults.map((result) {
+      double objectX = result["box"][0] * factorX;
+      double objectY = result["box"][1] * factorY;
+      double objectWidth = (result["box"][2] - result["box"][0]) * factorX;
+      double objectHeight = (result["box"][3] - result["box"][1]) * factorY;
 
-    // Determine the color based on the label, default to gray
-    String label = result['tag'];
-    Color boxColor = labelColors[label.toLowerCase()] ?? Colors.grey;
+      // Determine the color based on the label, default to gray
+      String label = result['tag'];
+      Color boxColor = labelColors[label.toLowerCase()] ?? Colors.grey;
 
-    return Stack(
-      children: [
-        Positioned(
-          left: objectX,
-          top: objectY - 20,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
-            color: boxColor.withOpacity(0.7),
-            child: Text(
-              "$label ${(result['box'][4] * 100).toStringAsFixed(1)}%",
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 10.0,
+      return Stack(
+        children: [
+          Positioned(
+            left: objectX,
+            top: objectY - 20,
+            child: Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+              color: boxColor.withOpacity(0.7),
+              child: Text(
+                "$label ${(result['box'][4] * 100).toStringAsFixed(1)}%",
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10.0,
+                ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          left: objectX,
-          top: objectY,
-          width: objectWidth,
-          height: objectHeight,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-              border: Border.all(color: boxColor, width: 2.0),
+          Positioned(
+            left: objectX,
+            top: objectY,
+            width: objectWidth,
+            height: objectHeight,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+                border: Border.all(color: boxColor, width: 2.0),
+              ),
             ),
           ),
-        ),
-      ],
-    );
-  }).toList();
-}
-
+        ],
+      );
+    }).toList();
+  }
 
   Map<String, int> getLabelCounts() {
     Map<String, int> labelCounts = {};
@@ -176,16 +176,15 @@ List<Widget> displayBoxesAroundRecognizedObjects(Size screen) {
     return labelCounts;
   }
 
-@override
-void dispose() async {
-  if (isDetecting) {
-    await stopDetection();
+  @override
+  void dispose() async {
+    if (isDetecting) {
+      await stopDetection();
+    }
+    await controller.dispose();
+    await vision.closeYoloModel();
+    super.dispose();
   }
-  await controller.dispose();
-  await vision.closeYoloModel();
-  super.dispose();
-}
-
 
   @override
   Widget build(BuildContext context) {

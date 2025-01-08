@@ -9,9 +9,9 @@ class HistoryTab extends StatelessWidget {
       length: 2, // Number of tabs
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor:const Color.fromARGB(255, 191, 255, 139),
-           toolbarHeight: 20, // Set the height of the AppBar
-           elevation: 0.0,
+          backgroundColor: const Color.fromARGB(255, 191, 255, 139),
+          toolbarHeight: 20, // Set the height of the AppBar
+          elevation: 0.0,
           bottom: const TabBar(
             indicatorColor: Colors.black,
             labelColor: Colors.black,
@@ -22,9 +22,9 @@ class HistoryTab extends StatelessWidget {
             ],
           ),
         ),
-        body:  TabBarView(
+        body: TabBarView(
           children: [
-             HistoryPage(),
+            HistoryPage(),
             HistoryPage2(),
           ],
         ),

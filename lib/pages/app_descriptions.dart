@@ -22,26 +22,34 @@ class AppDescriptions extends StatelessWidget {
                 crossAxisSpacing: 16.0, // Spacing between cards
                 mainAxisSpacing: 16.0, // Spacing between cards vertically
                 children: [
-                  _buildCard(context, 'assets/icons/mobileApp.png', 'About App', AboutApp()),
-                  _buildCard(context, 'assets/images/manual.png', 'User Manual', HelpFeedback()),
-                  _buildCard(context, 'assets/images/tipLogo.png', 'Tips', TipsPage()),
-                  _buildCard(context, 'assets/images/faq.png', 'FAQ', FAQPage()),
+                  _buildCard(context, 'assets/icons/mobileApp.png', 'About App',
+                      AboutApp()),
+                  _buildCard(context, 'assets/images/manual.png', 'User Manual',
+                      HelpFeedback()),
+                  _buildCard(
+                      context, 'assets/images/tipLogo.png', 'Tips', TipsPage()),
+                  _buildCard(
+                      context, 'assets/images/faq.png', 'FAQ', FAQPage()),
                 ],
               ),
             ),
             // Logout Button below the cards
             Padding(
-              padding: const EdgeInsets.only(top: 16.0), // Space above the button
+              padding:
+                  const EdgeInsets.only(top: 16.0), // Space above the button
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => AuthenticateBiometric()),
+                    MaterialPageRoute(
+                        builder: (context) => AuthenticateBiometric()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 191, 255, 139),// Set button color to black
-                  padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 50.0),
+                  backgroundColor: const Color.fromARGB(
+                      255, 191, 255, 139), // Set button color to black
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 50.0),
                 ),
                 child: const Text(
                   'Logout',
@@ -55,7 +63,8 @@ class AppDescriptions extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(BuildContext context, String imagePath, String label, Widget nextPage) {
+  Widget _buildCard(
+      BuildContext context, String imagePath, String label, Widget nextPage) {
     return GestureDetector(
       onTap: () {
         // Navigate to the next page when the card is clicked

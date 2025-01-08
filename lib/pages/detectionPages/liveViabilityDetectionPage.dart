@@ -17,7 +17,7 @@ class CameraPage extends StatefulWidget {
 
 class _CameraPageState extends State<CameraPage> {
   late List<CameraDescription> cameras;
-  ScreenshotController screenshotController = ScreenshotController(); 
+  ScreenshotController screenshotController = ScreenshotController();
 
   @override
   Widget build(BuildContext context) {
