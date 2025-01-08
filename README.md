@@ -58,11 +58,16 @@ A Flutter application designed to provide a user-friendly interface for selectin
 - [Supported Platforms: Android, iOS, Linux, Windows, Macos and Web.](https://flutter.dev/multi-platform)
 
 ## Required Dependencies/Packages
+- [curved_navigation_bar](https://pub.dev/packages/curved_navigation_bar)
 - [sqflite 2.4.1 ](https://pub.dev/packages/sqflite)
 - [flutter_launcher_icons 0.14.1 or later](https://pub.dev/packages/sqflite)
 - [curved_navigation_bar 1.0.6 ](https://pub.dev/packages/curved_navigation_bar)
-- [image_picker 1.1.2 ](https://pub.dev/packages/image_picker)
+- [flutter_vision](https://pub.dev/packages/flutter_vision)
+- [fl_chart](https://pub.dev/packages/fl_chart)
+- [pie_chart](https://pub.dev/packages/pie_chart)
+- [camera](https://pub.dev/packages/camera)
 - [tflite 1.1.2](https://pub.dev/packages/tflite)
+- [tflite_flutter](https://pub.dev/packages/tflite_flutter)
 - [flutter_secure_storage 9.2.2](https://pub.dev/packages/flutter_secure_storage)
 - [local_auth 2.3.0](https://pub.dev/packages/local_auth)
 
