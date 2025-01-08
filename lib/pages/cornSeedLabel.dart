@@ -190,7 +190,6 @@ class _CornLabeltState extends State<CornLabel> {
     super.dispose();
   }
 
-  
   void init() {
     _initializeTflite();
   }

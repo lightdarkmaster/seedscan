@@ -114,7 +114,7 @@ class _YoloVideo3State extends State<YoloVideo3> with WidgetsBindingObserver {
       cameraImage = image;
       await yoloOnFrame(image);
     });
-        ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
           children: [
@@ -134,7 +134,7 @@ class _YoloVideo3State extends State<YoloVideo3> with WidgetsBindingObserver {
       isDetecting = false;
       yoloResults.clear();
     });
-        ScaffoldMessenger.of(context).showSnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
           children: [
@@ -204,7 +204,6 @@ class _YoloVideo3State extends State<YoloVideo3> with WidgetsBindingObserver {
       reading2.id = insertedId;
     });
 
-    
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(

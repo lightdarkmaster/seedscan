@@ -5,7 +5,8 @@ import 'package:seedscan2/pages/detectionPages/corn_type_stream.dart';
 class ReadingDetailsPage2 extends StatelessWidget {
   final ModelReading2 reading2;
 
-  const ReadingDetailsPage2({Key? key, required this.reading2}) : super(key: key);
+  const ReadingDetailsPage2({Key? key, required this.reading2})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,8 @@ class ReadingDetailsPage2 extends StatelessWidget {
 
     // Fallback for labels without specific colors
     Color getColorForLabel(String label) {
-      return labelColors[label] ?? Colors.grey; // Default color for unknown labels
+      return labelColors[label] ??
+          Colors.grey; // Default color for unknown labels
     }
 
     // Create bar chart data
@@ -40,7 +42,8 @@ class ReadingDetailsPage2 extends StatelessWidget {
 
     // Create pie chart data
     List<PieChartSectionData> createPieData() {
-      final total = reading2.labelCounts.values.fold<int>(0, (sum, count) => sum + count);
+      final total =
+          reading2.labelCounts.values.fold<int>(0, (sum, count) => sum + count);
       return reading2.labelCounts.entries.map((entry) {
         final percentage = (entry.value / total) * 100;
         return PieChartSectionData(
@@ -48,7 +51,8 @@ class ReadingDetailsPage2 extends StatelessWidget {
           value: percentage,
           title: '${percentage.toStringAsFixed(1)}%',
           radius: 60,
-          titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
+          titleStyle: const TextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white),
         );
       }).toList();
     }
@@ -68,7 +72,8 @@ class ReadingDetailsPage2 extends StatelessWidget {
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(color: Colors.lightGreen, width: 1), // Add border
+                  side: BorderSide(
+                      color: Colors.lightGreen, width: 1), // Add border
                 ),
                 elevation: 4,
                 margin: const EdgeInsets.only(bottom: 16),
@@ -79,7 +84,10 @@ class ReadingDetailsPage2 extends StatelessWidget {
                     children: [
                       const Text(
                         "Detection Results",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
                       ),
                       const SizedBox(height: 10),
                       ...reading2.labelCounts.entries.map((entry) {
@@ -96,7 +104,8 @@ class ReadingDetailsPage2 extends StatelessWidget {
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(color: Colors.lightGreen, width: 1), // Add border
+                  side: BorderSide(
+                      color: Colors.lightGreen, width: 1), // Add border
                 ),
                 elevation: 4,
                 margin: const EdgeInsets.only(bottom: 16),
@@ -107,7 +116,10 @@ class ReadingDetailsPage2 extends StatelessWidget {
                     children: [
                       const Text(
                         "Results Graph",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
@@ -124,7 +136,9 @@ class ReadingDetailsPage2 extends StatelessWidget {
                                   reservedSize: 40,
                                   getTitlesWidget: (value, meta) {
                                     return Text(
-                                      value.toInt().toString(), // Display the value as an integer
+                                      value
+                                          .toInt()
+                                          .toString(), // Display the value as an integer
                                       style: const TextStyle(fontSize: 12),
                                     );
                                   },
@@ -134,13 +148,15 @@ class ReadingDetailsPage2 extends StatelessWidget {
                                 sideTitles: SideTitles(
                                   showTitles: true,
                                   getTitlesWidget: (value, meta) {
-                                    final label = reading2.labelCounts.keys.firstWhere(
+                                    final label =
+                                        reading2.labelCounts.keys.firstWhere(
                                       (key) => key.hashCode == value.toInt(),
                                       orElse: () => '',
                                     );
                                     return Padding(
                                       padding: const EdgeInsets.only(top: 8.0),
-                                      child: Text(label, style: const TextStyle(fontSize: 12)),
+                                      child: Text(label,
+                                          style: const TextStyle(fontSize: 12)),
                                     );
                                   },
                                 ),
@@ -157,7 +173,8 @@ class ReadingDetailsPage2 extends StatelessWidget {
               Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(color: Colors.lightGreen, width: 1), // Add border
+                  side: BorderSide(
+                      color: Colors.lightGreen, width: 1), // Add border
                 ),
                 elevation: 4,
                 margin: const EdgeInsets.only(bottom: 16),
@@ -168,7 +185,10 @@ class ReadingDetailsPage2 extends StatelessWidget {
                     children: [
                       const Text(
                         "Results Distribution",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blue),
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue),
                       ),
                       const SizedBox(height: 10),
                       SizedBox(
@@ -193,7 +213,8 @@ class ReadingDetailsPage2 extends StatelessWidget {
                     Navigator.pop(context); // Go back to the previous screen
                   },
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 12),
                     backgroundColor: Colors.lightGreenAccent,
                   ),
                   child: const Text(

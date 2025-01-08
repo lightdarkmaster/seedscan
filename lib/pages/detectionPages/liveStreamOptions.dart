@@ -35,7 +35,9 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
                 borderColor: Colors.green,
                 buttonBorderColor: Colors.black,
                 onInfoPressed: () {
-                  _showInfoDialog(context, 'Corn Viability Detection Information',
+                  _showInfoDialog(
+                      context,
+                      'Corn Viability Detection Information',
                       'This feature detects the viability of corn seeds.');
                 },
               ),
@@ -49,7 +51,7 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const YoloVideo3(),//YoloVideo2
+                      builder: (context) => const YoloVideo3(), //YoloVideo2
                     ),
                   );
                 },
@@ -86,7 +88,8 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
       child: Stack(
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.9, // 90% of screen width
+            width:
+                MediaQuery.of(context).size.width * 0.9, // 90% of screen width
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -115,9 +118,11 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 191, 255, 139),
                       foregroundColor: Colors.black,
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                      side: BorderSide(color: buttonBorderColor, width: 1), // Button border color
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 20),
+                      side: BorderSide(
+                          color: buttonBorderColor,
+                          width: 1), // Button border color
                     ),
                     child: Text(buttonLabel),
                   ),
@@ -148,7 +153,10 @@ class _LiveStreamOptionsState extends State<LiveStreamOptions> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Close',style: TextStyle(color: Colors.black),),
+              child: const Text(
+                'Close',
+                style: TextStyle(color: Colors.black),
+              ),
             ),
           ],
         );

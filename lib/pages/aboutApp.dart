@@ -135,7 +135,7 @@ class AboutApp extends StatelessWidget {
                 ),
               ),
 
-            const SizedBox(height: 25),
+              const SizedBox(height: 25),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -156,7 +156,7 @@ class AboutApp extends StatelessWidget {
                         'tflite_flutter',
                         'TensorFlow Lite Flutter plugin provides a flexible and fast solution for accessing TensorFlow Lite interpreter and performing inference.',
                       ),
-                     _buildHorizontalCard(
+                      _buildHorizontalCard(
                         'assets/images/flutter_vision.png',
                         'flutter_vision',
                         'Flutter Vision is an innovative Flutter library designed for implementing machine learning and computer vision tasks in Flutter applications.',
@@ -196,7 +196,8 @@ class AboutApp extends StatelessWidget {
             color: Color.fromARGB(126, 158, 158, 158), // Set the border color
             width: 1, // Set the border width
           ),
-          borderRadius: BorderRadius.circular(10), // Optional: Adds rounded corners to the border
+          borderRadius: BorderRadius.circular(
+              10), // Optional: Adds rounded corners to the border
         ),
         child: SizedBox(
           width: 200, // Set a consistent width for all cards

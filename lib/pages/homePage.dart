@@ -23,10 +23,12 @@ class _BottomNavBarState extends State<Homepage> {
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: (_page != 1) // Hide AppBar when on the HistoryPage (index 1)
           ? PreferredSize(
-              preferredSize: const Size.fromHeight(65.0), // Set your desired height here
+              preferredSize:
+                  const Size.fromHeight(65.0), // Set your desired height here
               child: AppBar(
                 title: Text(
-                  _getAppBarTitle(_page), // Set the title dynamically based on the selected page
+                  _getAppBarTitle(
+                      _page), // Set the title dynamically based on the selected page
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
@@ -89,13 +91,13 @@ class _BottomNavBarState extends State<Homepage> {
       case 0:
         return const HomeWidget();
       case 1:
-        return  HistoryTab();//const HelpFeedback();
+        return HistoryTab(); //const HelpFeedback();
       case 2:
         return const LiveStreamOptions();
       case 3:
         return CalculatorPage();
       case 4:
-        return const AppDescriptions();//return HistoryPage();
+        return const AppDescriptions(); //return HistoryPage();
       default:
         return Container(); // Default page, you can replace it with another widget.
     }
