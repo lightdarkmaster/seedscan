@@ -50,6 +50,8 @@ A Flutter application designed to provide a user-friendly interface for selectin
 ---
 <div style="display: flex; justify-content: center; gap: 20px;">
 <p>Training Datasets: </p>
+<li> Model 1: Corn Viability Model - 11,340 images used</li>
+<li> Model 2: Corn Type Model - 8,856 images used</li>
    <img src="screenshots/datasets.png" alt="Authentication Page" width="500px">
    <img src="screenshots/corn_types.png" alt="Authentication Page" width="500px">
 </div>
