@@ -48,6 +48,12 @@ A Flutter application designed to provide a user-friendly interface for selectin
 </div>
 
 ---
+<div style="display: flex; justify-content: center; gap: 20px;">
+<p>Training Datasets: </p>
+   <img src="screenshots/datasets.png" alt="Authentication Page" width="200px">
+   <img src="screenshots/corn_types.png" alt="Authentication Page" width="200px">
+</div>
+---
 
 ## Requirements
 
