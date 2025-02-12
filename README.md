@@ -72,6 +72,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
    <img src="screenshots/Model_Performance/val_batch0_labels.jpg" alt="History" width="200px">
    <img src="screenshots/Model_Performance/val_batch0_pred.jpg" alt="History" width="200px">
    <img src="screenshots/Model_Performance/val_batch1_labels.jpg" alt="History" width="200px">
+   <img src="Documentation/Final_NRCP.png" alt="History" width="900px">
 
 ---
 ## Requirements
