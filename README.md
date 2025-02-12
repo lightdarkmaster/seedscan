@@ -49,14 +49,31 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 ---
 <div style="display: flex; justify-content: center; gap: 20px;">
-<p>Training Datasets: </p>
+## Training Datasets
 <li> Model 1: Corn Viability Model - 11,340 images used</li>
 <li> Model 2: Corn Type Model - 8,856 images used</li>
-   <img src="screenshots/datasets.png" alt="Authentication Page" width="500px">
-   <img src="screenshots/corn_types.png" alt="Authentication Page" width="500px">
+   <img src="screenshots/datasets.png" alt="Authentication Page" width="900px">
+   <img src="screenshots/corn_types.png" alt="Authentication Page" width="900px">
 </div>
 ---
+## Model Performance
+   <img src="screenshots/Model_Performance/F1_curve.png" alt="History" width="600px">
+   <img src="screenshots/Model_Performance/PR_curve.png" alt="History" width="600px">
+   <img src="screenshots/Model_Performance/P_curve.png" alt="History" width="600px">
+   <img src="screenshots/Model_Performance/R_curve.png" alt="History" width="600px">
+   <img src="screenshots/Model_Performance/results.png" alt="History" width="600px">
 
+<div style="display: flex; justify-content: center; gap: 20px;">
+   <img src="screenshots/Model_Performance/confusion_matrix_normalized.png" alt="History" width="200px">
+   <img src="screenshots/Model_Performance/labels_correlogram.jpg" alt="History" width="200px">
+   <img src="screenshots/Model_Performance/train_batch0.jpg" alt="History" width="200px">
+   <img src="screenshots/Model_Performance/train_batch1.jpg" alt="History" width="200px">
+   <img src="screenshots/Model_Performance/val_batch0_labels.jpg" alt="History" width="200px">
+   <img src="screenshots/Model_Performance/val_batch0_labels.jpg" alt="History" width="200px">
+   <img src="screenshots/Model_Performance/val_batch0_pred.jpg" alt="History" width="200px">
+   <img src="screenshots/Model_Performance/val_batch1_labels.jpg" alt="History" width="200px">
+
+---
 ## Requirements
 
 - [Flutter SDK: Version 3.22.3 or later](https://flutter.dev/docs/get-started/install)
