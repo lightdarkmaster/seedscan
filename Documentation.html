@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeedScan - A Flutter Application</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        .screenshots img {
+            width: 200px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SeedScan</h1>
+        <p>A Flutter application designed for easy and interactive detection of corn viability and type using YOLO-based machine learning.</p>
+
+        <h2>Features</h2>
+        <ul>
+            <li><strong>Corn Viability Detection:</strong> Identifies viable corn seeds.</li>
+            <li><strong>Corn Type Detection:</strong> Determines the type of corn.</li>
+            <li><strong>Harvest Estimation:</strong> Predicts potential harvest based on results.</li>
+            <li><strong>Data History:</strong> Stores detection readings.</li>
+            <li><strong>Graphical Representations:</strong> Displays results visually.</li>
+            <li><strong>User-Friendly Interface:</strong> Easy navigation and interaction.</li>
+            <li><strong>Information Pop-Ups:</strong> Provides additional details for detections.</li>
+        </ul>
+
+        <h2>Screenshots</h2>
+        <div class="screenshots">
+            <img src="screenshots/ss2.png" alt="Codebase">
+            <img src="screenshots/ss1.png" alt="Authentication Page">
+            <img src="screenshots/ss3.jpg" alt="Home Screen">
+            <img src="screenshots/ss5.jpg" alt="Live Detection">
+            <img src="screenshots/sample1CT.jpg" alt="Corn Type Detection">
+        </div>
+
+        <h2>Datasets</h2>
+        <p>Model Training Details:</p>
+        <ul>
+            <li><strong>Corn Viability Model:</strong> 11,340 images</li>
+            <li><strong>Corn Type Model:</strong> 8,856 images</li>
+        </ul>
+        <img src="screenshots/datasets.png" alt="Datasets">
+
+        <h2>Model Performance</h2>
+        <img src="screenshots/Model_Performance/F1_curve.png" alt="F1 Curve">
+        <img src="screenshots/Model_Performance/PR_curve.png" alt="PR Curve">
+
+        <h2>Requirements</h2>
+        <ul>
+            <li>Flutter SDK: Version 3.22.3 or later</li>
+            <li>Dart: Version 2.17.0 or later</li>
+            <li>Android Studio & Visual Studio Code</li>
+        </ul>
+
+        <h2>Installation Instructions</h2>
+        <pre>
+        git clone 'https://github.com/lightdarkmaster/seedscan'
+        cd seedscan
+        flutter pub get
+        flutter run
+        </pre>
+    </div>
+</body>
+</html>
