@@ -47,7 +47,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 </div>
 
-## Datasets
+## Datasets (With Augmentations)
 
 <div style="display: flex; justify-content: center; gap: 20px;">
 <li> Model 1: Corn Viability Model - 11,340 images used</li>
