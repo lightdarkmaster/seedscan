@@ -52,6 +52,18 @@ A Flutter application designed to provide a user-friendly interface for selectin
 <div style="display: flex; justify-content: center; gap: 20px;">
 <li> Model 1: Corn Viability Model - 11,340 images used</li>
 <li> Model 2: Corn Type Model - 8,856 images used</li>
+</br>
+<h2>Augmentations includes: </h2>
+<li>Flip: Horizontal, Vertical</li>
+<li>90° Rotate: Clockwise, Counter-Clockwise, Upside Down</li>
+<li>Crop: 5% Minimum Zoom, 14% Maximum Zoom</li>
+<li>Rotation: Between -10° and +10°</li>
+<li>Shear: ±11° Horizontal, ±13° Vertical</li>
+<li>Hue: Between -21° and +21°</li>
+<li>Saturation: Between -28% and +28%</li>
+<li>Brightness: Between -20% and +20%</li>
+<li>Exposure: Between -10% and +10%</li>
+<li>Blur: Up to 1px</li>
    <img src="screenshots/datasets.png" alt="Authentication Page" width="900px">
    <img src="screenshots/corn_types.png" alt="Authentication Page" width="900px">
 </div>
