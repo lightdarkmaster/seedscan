@@ -47,6 +47,14 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 </div>
 
+## Preprocessing
+<li>Auto-Orient: Applied</li>
+<li>Static Crop: 20-60% Horizontal Region, 26-73% Vertical Region</li>
+<li>Resize: Stretch to 255x255</li>
+<li>Auto-Adjust Contrast: Using Contrast Stretching</li>
+<li>Grayscale: Applied</li>
+<li>Tile: 1 rows x 1 columns</li>
+
 ## Datasets (With Augmentations)
 
 <div style="display: flex; justify-content: center; gap: 20px;">
