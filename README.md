@@ -47,6 +47,12 @@ A Flutter application designed to provide a user-friendly interface for selectin
 
 </div>
 
+## Datasets (With Augmentations)
+
+<div style="display: flex; justify-content: center; gap: 20px;">
+<li> Model 1: Corn Viability Model - 11,340 images used</li>
+<li> Model 2: Corn Type Model - 8,856 images used</li>
+</br>
 ## Preprocessing
 <li>Auto-Orient: Applied</li>
 <li>Static Crop: 20-60% Horizontal Region, 26-73% Vertical Region</li>
@@ -54,12 +60,6 @@ A Flutter application designed to provide a user-friendly interface for selectin
 <li>Auto-Adjust Contrast: Using Contrast Stretching</li>
 <li>Grayscale: Applied</li>
 <li>Tile: 1 rows x 1 columns</li>
-
-## Datasets (With Augmentations)
-
-<div style="display: flex; justify-content: center; gap: 20px;">
-<li> Model 1: Corn Viability Model - 11,340 images used</li>
-<li> Model 2: Corn Type Model - 8,856 images used</li>
 </br>
 <h2>Augmentations includes: </h2>
 <li>Flip: Horizontal, Vertical</li>
