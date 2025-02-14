@@ -53,7 +53,7 @@ A Flutter application designed to provide a user-friendly interface for selectin
 <li> Model 1: Corn Viability Model - 11,340 images used</li>
 <li> Model 2: Corn Type Model - 8,856 images used</li>
 </br>
-## Preprocessing
+<h2>Preprocessing</h2>
 <li>Auto-Orient: Applied</li>
 <li>Static Crop: 20-60% Horizontal Region, 26-73% Vertical Region</li>
 <li>Resize: Stretch to 255x255</li>
