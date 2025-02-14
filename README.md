@@ -71,7 +71,6 @@ A Flutter application designed to provide a user-friendly interface for selectin
 <li>Saturation: Between -28% and +28%</li>
 <li>Brightness: Between -20% and +20%</li>
 <li>Exposure: Between -10% and +10%</li>
-</br>
 <li>Blur: Up to 1px</li>
 </br>
    <img src="screenshots/datasets.png" alt="Authentication Page" width="900px">
