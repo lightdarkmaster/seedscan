@@ -7,6 +7,13 @@ class AboutApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset(
+            'assets/images/logo1.png',
+            height: 30,
+          ),
+        ),
         title: const Text('About App'),
         backgroundColor: const Color.fromARGB(255, 191, 255, 139),
       ),

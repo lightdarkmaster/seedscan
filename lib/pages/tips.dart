@@ -12,6 +12,13 @@ class _TipsPageState extends State<TipsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Image.asset(
+            'assets/images/logo1.png',
+            height: 30,
+          ),
+        ),
         title: Text('Tips'),
         backgroundColor: const Color.fromARGB(
             255, 191, 255, 139), // Set button color to black
