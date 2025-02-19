@@ -147,8 +147,6 @@ flutter:
    - assets/images/tip2.jpg
    - assets/images/tip3.jpg
    - assets/vectors/facebook.svg
-   - assets/models/ASL_labels.txt
-   - assets/models/ASL_TFLITE.tflite
 
 
 
