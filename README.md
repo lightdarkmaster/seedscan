@@ -194,7 +194,10 @@ A Flutter application designed to provide a user-friendly interface for selectin
     ```bash
     flutter build apk --target-platform android-arm,android-arm64,android-x64 --split-per-abi
 
-[![Watch the video](assets/gifs/LiveDemo.gif)](https://youtu.be/KaFREqMa6dw)
+<a href="https://youtu.be/KaFREqMa6dw">
+    <img src="assets/gifs/LiveDemo.gif" width="900">
+</a>
+
 
 
 --- end ---
