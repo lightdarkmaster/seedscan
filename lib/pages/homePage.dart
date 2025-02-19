@@ -26,6 +26,12 @@ class _BottomNavBarState extends State<Homepage> {
               preferredSize:
                   const Size.fromHeight(65.0), // Set your desired height here
               child: AppBar(
+                leading: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Image.asset(
+                      'assets/images/logo1.png',
+                      height: 30,
+                    )),
                 title: Text(
                   _getAppBarTitle(
                       _page), // Set the title dynamically based on the selected page
